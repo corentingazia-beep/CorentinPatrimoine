@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PatrimoineExpert — Base de connaissances</title>
+  <meta name="description" content="Base de connaissances en finance d'entreprise, finance de marché, fiscalité et gestion de patrimoine." />
+
+  <!-- ============================================================
+       LIEN INSTAGRAM : mets l'URL de ton site dans ta bio Instagram
+       Exemple : https://tonnom.github.io
+  ============================================================ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       COULEURS — modifie ici pour changer l'ambiance du site
+    ============================================================ */
+    :root {
+      --gold:        #A8884A;
+      --gold-light:  #C4A35A;
+      --gold-pale:   #F5EFE0;
+      --cream:       #FAFAF7;
+      --white:       #FFFFFF;
+      --ink:         #1A1A18;
+      --ink2:        #4A4A44;
+      --ink3:        #8A8A80;
+      --rule:        #E2E0D8;
+      --rule-light:  #F0EDE4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 3rem;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      font-size: 18px;
+      letter-spacing: .03em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand em { font-style: italic; color: var(--gold); }
+
+    /* ── MENU DESKTOP ── */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      letter-spacing: .07em;
+    }
+    .nav-links a {
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── MENU MOBILE (hamburger) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all .2s;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      padding: 1rem 2rem;
+      gap: .75rem;
+    }
+    .mobile-menu a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink2);
+      text-decoration: none;
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu.open { display: flex; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      padding: 5rem 3rem 4rem;
+      text-align: center;
+    }
+
+    /* ── MODIFIE ICI TA PHRASE D'ACCROCHE ── */
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+
+    .hero-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--ink2);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .gold-rule { width: 36px; height: 1px; background: var(--gold); margin: 0 auto; }
+
+    /* ============================================================
+       WRAPPER / MISE EN PAGE
+    ============================================================ */
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 3.5rem 2.5rem; }
+
+    .sec-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+    .sec-heading {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 2rem;
+    }
+
+    /* ============================================================
+       THÉMATIQUES
+       Pour ajouter une thématique : copie un bloc .theme-card
+       et modifie le numéro, le titre, la description et les tags
+    ============================================================ */
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 4rem;
+    }
+
+    .theme-card {
+      background: var(--white);
+      padding: 1.75rem;
+      border-left: 3px solid transparent;
+      transition: background .15s, border-color .15s;
+      cursor: default;
+    }
+    .theme-card:hover {
+      background: var(--cream);
+      border-left-color: var(--gold);
+    }
+
+    .theme-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--ink3);
+      letter-spacing: .08em;
+      margin-bottom: .75rem;
+    }
+    .theme-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+    .theme-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      color: var(--ink3);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+    .theme-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .theme-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      color: var(--ink3);
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 2px 8px;
+      letter-spacing: .03em;
+    }
+
+    /* ============================================================
+       ARTICLES
+       Pour ajouter un article : copie un bloc .article-card
+       et modifie la catégorie, le titre, l'extrait, le lien et le temps de lecture.
+       Le PREMIER article de chaque section sera en grand format.
+    ============================================================ */
+    .articles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 4rem;
+    }
+
+    .article-card {
+      background: var(--white);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      border-left: 3px solid transparent;
+      transition: background .15s, border-color .15s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover {
+      background: var(--cream);
+      border-left-color: var(--gold);
+    }
+
+    /* Le premier article est mis en valeur */
+    .article-card.featured {
+      grid-template-columns: 1fr;
+      padding: 2.25rem 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .article-card.featured .article-title { font-size: 22px; margin-bottom: .75rem; }
+    .article-card.featured .article-excerpt { display: block; }
+
+    .article-cat {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+    .article-title {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+    .article-excerpt {
+      display: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--ink2);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+    .article-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--ink3);
+      white-space: nowrap;
+      padding-top: 6px;
+    }
+    .article-meta-inline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--ink3);
+    }
+
+    .article-arrow {
+      font-size: 18px;
+      color: var(--rule);
+      align-self: center;
+      transition: color .15s, transform .15s;
+    }
+    .article-card:hover .article-arrow {
+      color: var(--gold);
+      transform: translateX(3px);
+    }
+
+    /* ============================================================
+       GLOSSAIRE
+       Pour ajouter un terme : copie un bloc .gl-item
+       et modifie la lettre, le terme et la définition.
+    ============================================================ */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 2.5rem;
+    }
+
+    .gl-item {
+      background: var(--white);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      transition: background .15s;
+      cursor: default;
+    }
+    .gl-item:hover { background: var(--cream); }
+
+    .gl-letter {
+      font-size: 22px;
+      color: var(--gold);
+      width: 26px;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+    .gl-term {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+    .gl-def {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink3);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ============================================================
+       BOUTON
+    ============================================================ */
+    .btn-row { text-align: center; margin-bottom: 4rem; }
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      background: transparent;
+      padding: 11px 30px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { background: var(--gold); color: var(--white); }
+
+    /* ============================================================
+       À PROPOS — bloc de présentation
+       Modifie le texte ici pour te présenter
+    ============================================================ */
+    .about-block {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--gold);
+      padding: 2rem 2.5rem;
+      margin-bottom: 4rem;
+    }
+    .about-block p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .about-block p + p { margin-top: .75rem; }
+    .about-block strong { font-weight: 500; color: var(--ink); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-left {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink3);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ============================================================
+       RESPONSIVE MOBILE
+    ============================================================ */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+
+      .wrap { padding: 2.5rem 1.25rem; }
+
+      .themes-grid { grid-template-columns: 1fr; }
+
+      .article-card { grid-template-columns: 1fr; }
+      .article-arrow { display: none; }
+
+      .glossary-grid { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     Modifie les liens si tu veux renommer les sections.
+============================================================ -->
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+
+  <!-- Menu desktop -->
+  <ul class="nav-links">
+    <li><a href="#themes">Thématiques</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#glossaire">Glossaire</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <!-- INSTAGRAM — remplace # par le lien de ton profil -->
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+
+  <!-- Hamburger mobile -->
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Menu mobile déroulant -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#themes" onclick="toggleMenu()">Thématiques</a>
+  <a href="#articles" onclick="toggleMenu()">Articles</a>
+  <a href="#glossaire" onclick="toggleMenu()">Glossaire</a>
+  <a href="#apropos" onclick="toggleMenu()">À propos</a>
+  <a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a>
+</div>
+
+
+<!-- ============================================================
+     HERO — En-tête principal
+     Modifie le titre et la description pour personnaliser.
+============================================================ -->
+<header class="hero">
+  <div class="hero-eyebrow">Finance · Fiscalité · Patrimoine</div>
+
+  <h1>
+    Comprendre, structurer,<br>
+    <em>transmettre.</em>
+  </h1>
+
+  <!-- ── MODIFIE CETTE DESCRIPTION ── -->
+  <p class="hero-desc">
+    Un référentiel personnel des concepts essentiels en finance, fiscalité et gestion de patrimoine — structuré, accessible, en évolution constante.
+  </p>
+
+  <div class="gold-rule"></div>
+</header>
+
+
+<main class="wrap">
+
+  <!-- ============================================================
+       THÉMATIQUES
+       Pour AJOUTER une thématique : copie un bloc .theme-card
+       et modifie son contenu.
+       Pour SUPPRIMER : supprime le bloc entier.
+  ============================================================ -->
+  <section id="themes">
+    <div class="sec-eyebrow">Explorer</div>
+    <h2 class="sec-heading">Les grandes thématiques</h2>
+
+    <div class="themes-grid">
+
+      <!-- ── THÉMATIQUE 1 ── -->
+      <div class="theme-card">
+        <div class="theme-num">01</div>
+        <div class="theme-name">Finance d'entreprise</div>
+        <div class="theme-desc">Valorisation, structure de capital, analyse financière et décisions d'investissement.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">DCF</span>
+          <span class="theme-tag">WACC</span>
+          <span class="theme-tag">LBO</span>
+          <span class="theme-tag">M&A</span>
+          <span class="theme-tag">Analyse financière</span>
+        </div>
+      </div>
+
+      <!-- ── THÉMATIQUE 2 ── -->
+      <div class="theme-card">
+        <div class="theme-num">02</div>
+        <div class="theme-name">Finance de marché</div>
+        <div class="theme-desc">Actions, obligations, produits dérivés, gestion de portefeuille et analyse de risque.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">CAPM</span>
+          <span class="theme-tag">Options</span>
+          <span class="theme-tag">Obligations</span>
+          <span class="theme-tag">Bêta</span>
+          <span class="theme-tag">Sharpe</span>
+        </div>
+      </div>
+
+      <!-- ── THÉMATIQUE 3 ── -->
+      <div class="theme-card">
+        <div class="theme-num">03</div>
+        <div class="theme-name">Fiscalité</div>
+        <div class="theme-desc">IR, PFU, IFI, succession et optimisation fiscale légale.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">PFU</span>
+          <span class="theme-tag">IFI</span>
+          <span class="theme-tag">Succession</span>
+          <span class="theme-tag">TVA</span>
+          <span class="theme-tag">Défiscalisation</span>
+        </div>
+      </div>
+
+      <!-- ── THÉMATIQUE 4 ── -->
+      <div class="theme-card">
+        <div class="theme-num">04</div>
+        <div class="theme-name">Gestion de patrimoine</div>
+        <div class="theme-desc">Allocation d'actifs, enveloppes fiscales, immobilier, retraite et transmission.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">Assurance-vie</span>
+          <span class="theme-tag">PEA</span>
+          <span class="theme-tag">SCPI</span>
+          <span class="theme-tag">SCI</span>
+          <span class="theme-tag">Retraite</span>
+        </div>
+      </div>
+
+      <!-- ── THÉMATIQUE 5 ── -->
+      <div class="theme-card">
+        <div class="theme-num">05</div>
+        <div class="theme-name">Droit & Structures</div>
+        <div class="theme-desc">Holding, démembrement, régimes matrimoniaux et protection juridique des actifs.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">Holding</span>
+          <span class="theme-tag">Démembrement</span>
+          <span class="theme-tag">SCI</span>
+          <span class="theme-tag">Régimes matrimoniaux</span>
+        </div>
+      </div>
+
+      <!-- ── THÉMATIQUE 6 ── -->
+      <div class="theme-card">
+        <div class="theme-num">06</div>
+        <div class="theme-name">Macroéconomie</div>
+        <div class="theme-desc">Politique monétaire, inflation, cycles économiques et impact sur les marchés financiers.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">BCE</span>
+          <span class="theme-tag">Inflation</span>
+          <span class="theme-tag">Courbe des taux</span>
+          <span class="theme-tag">Cycles</span>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           POUR AJOUTER UNE THÉMATIQUE : copie le bloc ci-dessous,
+           décommente-le et remplis le contenu.
+      ============================================================
+      <div class="theme-card">
+        <div class="theme-num">07</div>
+        <div class="theme-name">Titre de la thématique</div>
+        <div class="theme-desc">Courte description en 1-2 phrases.</div>
+        <div class="theme-tags">
+          <span class="theme-tag">Tag 1</span>
+          <span class="theme-tag">Tag 2</span>
+        </div>
+      </div>
+      -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ARTICLES
+       Le PREMIER article (.featured) est affiché en grand.
+       Les suivants sont en format liste.
+
+       Pour AJOUTER un article :
+         1. Copie un bloc .article-card
+         2. Remplis : catégorie, titre, extrait, lien, temps de lecture
+         3. Si tu veux qu'il soit en grand format, ajoute la classe "featured"
+            et écris un extrait dans .article-excerpt
+
+       Pour LIER vers un autre fichier HTML :
+         Crée un fichier article1.html (par exemple) dans le même dossier
+         et remplace href="#" par href="article1.html"
+  ============================================================ -->
+  <section id="articles">
+    <div class="sec-eyebrow">Lire</div>
+    <h2 class="sec-heading">Articles & fiches</h2>
+
+    <div class="articles-list">
+
+      <!-- ── ARTICLE FEATURED (mis en avant) ── -->
+      <a class="article-card featured" href="#">
+        <div>
+          <div class="article-cat">Finance d'entreprise · Valorisation</div>
+          <div class="article-title">Le DCF : valoriser une entreprise par ses flux futurs</div>
+          <div class="article-excerpt">
+            La méthode Discounted Cash Flow est l'outil fondamental de valorisation intrinsèque. Elle repose sur l'actualisation des flux de trésorerie libres au coût moyen pondéré du capital (WACC). Comprendre le DCF, c'est comprendre la logique même de la création de valeur.
+          </div>
+          <div class="article-meta-inline">10 min de lecture · Niveau intermédiaire</div>
+        </div>
+      </a>
+
+      <!-- ── ARTICLE 2 ── -->
+      <a class="article-card" href="#">
+        <div>
+          <div class="article-cat">Fiscalité · Revenus du capital</div>
+          <div class="article-title">Le Prélèvement Forfaitaire Unique (PFU) : fonctionnement et cas d'usage</div>
+        </div>
+        <div class="article-meta">7 min · Essentiel</div>
+      </a>
+
+      <!-- ── ARTICLE 3 ── -->
+      <a class="article-card" href="#">
+        <div>
+          <div class="article-cat">Gestion de patrimoine · Épargne</div>
+          <div class="article-title">Assurance-vie : enveloppe fiscale, arbitrages et stratégie successorale</div>
+        </div>
+        <div class="article-meta">9 min · Intermédiaire</div>
+      </a>
+
+      <!-- ── ARTICLE 4 ── -->
+      <a class="article-card" href="#">
+        <div>
+          <div class="article-cat">Finance de marché · Théorie moderne</div>
+          <div class="article-title">Le modèle CAPM : risque systématique et prime de risque de marché</div>
+        </div>
+        <div class="article-meta">8 min · Avancé</div>
+      </a>
+
+      <!-- ── ARTICLE 5 ── -->
+      <a class="article-card" href="#">
+        <div>
+          <div class="article-cat">Droit & Structures · Transmission</div>
+          <div class="article-title">Le démembrement de propriété : usufruit, nue-propriété et stratégie patrimoniale</div>
+        </div>
+        <div class="article-meta">11 min · Intermédiaire</div>
+      </a>
+
+      <!-- ============================================================
+           POUR AJOUTER UN ARTICLE : copie le bloc ci-dessous,
+           décommente-le et remplis le contenu.
+      ============================================================
+      <a class="article-card" href="nom-du-fichier.html">
+        <div>
+          <div class="article-cat">Thématique · Sous-thème</div>
+          <div class="article-title">Titre de l'article</div>
+        </div>
+        <div class="article-meta">X min · Niveau</div>
+      </a>
+      -->
+
+    </div>
+
+    <!-- Bouton optionnel si tu as beaucoup d'articles -->
+    <!-- <div class="btn-row"><a class="btn" href="articles.html">Tous les articles →</a></div> -->
+
+  </section>
+
+
+  <!-- ============================================================
+       GLOSSAIRE
+       Pour AJOUTER un terme : copie un bloc .gl-item
+       et modifie la lettre, le terme et la définition.
+       Essaie de garder les termes par ordre alphabétique.
+  ============================================================ -->
+  <section id="glossaire">
+    <div class="sec-eyebrow">Vocabulaire</div>
+    <h2 class="sec-heading">Glossaire</h2>
+
+    <div class="glossary-grid">
+
+      <!-- ── TERME A ── -->
+      <div class="gl-item">
+        <div class="gl-letter">A</div>
+        <div>
+          <div class="gl-term">Actualisation</div>
+          <div class="gl-def">Technique permettant de ramener des flux futurs à leur valeur présente, en tenant compte du coût du temps et du risque.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME B ── -->
+      <div class="gl-item">
+        <div class="gl-letter">β</div>
+        <div>
+          <div class="gl-term">Bêta (β)</div>
+          <div class="gl-def">Mesure de la sensibilité d'un actif aux fluctuations du marché. Un bêta > 1 indique une volatilité supérieure à l'indice de référence.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME D ── -->
+      <div class="gl-item">
+        <div class="gl-letter">D</div>
+        <div>
+          <div class="gl-term">Démembrement de propriété</div>
+          <div class="gl-def">Séparation entre l'usufruit (droit de jouissance) et la nue-propriété. Outil clé de transmission et d'optimisation fiscale patrimoniale.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME E ── -->
+      <div class="gl-item">
+        <div class="gl-letter">E</div>
+        <div>
+          <div class="gl-term">EBITDA</div>
+          <div class="gl-def">Résultat avant intérêts, impôts, dépréciations et amortissements. Indicateur de rentabilité opérationnelle brute, avant effets financiers et comptables.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME I ── -->
+      <div class="gl-item">
+        <div class="gl-letter">I</div>
+        <div>
+          <div class="gl-term">IFI</div>
+          <div class="gl-def">Impôt sur la Fortune Immobilière. Remplace l'ISF depuis 2018 et ne porte que sur les actifs immobiliers nets supérieurs à 1,3 M€.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME L ── -->
+      <div class="gl-item">
+        <div class="gl-letter">L</div>
+        <div>
+          <div class="gl-term">LBO (Leveraged Buy-Out)</div>
+          <div class="gl-def">Acquisition d'une entreprise financée majoritairement par de la dette. Le remboursement s'effectue grâce aux flux de trésorerie générés par la cible.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME P ── -->
+      <div class="gl-item">
+        <div class="gl-letter">P</div>
+        <div>
+          <div class="gl-term">PFU (Flat Tax)</div>
+          <div class="gl-def">Prélèvement Forfaitaire Unique de 30% sur les revenus du capital. Comprend 12,8% d'impôt sur le revenu et 17,2% de prélèvements sociaux.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME S ── -->
+      <div class="gl-item">
+        <div class="gl-letter">S</div>
+        <div>
+          <div class="gl-term">Ratio de Sharpe</div>
+          <div class="gl-def">Rendement excédentaire divisé par la volatilité du portefeuille. Mesure la performance ajustée du risque : plus il est élevé, meilleure est l'efficience.</div>
+        </div>
+      </div>
+
+      <!-- ── TERME W ── -->
+      <div class="gl-item">
+        <div class="gl-letter">W</div>
+        <div>
+          <div class="gl-term">WACC</div>
+          <div class="gl-def">Coût Moyen Pondéré du Capital. Taux d'actualisation reflétant le coût global de financement de l'entreprise (dettes + capitaux propres).</div>
+        </div>
+      </div>
+
+      <!-- ── TERME V ── -->
+      <div class="gl-item">
+        <div class="gl-letter">V</div>
+        <div>
+          <div class="gl-term">VAN (Valeur Actuelle Nette)</div>
+          <div class="gl-def">Somme des flux de trésorerie actualisés d'un projet, diminuée de l'investissement initial. Une VAN positive signifie que le projet crée de la valeur.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           POUR AJOUTER UN TERME : copie le bloc ci-dessous,
+           décommente-le et remplis la lettre, le terme et la définition.
+      ============================================================
+      <div class="gl-item">
+        <div class="gl-letter">X</div>
+        <div>
+          <div class="gl-term">Nom du terme</div>
+          <div class="gl-def">Définition courte et claire en 2-3 lignes maximum.</div>
+        </div>
+      </div>
+      -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       À PROPOS — Présente-toi ici
+       Modifie le texte librement.
+  ============================================================ -->
+  <section id="apropos">
+    <div class="sec-eyebrow">À propos</div>
+    <h2 class="sec-heading">Qui suis-je ?</h2>
+
+    <div class="about-block">
+      <!-- ── MODIFIE CE TEXTE ── -->
+      <p>
+        Ce site est un projet personnel : une base de connaissances que je construis au fil du temps, sur des sujets qui me passionnent — la <strong>finance d'entreprise</strong>, les <strong>marchés financiers</strong>, la <strong>fiscalité</strong> et la <strong>gestion de patrimoine</strong>.
+      </p>
+      <p>
+        Mon objectif est de rendre ces concepts accessibles, sans simplification abusive. Chaque fiche est rédigée à partir de mes lectures, formations et expériences personnelles.
+      </p>
+      <p>
+        Tu peux me retrouver sur Instagram pour suivre l'évolution du projet.
+        <!-- INSTAGRAM — remplace # par le lien de ton profil -->
+        <a href="https://instagram.com/TON_COMPTE" target="_blank" style="color: var(--gold); text-decoration: none;">→ Mon Instagram</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <!-- ── MODIFIE L'ANNÉE ET TON NOM ── -->
+  <div class="footer-left">© 2026 PatrimoineExpert · Tous droits réservés</div>
+
+  <ul class="footer-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#glossaire">Glossaire</a></li>
+    <!-- INSTAGRAM — remplace # par le lien de ton profil -->
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT — menu mobile uniquement, ne pas modifier
+============================================================ -->
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  // Ferme le menu si on clique en dehors
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.querySelector('.hamburger');
+    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>
