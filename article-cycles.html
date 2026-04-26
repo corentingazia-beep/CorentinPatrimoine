@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Les cycles boursiers : phases, indicateurs avancés et positionnement — PatrimoineExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;--green:#2D6A4F;--red:#9B2226}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+    .article-header{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+    .article-cat{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .article-title{font-size:clamp(24px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1.25rem}
+    .article-intro{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:560px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .article-meta{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:10px}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);display:inline-block}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:2rem auto 0}
+    .article-body{max-width:680px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .article-body p{font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin:3rem 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule)}
+    .article-body h3{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .article-body strong{font-family:'DM Sans',sans-serif;font-weight:500;color:var(--ink)}
+    .article-body em{font-style:italic;color:var(--ink)}
+    .article-body ul,.article-body ol{font-family:'DM Sans',sans-serif;font-size:15.5px;color:var(--ink2);line-height:1.75;font-weight:300;padding-left:1.25rem;margin-bottom:1.5rem}
+    .article-body li{margin-bottom:.5rem}
+    .article-body ul li::marker{color:var(--gold)}
+    .article-body ol li::marker{color:var(--gold);font-weight:500}
+    blockquote{border-left:3px solid var(--gold);padding:1rem 1.5rem;margin:2rem 0;background:var(--white);font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2)}
+    .encadre{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0}
+    .encadre-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .encadre p{margin-bottom:0!important;font-size:15px!important}
+    .formule{background:var(--white);border:1px solid var(--rule);padding:1.25rem 1.5rem;margin:2rem 0;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);text-align:center;letter-spacing:.03em}
+    .formule strong{color:var(--gold)}
+    .separateur{width:40px;height:1px;background:var(--gold);margin:3rem auto}
+    .article-tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .tags-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em}
+    .tag{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);background:var(--white);border:1px solid var(--rule);padding:3px 10px}
+    .retour-bas{text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:680px){nav{padding:0 1.25rem}.article-header{padding:3rem 1.5rem 2.5rem}.article-body{padding:2.5rem 1.25rem 4rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="theme-macroeconomie.html">← Macroéconomie</a>
+</nav>
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="article-header">
+    <div class="article-cat">Macroéconomie · Cycles économiques</div>
+    <h1 class="article-title">Les cycles boursiers : phases, indicateurs avancés et positionnement</h1>
+    <p class="article-intro">Expansion, pic, contraction, creux… Les marchés évoluent en cycles prévisibles. Identifier la phase actuelle permet d'ajuster intelligemment son allocation d'actifs.</p>
+    <div class="article-meta">
+      <span>8 min de lecture</span><span class="meta-dot"></span>
+      <span>Niveau intermédiaire</span>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+<article class="article-body">
+
+  <h2>Qu'est-ce qu'un cycle boursier ?</h2>
+  <p>Les marchés financiers évoluent selon des cycles alternant phases de hausse et de baisse, influencés par les cycles économiques, les politiques monétaires et la psychologie des investisseurs.</p>
+  <h2>Les 4 phases du cycle</h2>
+  <ul>
+    <li><strong>Expansion</strong> : croissance économique, bénéfices en hausse, sentiment positif. Les actions progressent, les valorisations montent.</li>
+    <li><strong>Pic</strong> : croissance maximale, inflation potentiellement élevée, banque centrale restrictive. Les marchés commencent à anticiper le ralentissement.</li>
+    <li><strong>Contraction (récession)</strong> : ralentissement ou récession, bénéfices en baisse, sentiment négatif. Les marchés corrigent souvent avant la fin officielle de la récession.</li>
+    <li><strong>Creux</strong> : activité au plus bas, banque centrale accommodante, sentiment au plus pessimiste. C'est souvent le meilleur moment pour investir.</li>
+  </ul>
+  <blockquote>Les marchés anticipent l'économie de 6 à 12 mois. Quand les nouvelles économiques sont au pire, les marchés ont souvent déjà commencé à rebondir.</blockquote>
+  <h2>Les indicateurs avancés à suivre</h2>
+  <ul>
+    <li><strong>Courbe des taux</strong> : inversion = signal de récession</li>
+    <li><strong>PMI manufacturier</strong> : en dessous de 50 = contraction</li>
+    <li><strong>Demandes d'allocations chômage</strong> : signal précoce du marché du travail</li>
+    <li><strong>Confiance des consommateurs</strong> : indicateur de la demande future</li>
+    <li><strong>Spreads de crédit</strong> : élargissement = stress financier</li>
+  </ul>
+  <div class="encadre">
+    <div class="encadre-titre">Rotation sectorielle</div>
+    <p>Selon la phase du cycle, certains secteurs surperforment :<br>
+    <strong>Expansion</strong> → technologie, consommation discrétionnaire<br>
+    <strong>Pic</strong> → énergie, matières premières<br>
+    <strong>Contraction</strong> → défensives (santé, utilities, alimentation)<br>
+    <strong>Creux</strong> → financières, industrielles (anticipent la reprise)</p>
+  </div>
+  <div class="separateur"></div>
+  <p>Comprendre les cycles permet d'ajuster son allocation d'actifs et ses choix sectoriels en fonction du contexte macroéconomique. Ce n'est pas du market timing — c'est de la gestion patrimoniale intelligente.</p>
+
+  <div class="article-tags">
+    <span class="tags-label">Tags :</span>
+    <span class="tag">Cycles</span><span class="tag">Récession</span><span class="tag">PMI</span><span class="tag">Rotation sectorielle</span><span class="tag">Marchés</span><span class="tag">Macroéconomie</span>
+  </div>
+  <div class="retour-bas">
+    <a class="btn-retour" href="theme-macroeconomie.html">← Retour à la thématique</a>
+    <a class="btn-retour" href="index.html">Accueil</a>
+  </div>
+</article>
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

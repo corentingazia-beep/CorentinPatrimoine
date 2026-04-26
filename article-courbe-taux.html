@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La courbe des taux : lecture, inversion et signaux de récession — PatrimoineExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;--green:#2D6A4F;--red:#9B2226}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+    .article-header{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+    .article-cat{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .article-title{font-size:clamp(24px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1.25rem}
+    .article-intro{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:560px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .article-meta{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:10px}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);display:inline-block}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:2rem auto 0}
+    .article-body{max-width:680px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .article-body p{font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin:3rem 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule)}
+    .article-body h3{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .article-body strong{font-family:'DM Sans',sans-serif;font-weight:500;color:var(--ink)}
+    .article-body em{font-style:italic;color:var(--ink)}
+    .article-body ul,.article-body ol{font-family:'DM Sans',sans-serif;font-size:15.5px;color:var(--ink2);line-height:1.75;font-weight:300;padding-left:1.25rem;margin-bottom:1.5rem}
+    .article-body li{margin-bottom:.5rem}
+    .article-body ul li::marker{color:var(--gold)}
+    .article-body ol li::marker{color:var(--gold);font-weight:500}
+    blockquote{border-left:3px solid var(--gold);padding:1rem 1.5rem;margin:2rem 0;background:var(--white);font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2)}
+    .encadre{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0}
+    .encadre-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .encadre p{margin-bottom:0!important;font-size:15px!important}
+    .formule{background:var(--white);border:1px solid var(--rule);padding:1.25rem 1.5rem;margin:2rem 0;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);text-align:center;letter-spacing:.03em}
+    .formule strong{color:var(--gold)}
+    .separateur{width:40px;height:1px;background:var(--gold);margin:3rem auto}
+    .article-tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .tags-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em}
+    .tag{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);background:var(--white);border:1px solid var(--rule);padding:3px 10px}
+    .retour-bas{text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:680px){nav{padding:0 1.25rem}.article-header{padding:3rem 1.5rem 2.5rem}.article-body{padding:2.5rem 1.25rem 4rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="theme-macroeconomie.html">← Macroéconomie</a>
+</nav>
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="article-header">
+    <div class="article-cat">Macroéconomie · Marchés de taux</div>
+    <h1 class="article-title">La courbe des taux : lecture, inversion et signaux de récession</h1>
+    <p class="article-intro">La courbe des taux est l'un des meilleurs indicateurs avancés de récession. Son inversion a précédé toutes les crises économiques majeures depuis 50 ans. Voici comment la lire.</p>
+    <div class="article-meta">
+      <span>7 min de lecture</span><span class="meta-dot"></span>
+      <span>Niveau avancé</span>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+<article class="article-body">
+
+  <h2>Qu'est-ce que la courbe des taux ?</h2>
+  <p>La courbe des taux (ou structure par terme des taux) représente graphiquement les taux d'intérêt des obligations d'État en fonction de leur maturité, pour une même monnaie et un même émetteur.</p>
+  <h2>La forme normale : courbe ascendante</h2>
+  <p>En temps normal, les taux longs sont supérieurs aux taux courts. Les investisseurs exigent une prime pour immobiliser leur capital plus longtemps (prime de terme). C'est le signe d'une économie saine avec des anticipations d'inflation modérées.</p>
+  <h2>L'inversion de la courbe</h2>
+  <p>Quand les taux courts dépassent les taux longs, la courbe s'inverse. C'est un signal d'alarme historiquement fiable : <strong>toutes les récessions américaines depuis 1970 ont été précédées d'une inversion de la courbe</strong>, avec un délai de 6 à 18 mois.</p>
+  <blockquote>Une courbe des taux inversée signifie que le marché anticipe une baisse future des taux — et donc une récession qui forcera la banque centrale à assouplir sa politique.</blockquote>
+  <h2>Comment lire la courbe ?</h2>
+  <ul>
+    <li><strong>Spread 10 ans − 2 ans</strong> : l'indicateur de référence. Négatif = courbe inversée</li>
+    <li><strong>Pentification</strong> : écartement entre taux courts et longs → signe d'optimisme ou de reprise</li>
+    <li><strong>Aplatissement</strong> : convergence des taux → transition entre expansion et récession</li>
+  </ul>
+  <div class="encadre">
+    <div class="encadre-titre">Impact sur les actifs</div>
+    <p>Une courbe inversée est négative pour les banques (qui empruntent court et prêtent long) et signale souvent un environnement difficile pour les actions cycliques. Les obligations longues tendent à surperformer dans ce contexte car le marché anticipe des baisses de taux futures.</p>
+  </div>
+  <div class="separateur"></div>
+  <p>La courbe des taux est l'un des indicateurs macroéconomiques les plus suivis par les professionnels. Sa lecture donne des indications précieuses sur l'état de l'économie et les anticipations des marchés à moyen terme.</p>
+
+  <div class="article-tags">
+    <span class="tags-label">Tags :</span>
+    <span class="tag">Courbe des taux</span><span class="tag">Inversion</span><span class="tag">Récession</span><span class="tag">Taux</span><span class="tag">Obligations</span><span class="tag">Macroéconomie</span>
+  </div>
+  <div class="retour-bas">
+    <a class="btn-retour" href="theme-macroeconomie.html">← Retour à la thématique</a>
+    <a class="btn-retour" href="index.html">Accueil</a>
+  </div>
+</article>
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

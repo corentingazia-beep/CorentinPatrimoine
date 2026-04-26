@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finance de marché — PatrimoineExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --gold:#A8884A; --gold-light:#C4A35A; --cream:#FAFAF7; --white:#FFFFFF; --ink:#1A1A18; --ink2:#4A4A44; --ink3:#8A8A80; --rule:#E2E0D8; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+    .hero{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2.5rem 3rem;text-align:center}
+    .hero-eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .hero h1{font-size:clamp(28px,4vw,40px);font-weight:400;line-height:1.18;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--gold-light)}
+    .hero-desc{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:520px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:0 auto}
+    .wrap{max-width:900px;margin:0 auto;padding:3.5rem 2.5rem}
+    .sec-eyebrow{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .sec-heading{font-size:22px;font-weight:400;color:var(--ink);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:2rem}
+    .articles-list{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:4rem}
+    .article-card{background:var(--white);padding:2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;border-left:3px solid transparent;transition:background .15s,border-color .15s;text-decoration:none;color:inherit}
+    .article-card:hover{background:var(--cream);border-left-color:var(--gold)}
+    .article-card.featured{grid-template-columns:1fr;padding:2.25rem 2rem}
+    .article-card.featured .article-title{font-size:22px;margin-bottom:.75rem}
+    .article-card.featured .article-excerpt{display:block}
+    .article-cat{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .article-title{font-size:17px;font-weight:400;line-height:1.3;color:var(--ink);margin-bottom:.4rem}
+    .article-excerpt{display:none;font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--ink2);line-height:1.65;margin-bottom:1rem;font-weight:300}
+    .article-meta{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);white-space:nowrap;padding-top:6px}
+    .article-meta-inline{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3)}
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:680px){nav{padding:0 1.25rem}.wrap{padding:2.5rem 1.25rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="index.html">← Retour au site</a>
+</nav>
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="hero">
+    <div class="hero-eyebrow">Thématique 02</div>
+    <h1>Finance de marché</h1>
+    <p class="hero-desc">Actions, obligations, produits dérivés, gestion de portefeuille et analyse de risque.</p>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+<div class="wrap">
+  <div class="sec-eyebrow">Articles</div>
+  <div class="sec-heading">Toutes les fiches</div>
+  <div class="articles-list">
+      <a class="article-card featured" href="article-straddle.html">
+        <div>
+          <div class="article-cat">Stratégies optionnelles</div>
+          <div class="article-title">Le Straddle : parier sur la volatilité sans choisir la direction</div>
+          <div class="article-excerpt">Le straddle consiste à acheter simultanément un call et un put au même strike. Une stratégie pour profiter d'un mouvement fort, quelle que soit sa direction.</div>
+        </div>
+        <div class="article-meta-inline">5 min · Intermédiaire</div>
+      </a>
+      <a class="article-card" href="article-capm.html">
+        <div>
+          <div class="article-cat">Théorie du portefeuille</div>
+          <div class="article-title">Le CAPM : risque systématique et prime de risque de marché</div>
+          
+        </div>
+        <div class="article-meta">8 min · Avancé</div>
+      </a>
+      <a class="article-card" href="article-obligations.html">
+        <div>
+          <div class="article-cat">Taux & Crédit</div>
+          <div class="article-title">Les obligations : fonctionnement, duration et sensibilité aux taux</div>
+          
+        </div>
+        <div class="article-meta">7 min · Intermédiaire</div>
+      </a>
+      <a class="article-card" href="article-beta.html">
+        <div>
+          <div class="article-cat">Analyse de risque</div>
+          <div class="article-title">Le Bêta : mesurer la sensibilité d'un actif au marché</div>
+          
+        </div>
+        <div class="article-meta">5 min · Essentiel</div>
+      </a>
+      <a class="article-card" href="article-sharpe.html">
+        <div>
+          <div class="article-cat">Gestion de portefeuille</div>
+          <div class="article-title">Le Ratio de Sharpe : évaluer la performance ajustée du risque</div>
+          
+        </div>
+        <div class="article-meta">6 min · Intermédiaire</div>
+      </a>
+  </div>
+</div>
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>
