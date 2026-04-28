@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Les 5 lettres grecques des options : Delta, Gamma, Vega, Theta, Rho — PatrimoineExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;--green:#2D6A4F;--red:#9B2226}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+    .article-header{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+    .article-cat{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .article-title{font-size:clamp(24px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1.25rem}
+    .article-intro{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:560px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .article-meta{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:10px}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);display:inline-block}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:2rem auto 0}
+    .article-body{max-width:680px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .article-body p{font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin:3rem 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule)}
+    .article-body h3{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .article-body strong{font-family:'DM Sans',sans-serif;font-weight:500;color:var(--ink)}
+    .article-body em{font-style:italic;color:var(--ink)}
+    .article-body ul,.article-body ol{font-family:'DM Sans',sans-serif;font-size:15.5px;color:var(--ink2);line-height:1.75;font-weight:300;padding-left:1.25rem;margin-bottom:1.5rem}
+    .article-body li{margin-bottom:.5rem}
+    .article-body ul li::marker{color:var(--gold)}
+    .article-body ol li::marker{color:var(--gold);font-weight:500}
+    blockquote{border-left:3px solid var(--gold);padding:1rem 1.5rem;margin:2rem 0;background:var(--white);font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2)}
+    .encadre{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0}
+    .encadre-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .encadre p{margin-bottom:0!important;font-size:15px!important}
+    .formule{background:var(--white);border:1px solid var(--rule);padding:1.25rem 1.5rem;margin:2rem 0;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);text-align:center;letter-spacing:.03em}
+    .formule strong{color:var(--gold)}
+    .separateur{width:40px;height:1px;background:var(--gold);margin:3rem auto}
+    .article-tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .tags-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em}
+    .tag{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);background:var(--white);border:1px solid var(--rule);padding:3px 10px}
+    .retour-bas{text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:680px){nav{padding:0 1.25rem}.article-header{padding:3rem 1.5rem 2.5rem}.article-body{padding:2.5rem 1.25rem 4rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="theme-options.html">← Options</a>
+</nav>
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="article-header">
+    <div class="article-cat">Finance de marché · Options</div>
+    <h1 class="article-title">Les 5 lettres grecques des options : Delta, Gamma, Vega, Theta, Rho</h1>
+    <p class="article-intro">Delta, Gamma, Vega, Theta, Rho — les grecques sont les indicateurs de sensibilité essentiels pour comprendre et gérer le risque d'une position en options.</p>
+    <div class="article-meta">
+      <span>9 min de lecture</span><span class="meta-dot"></span>
+      <span>Niveau intermédiaire</span>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+<article class="article-body">
+
+  <h2>Pourquoi les grecques ?</h2>
+  <p>Les "grecques" sont les indicateurs de sensibilité des options. Ils mesurent comment le prix d'une option réagit aux variations des différents paramètres du marché. Maîtriser les grecques, c'est comprendre le comportement d'une option dans n'importe quelle configuration de marché.</p>
+
+  <h2>Delta (Δ) — La direction</h2>
+  <p>Le delta mesure la variation du prix de l'option lorsque le sous-jacent varie de 1 unité.</p>
+  <div class="formule"><strong>Δ = variation du prix de l'option / variation du sous-jacent</strong></div>
+  <ul>
+    <li>Pour un call : delta positif (entre 0 et +1)</li>
+    <li>Pour un put : delta négatif (entre -1 et 0)</li>
+    <li>Un delta de 0,60 signifie qu'une hausse de 1 € du sous-jacent fait gagner ~0,60 € à l'option</li>
+  </ul>
+  <p>Le delta est aussi interprété comme la probabilité approximative que l'option expire In the Money.</p>
+
+  <h2>Gamma (Γ) — L'accélération</h2>
+  <p>Le gamma mesure la variation du delta lorsque le sous-jacent varie de 1 unité. Si le delta est la vitesse, le gamma est l'accélération.</p>
+  <blockquote>Le gamma mesure la courbure du risque. Plus il est élevé, plus le delta change vite — et plus la couverture est difficile à maintenir.</blockquote>
+  <ul>
+    <li>Gamma élevé sur les options proches du strike (ATM) et proche de l'échéance</li>
+    <li>Les vendeurs d'options surveillent particulièrement le gamma : il peut rendre une position très instable</li>
+    <li>Long gamma = vous bénéficiez des mouvements forts dans les deux sens</li>
+  </ul>
+
+  <h2>Vega (ν) — La volatilité</h2>
+  <p>Le vega mesure la sensibilité du prix de l'option à une variation de la volatilité implicite.</p>
+  <div class="formule"><strong>Un vega de 0,20 → hausse de 1 point de vol. implicite = +0,20 € sur l'option</strong></div>
+  <ul>
+    <li>Toutes les options longues ont un vega positif : elles bénéficient d'une hausse de volatilité</li>
+    <li>Vega maximal sur les options longues maturités, proches du strike</li>
+    <li>Après un événement majeur (résultats, BCE…), la volatilité implicite chute souvent brutalement — c'est le "vol crush" qui pénalise les acheteurs d'options</li>
+  </ul>
+
+  <h2>Theta (Θ) — Le temps</h2>
+  <p>Le theta mesure la perte de valeur d'une option liée au simple passage du temps, toutes choses égales par ailleurs.</p>
+  <ul>
+    <li>Theta négatif pour l'acheteur d'option : chaque jour qui passe érode la valeur temps</li>
+    <li>Theta positif pour le vendeur : il bénéficie de l'érosion temporelle</li>
+    <li>L'érosion s'accélère fortement dans les dernières semaines avant l'échéance</li>
+  </ul>
+  <div class="encadre">
+    <div class="encadre-titre">Le dilemme Gamma / Theta</div>
+    <p>L'acheteur d'option est long gamma (bénéficie des gros mouvements) mais paye un theta négatif (perd de la valeur chaque jour). Le vendeur encaisse le theta mais supporte un gamma négatif (exposé aux gros mouvements). C'est le cœur du trading d'options.</p>
+  </div>
+
+  <h2>Rho (ρ) — Les taux d'intérêt</h2>
+  <p>Le rho mesure la sensibilité du prix de l'option aux variations des taux d'intérêt.</p>
+  <ul>
+    <li>Quand les taux montent : les calls tendent à gagner de la valeur, les puts à en perdre</li>
+    <li>Rho plus important sur les options longues maturités et les produits de taux</li>
+    <li>Sur une option action de court terme, le rho est souvent secondaire</li>
+  </ul>
+  <div class="separateur"></div>
+  <p>Les grecques sont indissociables d'une gestion rigoureuse d'un portefeuille d'options. Un trader qui ne surveille pas son delta, son gamma et son vega est aveugle face aux risques qu'il supporte réellement.</p>
+
+  <div class="article-tags">
+    <span class="tags-label">Tags :</span>
+    <span class="tag">Delta</span><span class="tag">Gamma</span><span class="tag">Vega</span><span class="tag">Theta</span><span class="tag">Rho</span><span class="tag">Grecques</span><span class="tag">Options</span><span class="tag">Volatilité</span>
+  </div>
+  <div class="retour-bas">
+    <a class="btn-retour" href="theme-options.html">← Retour à la thématique</a>
+    <a class="btn-retour" href="index.html">Accueil</a>
+  </div>
+</article>
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="https://instagram.com/TON_COMPTE" target="_blank">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>
