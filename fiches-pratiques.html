@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fiches pratiques — PatrimoineExpert</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    .hero{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2.5rem 3rem;text-align:center}
+    .hero-eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .hero h1{font-size:clamp(26px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--gold-light)}
+    .hero-desc{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:520px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:0 auto}
+
+    .wrap{max-width:900px;margin:0 auto;padding:3.5rem 2.5rem}
+    .sec-eyebrow{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+    .sec-heading{font-size:22px;font-weight:400;color:var(--ink);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:2rem}
+
+    /* FICHES GRID */
+    .fiches-grid{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:4rem}
+    .fiche-card{background:var(--white);padding:1.75rem 2rem;display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:center;text-decoration:none;color:inherit;border-left:3px solid transparent;transition:background .15s,border-color .15s}
+    .fiche-card:hover{background:var(--cream);border-left-color:var(--gold)}
+    .fiche-num{font-family:'DM Sans',sans-serif;font-size:22px;color:var(--gold);font-weight:300;width:32px;text-align:center}
+    .fiche-body{}
+    .fiche-theme{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+    .fiche-title{font-size:17px;font-weight:400;color:var(--ink);margin-bottom:.4rem;line-height:1.3}
+    .fiche-desc{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink3);font-weight:300}
+    .fiche-arrow{font-size:20px;color:var(--rule);transition:color .15s,transform .15s}
+    .fiche-card:hover .fiche-arrow{color:var(--gold);transform:translateX(3px)}
+
+    /* COMING SOON */
+    .fiche-card.soon{opacity:.5;cursor:default;pointer-events:none}
+    .fiche-card.soon:hover{background:var(--white);border-left-color:transparent}
+    .badge-soon{font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border:1px solid var(--rule);padding:2px 7px;white-space:nowrap}
+
+    .info-box{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin-bottom:3rem}
+    .info-box p{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink2);line-height:1.7;font-weight:300}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:680px){
+      nav{padding:0 1.25rem}
+      .wrap{padding:2.5rem 1.25rem}
+      .fiche-card{grid-template-columns:auto 1fr}
+      .fiche-arrow{display:none}
+      footer{flex-direction:column;text-align:center;padding:1.5rem}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="index.html">← Retour au site</a>
+</nav>
+
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="hero">
+    <div class="hero-eyebrow">Ressources pratiques</div>
+    <h1>Fiches <em>pratiques</em></h1>
+    <p class="hero-desc">Des synthèses claires et structurées pour comprendre rapidement les mécanismes essentiels de la finance et du patrimoine.</p>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec-eyebrow">Immobilier</div>
+  <div class="sec-heading">Fiscalité & Investissement</div>
+
+  <div class="fiches-grid">
+
+    <!-- FICHE 1 — DISPONIBLE -->
+    <a class="fiche-card" href="fiche-location-nue-meublee.html">
+      <div class="fiche-num">01</div>
+      <div class="fiche-body">
+        <div class="fiche-theme">Immobilier · Fiscalité</div>
+        <div class="fiche-title">Location nue vs Location meublée</div>
+        <div class="fiche-desc">Structures juridiques, régimes fiscaux (RF vs BIC), LMNP, SCI, SARL de famille — le comparatif complet.</div>
+      </div>
+      <div class="fiche-arrow">→</div>
+    </a>
+
+    <!-- FICHES À VENIR -->
+    <div class="fiche-card soon">
+      <div class="fiche-num">02</div>
+      <div class="fiche-body">
+        <div class="fiche-theme">Immobilier · Structures</div>
+        <div class="fiche-title">SCI : IR ou IS, que choisir ?</div>
+        <div class="fiche-desc">Comparatif des régimes fiscaux de la SCI selon le projet patrimonial.</div>
+      </div>
+      <div class="badge-soon">Bientôt</div>
+    </div>
+
+    <div class="fiche-card soon">
+      <div class="fiche-num">03</div>
+      <div class="fiche-body">
+        <div class="fiche-theme">Fiscalité · Transmission</div>
+        <div class="fiche-title">Succession : les abattements et la donation</div>
+        <div class="fiche-desc">Tableau des abattements, barème des droits et stratégies d'anticipation.</div>
+      </div>
+      <div class="badge-soon">Bientôt</div>
+    </div>
+
+    <div class="fiche-card soon">
+      <div class="fiche-num">04</div>
+      <div class="fiche-body">
+        <div class="fiche-theme">Finance de marché · Options</div>
+        <div class="fiche-title">Les grecques des options en un coup d'œil</div>
+        <div class="fiche-desc">Delta, Gamma, Vega, Theta, Rho — tableau de référence rapide.</div>
+      </div>
+      <div class="badge-soon">Bientôt</div>
+    </div>
+
+  </div>
+
+  <div class="info-box">
+    <p>Les fiches pratiques sont des synthèses personnelles à titre informatif. Elles ne constituent pas un conseil fiscal, juridique ou financier. Pour toute décision patrimoniale importante, consultez un professionnel qualifié.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert · Fiches pratiques</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="simulateurs.html">Simulateurs</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
