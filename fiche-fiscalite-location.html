@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fiscalité de la location immobilière — Fiche pratique</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;
+      --white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;
+      --rule:#E2E0D8;--blue-dark:#1B2A4A;--blue:#2C4A7C;
+      --col-rf:#1B2A4A;--col-bic:#2C4A7C;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.6}
+
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 2rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    .fiche-header{background:var(--blue-dark);padding:2.5rem 2rem;text-align:center}
+    .fiche-badge{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1rem;display:inline-block;border:1px solid rgba(201,168,76,.4);padding:4px 12px}
+    .fiche-header h1{font-size:clamp(18px,3vw,28px);font-weight:400;color:#fff;line-height:1.2}
+    .fiche-header h1 em{font-style:italic;color:var(--gold-light)}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 5rem;overflow-x:auto}
+
+    /* TABLEAU */
+    .tableau{width:100%;border-collapse:collapse;min-width:750px;font-family:'DM Sans',sans-serif;font-size:12.5px}
+
+    /* LIGNE CATÉGORIE RF / BIC */
+    .th-cat{color:#fff;text-align:center;padding:.75rem 1rem;font-size:13px;font-weight:500;letter-spacing:.06em}
+    .th-cat.rf{background:var(--col-rf)}
+    .th-cat.bic{background:var(--col-bic)}
+    .th-empty{background:var(--cream)}
+
+    /* LIGNE TYPES */
+    .th-type{background:var(--blue-dark);color:#fff;text-align:center;padding:.65rem .75rem;font-size:12px;font-weight:400;letter-spacing:.04em;border:1px solid rgba(255,255,255,.1)}
+    .th-row-label{background:var(--cream);font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:.6rem .9rem;font-weight:500;vertical-align:middle;border:1px solid var(--rule)}
+
+    /* CELLULES */
+    .td{background:var(--white);padding:.9rem 1rem;vertical-align:top;border:1px solid var(--rule);color:var(--ink2);line-height:1.55;font-weight:300}
+    .td p{margin-bottom:.5rem}
+    .td p:last-child{margin-bottom:0}
+    .td.center{text-align:center;vertical-align:middle}
+
+    /* OUI / NON badges */
+    .badge-oui{display:inline-block;background:#EAF4EE;color:#2D6A4F;font-weight:500;font-size:11px;padding:3px 10px;border-radius:2px}
+    .badge-non{display:inline-block;background:#FEF0F0;color:#9B2226;font-weight:500;font-size:11px;padding:3px 10px;border-radius:2px}
+    .badge-na{display:inline-block;background:var(--cream);color:var(--ink3);font-size:11px;padding:3px 10px;border-radius:2px}
+
+    /* ALTERNANCE LÉGÈRE */
+    .tr-alt .td, .tr-alt .th-row-label{background:#FDFCF9}
+
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s;margin-top:2.5rem}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:680px){
+      nav{padding:0 1rem}
+      .wrap{padding:1.5rem 1rem 4rem}
+      footer{flex-direction:column;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="fiches-pratiques.html">← Fiches pratiques</a>
+</nav>
+
+<div class="fiche-header">
+  <div class="fiche-badge">Fiche pratique · Immobilier</div>
+  <h1>Fiscalité de la <em>location immobilière</em></h1>
+</div>
+
+<div class="wrap">
+<table class="tableau">
+
+  <!-- LIGNE 1 : CATÉGORIES RF / BIC -->
+  <thead>
+    <tr>
+      <td class="th-empty" style="width:14%"></td>
+      <th class="th-cat rf" colspan="2">Revenus fonciers</th>
+      <th class="th-cat bic" colspan="3">Bénéfices industriels et commerciaux</th>
+    </tr>
+
+    <!-- LIGNE 2 : TYPES DE DÉTENTION -->
+    <tr>
+      <td class="th-row-label">Type de détention</td>
+      <th class="th-type">Nom propre</th>
+      <th class="th-type">SCI à l'IR</th>
+      <th class="th-type">Nom propre</th>
+      <th class="th-type">SCI à l'IS</th>
+      <th class="th-type">SARL de famille</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <!-- LIGNE 3 : IMPOSITION DES BÉNÉFICES -->
+    <tr>
+      <td class="th-row-label">Imposition des bénéfices</td>
+      <td class="td">
+        Impôt sur le revenu (IR) + Prélèvements sociaux (PS)
+      </td>
+      <td class="td">
+        <p>IR par transparence : imposé au niveau des associés</p>
+        <p>+ Prélèvements sociaux (PS)</p>
+      </td>
+      <td class="td">
+        <p>IR — catégorie des BIC</p>
+        <p>+ Prélèvements sociaux (PS)</p>
+      </td>
+      <td class="td">
+        <p>Impôt sur les sociétés (IS) par opacité : taux réduit, puis taux plein selon le résultat</p>
+      </td>
+      <td class="td">
+        <p>IR par transparence — catégorie des BIC</p>
+        <p>+ Prélèvements sociaux (PS)</p>
+      </td>
+    </tr>
+
+    <!-- LIGNE 4 : AMORTISSEMENT -->
+    <tr class="tr-alt">
+      <td class="th-row-label">Amortissement du bien</td>
+      <td class="td center"><span class="badge-non">Non</span></td>
+      <td class="td center"><span class="badge-non">Non</span></td>
+      <td class="td center"><span class="badge-oui">Oui</span></td>
+      <td class="td center"><span class="badge-oui">Oui</span></td>
+      <td class="td center"><span class="badge-oui">Oui</span></td>
+    </tr>
+
+    <!-- LIGNE 5 : PLUS-VALUE À LA REVENTE DU BIEN -->
+    <tr>
+      <td class="th-row-label">Plus-value à la revente du bien</td>
+      <td class="td">
+        <p>Prix d'acquisition corrigé :</p>
+        <p>Prix d'achat + frais d'acquisition (réels ou forfait de 7,5 %) + travaux (réels ou forfait de 15 % si détenu depuis plus de 5 ans)</p>
+        <p>Plus-value des particuliers via barème : exonération totale après 22 ans (impôt) et 30 ans (prélèvements sociaux)</p>
+      </td>
+      <td class="td">
+        <p>Prix d'acquisition corrigé :</p>
+        <p>Prix d'achat + frais d'acquisition (réels ou forfait de 7,5 %) + travaux (réels ou forfait de 15 % si détenu depuis plus de 5 ans) + frais de notaire</p>
+        <p>Plus-value des particuliers via barème : exonération totale après 22 ans (impôt) et 30 ans (prélèvements sociaux)</p>
+      </td>
+      <td class="td">
+        <p>Plus-value des particuliers : exonération totale après 22 ans (impôt) et 30 ans (prélèvements sociaux)</p>
+        <p>+ réintégration des amortissements</p>
+      </td>
+      <td class="td">
+        <p>Plus-value professionnelle : calculée sur la valeur nette comptable (vente − valeur après amortissement), imposée à l'IS</p>
+      </td>
+      <td class="td">
+        <p>Plus-value des particuliers via barème : exonération totale après 22 ans (impôt) et 30 ans (prélèvements sociaux)</p>
+        <p>+ réintégration des amortissements</p>
+      </td>
+    </tr>
+
+    <!-- LIGNE 6 : REVENTE DES PARTS -->
+    <tr class="tr-alt">
+      <td class="th-row-label">Si revente des parts</td>
+      <td class="td center"><span class="badge-na">—</span></td>
+      <td class="td">
+        <p>Prix de cession − prix d'acquisition (en tenant compte du passif, de la trésorerie, etc.)</p>
+        <p>Droits d'enregistrement</p>
+        <p>La vente de parts est assimilée à une plus-value immobilière des particuliers</p>
+      </td>
+      <td class="td center"><span class="badge-na">—</span></td>
+      <td class="td">
+        <p>Prix de cession − prix d'acquisition (en tenant compte du passif, de la trésorerie, etc.)</p>
+        <p>Droits d'enregistrement</p>
+        <p>Imposé à la flat tax ou au barème progressif de l'impôt sur le revenu</p>
+      </td>
+      <td class="td">
+        <p>Prix de cession − prix d'acquisition (en tenant compte du passif, de la trésorerie, etc.)</p>
+        <p>Droits d'enregistrement</p>
+        <p>Imposé à la flat tax ou au barème progressif de l'impôt sur le revenu</p>
+      </td>
+    </tr>
+
+    <!-- LIGNE 7 : SORTIE DE TRÉSORERIE -->
+    <tr>
+      <td class="th-row-label">Sortie de trésorerie</td>
+      <td class="td center">Pas de friction</td>
+      <td class="td center">Pas de friction</td>
+      <td class="td center">Pas de friction</td>
+      <td class="td">Flat tax sur dividendes après paiement de l'IS</td>
+      <td class="td center">Pas de friction</td>
+    </tr>
+
+    <!-- LIGNE 8 : PLUSIEURS PERSONNES -->
+    <tr class="tr-alt">
+      <td class="th-row-label">Si plusieurs personnes</td>
+      <td class="td center">Indivision au prorata</td>
+      <td class="td center">Parts sociales au prorata</td>
+      <td class="td center">Indivision au prorata</td>
+      <td class="td center">Parts sociales au prorata</td>
+      <td class="td center">Parts sociales au prorata</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div style="text-align:center">
+  <a class="btn-retour" href="fiches-pratiques.html">← Retour aux fiches</a>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert · Fiche pratique</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="fiches-pratiques.html">Fiches pratiques</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
