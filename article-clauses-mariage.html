@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clauses & Contrat de mariage — PatrimoineExpert</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    .article-header{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+    .article-cat{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .article-title{font-size:clamp(24px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1.25rem}
+    .article-intro{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink2);max-width:560px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .article-meta{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:10px}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);display:inline-block}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:2rem auto 0}
+
+    .article-body{max-width:680px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .article-body p{font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:var(--ink);margin:3rem 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule)}
+    .article-body h3{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:1.75rem 0 .6rem}
+    .article-body strong{font-family:'DM Sans',sans-serif;font-weight:500;color:var(--ink)}
+
+    .encadre{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.25rem 1.75rem;margin:1.5rem 0 2rem}
+    .encadre-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+    .encadre p{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink2);line-height:1.65;font-weight:300;margin-bottom:0!important}
+
+    .conseil{background:#F5EFE0;border:1px solid #E8D8B0;border-left:4px solid var(--gold-light);padding:1.25rem 1.75rem;margin:1.5rem 0 2rem}
+    .conseil-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+    .conseil p{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink2);line-height:1.65;font-weight:300;margin-bottom:0!important;font-style:italic}
+
+    .sommaire{background:var(--white);border:1px solid var(--rule);padding:1.5rem 2rem;margin-bottom:3rem}
+    .sommaire-titre{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .sommaire ol{font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--ink2);padding-left:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-weight:300}
+    .sommaire ol li::marker{color:var(--gold);font-weight:500}
+    .sommaire ol a{color:var(--ink2);text-decoration:none}
+    .sommaire ol a:hover{color:var(--gold)}
+
+    .separateur{width:40px;height:1px;background:var(--gold);margin:3rem auto}
+
+    .article-tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .tags-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em}
+    .tag{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);background:var(--white);border:1px solid var(--rule);padding:3px 10px}
+
+    .retour-bas{text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:680px){nav{padding:0 1.25rem}.article-header{padding:3rem 1.5rem 2.5rem}.article-body{padding:2.5rem 1.25rem 4rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="theme-droit-structures.html">← Droit &amp; Structures</a>
+</nav>
+
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="article-header">
+    <div class="article-cat">Droit &amp; Structures · Droit de la famille</div>
+    <h1 class="article-title">Clauses &amp; Contrat de mariage</h1>
+    <p class="article-intro">Le contrat de mariage offre une palette de clauses permettant de protéger le conjoint survivant, rééquilibrer le patrimoine ou organiser la transmission. Tour d'horizon des principales clauses.</p>
+    <div class="article-meta">
+      <span>15 min de lecture</span>
+      <span class="meta-dot"></span>
+      <span>Droit &amp; Structures</span>
+      <span class="meta-dot"></span>
+      <span>Intermédiaire</span>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+
+<article class="article-body">
+
+  <!-- SOMMAIRE -->
+  <div class="sommaire">
+    <div class="sommaire-titre">Sommaire</div>
+    <ol>
+      <li><a href="#preciput">Clause de préciput</a></li>
+      <li><a href="#partage-inegal">Clause de partage inégal</a></li>
+      <li><a href="#societe-acquets">Clause de société d'acquêts</a></li>
+      <li><a href="#ameublissement">Clause d'ameublissement</a></li>
+      <li><a href="#ameublement">Clause d'ameublement</a></li>
+      <li><a href="#reduction-facultative">Clause de réduction facultative</a></li>
+      <li><a href="#alsacienne">Clause alsacienne</a></li>
+      <li><a href="#donation-epoux">Donation entre époux</a></li>
+      <li><a href="#attribution-integrale">Clause d'attribution intégrale</a></li>
+      <li><a href="#legs-universel">Legs universel</a></li>
+      <li><a href="#action-reduction">Action en réduction</a></li>
+      <li><a href="#cantonnement">Le cantonnement</a></li>
+    </ol>
+  </div>
+
+  <!-- 1. PRÉCIPUT -->
+  <h2 id="preciput">1. Clause de préciput</h2>
+
+  <h3>Définition</h3>
+  <p>La clause de préciput permet à un époux, en cas de décès, de prélever un ou plusieurs biens communs <strong>avant tout partage</strong> avec les héritiers.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle est insérée dans le contrat de mariage (généralement en communauté). Le conjoint survivant reçoit certains biens sans contrepartie, en dehors du partage successoral.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur et Madame insèrent une clause de préciput sur leur résidence principale. Au décès de Monsieur, Madame peut la récupérer intégralement sans indemniser les enfants.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Protection du conjoint survivant, notamment en cas de famille recomposée.</p>
+
+  <!-- 2. PARTAGE INÉGAL -->
+  <h2 id="partage-inegal">2. Clause de partage inégal</h2>
+
+  <h3>Définition</h3>
+  <p>Cette clause permet de prévoir un partage des biens communs selon une proportion autre que le <strong>50/50 classique</strong>.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle est intégrée dans le contrat de mariage et permet d'attribuer par exemple 80 % des biens à un époux et 20 % à l'autre.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Dans un couple où l'un des époux a financé majoritairement l'acquisition d'un bien, la clause prévoit qu'il recevra 80 % de la communauté lors de la dissolution.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Permet une répartition équitable en fonction de la contribution réelle de chacun.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Clause intéressante pour les entrepreneurs ou couples avec fortes disparités de revenus.</p>
+  </div>
+
+  <!-- 3. SOCIÉTÉ D'ACQUÊTS -->
+  <h2 id="societe-acquets">3. Clause de société d'acquêts</h2>
+
+  <h3>Définition</h3>
+  <p>Insérée dans un contrat de séparation de biens, cette clause permet de <strong>créer une masse commune sur certains biens</strong>.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Les époux désignent certains biens ou types de biens qui seront considérés comme appartenant à une communauté spéciale.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur et Madame choisissent la séparation de biens mais insèrent une clause de société d'acquêts sur leur résidence principale.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Permet de combiner les avantages de la séparation de biens et ceux de la communauté.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Souvent utilisée en cas de remariage, en présence d'enfants d'une première union ou pour mettre en commun les dividendes d'une société.</p>
+  </div>
+
+  <!-- 4. AMEUBLISSEMENT -->
+  <h2 id="ameublissement">4. Clause d'ameublissement</h2>
+
+  <h3>Définition</h3>
+  <p>La clause d'ameublissement permet d'<strong>étendre la communauté à des biens initialement propres</strong>, généralement dans le régime de séparation de biens.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle transforme certains biens propres en biens communs, par volonté des époux exprimée dans leur contrat de mariage.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur intègre dans la communauté une maison dont il était seul propriétaire au moyen d'une clause d'ameublissement.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Facilite la gestion patrimoniale commune et la transmission au conjoint survivant.</p>
+
+  <!-- 5. AMEUBLEMENT -->
+  <h2 id="ameublement">5. Clause d'ameublement</h2>
+
+  <h3>Définition</h3>
+  <p>Cette clause établit une <strong>présomption selon laquelle les meubles sont communs</strong>, même en séparation de biens.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle est ajoutée dans le contrat pour simplifier la gestion des biens mobiliers (meubles, électroménager, etc.).</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>En cas de décès, le conjoint survivant n'a pas à prouver que les meubles étaient à lui : ils sont réputés communs.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Évite les conflits de preuve et simplifie les successions.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>À utiliser avec prudence si le patrimoine mobilier est très déséquilibré entre les époux.</p>
+  </div>
+
+  <!-- 6. RÉDUCTION FACULTATIVE -->
+  <h2 id="reduction-facultative">6. Clause de réduction facultative</h2>
+
+  <h3>Définition</h3>
+  <p>Clause qui permet aux héritiers de demander la réduction d'une libéralité excessive (donation ou legs), <strong>mais seulement s'ils le souhaitent</strong>.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle est insérée dans une donation ou un testament. Les héritiers peuvent décider d'accepter la libéralité sans exercer leur droit à réduction.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur donne à sa conjointe plus que la quotité disponible. Les enfants peuvent accepter sans réduire la part de leur belle-mère.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Souplesse et pacification des relations entre héritiers et conjoint survivant.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Clause à utiliser dans les familles recomposées ou les situations conflictuelles potentielles.</p>
+  </div>
+
+  <!-- 7. ALSACIENNE -->
+  <h2 id="alsacienne">7. Clause alsacienne</h2>
+
+  <h3>Définition</h3>
+  <p>En droit local (Alsace-Moselle), cette clause permet à chaque époux de <strong>reprendre ses apports faits à la communauté</strong>.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Elle s'applique au moment de la dissolution du régime matrimonial, permettant de retirer certains biens de la communauté.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur a apporté un bien immobilier à la communauté. Au décès, sa part retourne à ses enfants, et non au conjoint survivant.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Protection des héritiers du premier défunt, souvent dans une optique de transmission patrimoniale équilibrée.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Nécessite une rédaction rigoureuse et une attention au contexte familial.</p>
+  </div>
+
+  <!-- 8. DONATION ENTRE ÉPOUX -->
+  <h2 id="donation-epoux">8. Donation entre époux</h2>
+
+  <h3>Définition</h3>
+  <p>Acte notarié permettant d'<strong>augmenter les droits du conjoint survivant</strong> dans la succession.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>L'époux survivant choisit au décès entre plusieurs options : totalité en usufruit, 1/4 en pleine propriété + 3/4 en usufruit, ou quotité disponible en pleine propriété.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur décède. Madame choisit de recevoir l'usufruit de l'ensemble des biens pour maintenir son train de vie.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Souplesse, protection et adaptation aux besoins du conjoint survivant.</p>
+
+  <!-- 9. ATTRIBUTION INTÉGRALE -->
+  <h2 id="attribution-integrale">9. Clause d'attribution intégrale de la communauté</h2>
+
+  <h3>Définition</h3>
+  <p>Clause permettant au conjoint survivant de recevoir <strong>l'intégralité de la communauté</strong> sans partage avec les héritiers.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Insérée dans un contrat de communauté universelle, elle évite tout partage au décès du premier conjoint.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Madame reçoit 100 % des biens communs au décès de Monsieur. Les enfants n'héritent qu'à son propre décès.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Protection maximale du conjoint survivant.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Fortement déconseillée si le couple a des enfants non communs : risque d'action en retranchement.</p>
+  </div>
+
+  <!-- 10. LEGS UNIVERSEL -->
+  <h2 id="legs-universel">10. Legs universel</h2>
+
+  <h3>Définition</h3>
+  <p>Un legs universel consiste à transmettre la <strong>totalité de son patrimoine</strong> à une ou plusieurs personnes désignées dans un testament.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Le testateur rédige un testament précisant le bénéficiaire de l'intégralité de ses biens, sous réserve des droits des héritiers réservataires.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur rédige un testament léguant l'universalité de ses biens à son épouse. Le reste va aux enfants si la réserve héréditaire est atteinte.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Permet de protéger le conjoint survivant en lui attribuant la plus grande part possible du patrimoine.</p>
+
+  <!-- 11. ACTION EN RÉDUCTION -->
+  <h2 id="action-reduction">11. Action en réduction</h2>
+
+  <h3>Définition</h3>
+  <p>L'action en réduction permet aux héritiers réservataires de <strong>faire respecter leur part minimale</strong> dans la succession lorsqu'une libéralité excède la quotité disponible.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Les héritiers peuvent demander en justice la réduction d'une donation ou d'un legs qui porte atteinte à leur réserve héréditaire.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Monsieur lègue la totalité de ses biens à sa nouvelle épouse. Ses enfants, héritiers réservataires, exercent une action en réduction pour faire valoir leurs droits.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Garantit le respect des droits des héritiers réservataires.</p>
+
+  <!-- 12. CANTONNEMENT -->
+  <h2 id="cantonnement">12. Le cantonnement</h2>
+
+  <h3>Définition</h3>
+  <p>Le cantonnement permet au conjoint bénéficiaire d'un legs ou d'une donation de <strong>ne recevoir qu'une partie des biens transmis</strong>.</p>
+
+  <h3>Fonctionnement</h3>
+  <p>Il peut ainsi choisir de ne prendre qu'une part de ce qui lui est légué, permettant le reste de revenir aux autres héritiers.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple concret</div>
+    <p>Madame hérite de l'usufruit de l'ensemble des biens de son mari, mais choisit de cantonner son droit à la résidence principale pour laisser le reste aux enfants.</p>
+  </div>
+
+  <p><strong>Utilité patrimoniale :</strong> Optimisation fiscale et transmission maîtrisée en présence d'enfants d'une première union.</p>
+
+  <div class="conseil">
+    <div class="conseil-titre">Conseil du gestionnaire de patrimoine</div>
+    <p>Utile pour ajuster la transmission selon les besoins du conjoint survivant au moment du décès.</p>
+  </div>
+
+  <div class="separateur"></div>
+
+  <div class="article-tags">
+    <span class="tags-label">Tags :</span>
+    <span class="tag">Contrat de mariage</span>
+    <span class="tag">Succession</span>
+    <span class="tag">Conjoint survivant</span>
+    <span class="tag">Transmission</span>
+    <span class="tag">Droit de la famille</span>
+    <span class="tag">Donation</span>
+  </div>
+
+  <div class="retour-bas">
+    <a class="btn-retour" href="theme-droit-structures.html">← Droit &amp; Structures</a>
+    <a class="btn-retour" href="index.html">Accueil</a>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="theme-droit-structures.html">Droit &amp; Structures</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
