@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trésorerie d'entreprise : l'usufruit temporaire de SCPI — PatrimoineExpert</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;--green:#2D6A4F;--red:#9B2226}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:"Playfair Display",Georgia,serif;font-size:16px;line-height:1.65}
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-right{display:flex;align-items:center;gap:1.5rem}
+    .nav-back{font-family:"DM Sans",sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+    .nav-sim{font-family:"DM Sans",sans-serif;font-size:12px;color:var(--gold);text-decoration:none;letter-spacing:.06em;border:1px solid var(--gold);padding:6px 14px}
+    .article-header{background:var(--white);border-bottom:1px solid var(--rule);padding:4rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+    .article-cat{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .article-title{font-size:clamp(24px,4vw,38px);font-weight:400;line-height:1.18;margin-bottom:1.25rem}
+    .article-intro{font-family:"DM Sans",sans-serif;font-size:15px;color:var(--ink2);max-width:560px;margin:0 auto 2rem;line-height:1.75;font-weight:300}
+    .article-meta{font-family:"DM Sans",sans-serif;font-size:12px;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:10px}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);display:inline-block}
+    .gold-rule{width:36px;height:1px;background:var(--gold);margin:2rem auto 0}
+    .article-body{max-width:680px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .article-body p{font-family:"DM Sans",sans-serif;font-size:16px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1.5rem}
+    .article-body h2{font-family:"Playfair Display",serif;font-size:24px;font-weight:400;color:var(--ink);margin:3rem 0 1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule)}
+    .article-body h3{font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .article-body strong{font-family:"DM Sans",sans-serif;font-weight:500;color:var(--ink)}
+    .article-body ul,.article-body ol{font-family:"DM Sans",sans-serif;font-size:15.5px;color:var(--ink2);line-height:1.75;font-weight:300;padding-left:1.25rem;margin-bottom:1.5rem}
+    .article-body li{margin-bottom:.5rem}
+    .article-body ul li::marker{color:var(--gold)}
+    .article-body ol li::marker{color:var(--gold);font-weight:500}
+    blockquote{border-left:3px solid var(--gold);padding:1rem 1.5rem;margin:2rem 0;background:var(--white);font-family:"Playfair Display",serif;font-style:italic;font-size:18px;color:var(--ink2)}
+    .encadre{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0}
+    .encadre-titre{font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .encadre p{margin-bottom:0!important;font-size:15px!important}
+    .formule{background:var(--white);border:1px solid var(--rule);padding:1.25rem 1.5rem;margin:2rem 0;font-family:"DM Sans",sans-serif;font-size:15px;color:var(--ink);text-align:center;letter-spacing:.03em}
+    .formule strong{color:var(--gold)}
+    .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2rem 0}
+    .pros,.cons{background:var(--white);padding:1.5rem}
+    .pros-title{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;font-weight:500}
+    .cons-title{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;font-weight:500}
+    .pros ul,.cons ul{font-family:"DM Sans",sans-serif;font-size:13.5px;color:var(--ink2);line-height:1.7;font-weight:300;padding-left:1rem;margin:0}
+    .pros ul li::marker{color:var(--green)}
+    .cons ul li::marker{color:var(--red)}
+    .profil-table{width:100%;border-collapse:collapse;font-family:"DM Sans",sans-serif;font-size:13.5px;margin:2rem 0}
+    .profil-table th{background:#1B2A4A;color:#fff;padding:.75rem 1rem;text-align:left;font-size:11px;letter-spacing:.08em;font-weight:500;border:1px solid rgba(255,255,255,.1)}
+    .profil-table td{background:var(--white);padding:.9rem 1rem;border:1px solid var(--rule);color:var(--ink2);font-weight:300;line-height:1.5;vertical-align:top}
+    .profil-table tr:nth-child(even) td{background:#FDFCF9}
+    .separateur{width:40px;height:1px;background:var(--gold);margin:3rem auto}
+    .article-tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .tags-label{font-family:"DM Sans",sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em}
+    .tag{font-family:"DM Sans",sans-serif;font-size:11px;color:var(--ink3);background:var(--white);border:1px solid var(--rule);padding:3px 10px}
+    .retour-bas{text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-retour{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:"DM Sans",sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:"DM Sans",sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+    @media(max-width:680px){nav{padding:0 1.25rem}.article-header{padding:3rem 1.5rem 2.5rem}.article-body{padding:2.5rem 1.25rem 4rem}.pros-cons{grid-template-columns:1fr}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <div class="nav-right">
+    <a class="nav-back" href="theme-gestion-entreprise.html">← Gestion d'entreprise</a>
+  </div>
+</nav>
+<div style="background:var(--white);border-bottom:1px solid var(--rule)">
+  <div class="article-header">
+    <div class="article-cat">Gestion & Pilotage d'entreprise · Trésorerie</div>
+    <h1 class="article-title">Trésorerie d'entreprise : l'usufruit temporaire de SCPI</h1>
+    <p class="article-intro">Placer sa trésorerie excédentaire en usufruit temporaire de SCPI : un mécanisme peu connu mais redoutablement efficace pour les sociétés à l'IS, alliant rendement boosté et fiscalité quasi nulle.</p>
+    <div class="article-meta">
+      <span>8 min de lecture</span><span class="meta-dot"></span><span>Niveau intermédiaire</span>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+</div>
+<article class="article-body">
+
+  <h2>Le concept : comment ça fonctionne ?</h2>
+
+  <p>Le mécanisme repose sur le <strong>démembrement temporaire de propriété</strong>. Les parts de SCPI sont séparées en deux pendant une durée déterminée à l'avance, généralement entre 3 et 20 ans :</p>
+
+  <ul>
+    <li><strong>La nue-propriété</strong> : conservée ou achetée par un tiers — souvent un particulier recherchant des revenus futurs non fiscalisés.</li>
+    <li><strong>L'usufruit</strong> : acheté par votre entreprise.</li>
+  </ul>
+
+  <blockquote>Vous n'achetez qu'une fraction de la valeur de la part — mais votre entreprise perçoit 100 % des loyers pendant toute la durée du démembrement.</blockquote>
+
+  <p>La valeur de l'usufruit représente généralement <strong>15 % à 35 %</strong> de la pleine propriété. En contrepartie, votre entreprise encaisse l'intégralité des distributions de la SCPI durant toute la période convenue.</p>
+
+  <h2>Les avantages pour votre entreprise</h2>
+
+  <h3>1. Un rendement démultiplié par l'effet de levier</h3>
+  <p>Puisque votre entreprise ne paie qu'une fraction du prix de la part mais perçoit l'intégralité des loyers, le rendement sur le capital réellement investi est mécaniquement supérieur au rendement affiché de la SCPI.</p>
+
+  <div class="encadre">
+    <div class="encadre-titre">Exemple chiffré</div>
+    <p>Pour une SCPI affichant un rendement de 5 % par an en pleine propriété, le rendement sur la trésorerie investie en usufruit peut s'élever à <strong>8 % ou 10 % par an</strong> selon la durée et la décote appliquée.</p>
+  </div>
+
+  <h3>2. Une fiscalité optimisée grâce à l'amortissement</h3>
+  <p>C'est le point fort majeur pour les sociétés soumises à l'Impôt sur les Sociétés. L'usufruit étant un actif à durée de vie limitée qui s'éteint à la fin de la période, il est <strong>comptablement amortissable</strong>.</p>
+
+  <ul>
+    <li>Chaque année, une quote-part du prix d'achat est déduite du bénéfice imposable.</li>
+    <li>Les revenus fonciers perçus sont en grande partie, voire totalement, neutralisés par cet amortissement.</li>
+    <li>La fiscalité réelle sur ce placement est <strong>proche de zéro</strong>.</li>
+  </ul>
+
+  <h3>3. Une visibilité parfaite sur la durée</h3>
+  <p>La durée du placement et les conditions de sortie sont connues dès la signature. À l'extinction de l'usufruit, celui-ci rejoint automatiquement la nue-propriété, <strong>sans démarche ni coût de sortie</strong> pour l'entreprise.</p>
+
+  <h3>4. Une gestion totalement déléguée</h3>
+  <p>Contrairement à l'immobilier physique, votre entreprise n'a aucune gestion opérationnelle : pas de locataires à trouver, pas de travaux à superviser. La société de gestion de la SCPI s'occupe de tout.</p>
+
+  <h2>Les points de vigilance</h2>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <div class="pros-title">✓ Avantages</div>
+      <ul>
+        <li>Rendement boosté par l'effet de levier du démembrement</li>
+        <li>Amortissement comptable neutralisant la fiscalité sur les loyers</li>
+        <li>Durée et conditions de sortie connues dès le départ</li>
+        <li>Aucune gestion opérationnelle</li>
+        <li>Revenus réguliers pendant toute la durée</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <div class="cons-title">✗ Inconvénients</div>
+      <ul>
+        <li>Absence de capital à terme : l'usufruit s'éteint à valeur zéro</li>
+        <li>Risque de vacance locative (rendement non garanti)</li>
+        <li>Illiquidité : la trésorerie est bloquée pour toute la durée</li>
+        <li>Réservé aux sociétés à l'IS</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Pour quel profil d'entreprise ?</h2>
+
+  <table class="profil-table">
+    <thead>
+      <tr>
+        <th>Profil de l'entreprise</th>
+        <th>Objectif recherché</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sociétés soumises à l'IS (Holding, SAS, SARL, professions libérales…)</td>
+        <td>Neutraliser l'impôt grâce à l'amortissement comptable</td>
+      </tr>
+      <tr>
+        <td>Trésorerie stable à moyen terme (3 à 20 ans)</td>
+        <td>Valoriser des excédents dont l'entreprise n'a pas besoin immédiatement</td>
+      </tr>
+      <tr>
+        <td>Besoin de revenus réguliers</td>
+        <td>Financer le train de vie d'une holding ou préparer le remboursement d'une dette future</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="separateur"></div>
+
+  <p>L'usufruit temporaire de SCPI est une stratégie de niche, peu connue, mais redoutablement efficace pour les dirigeants disposant d'une trésorerie excédentaire stable. Elle combine rendement supérieur, optimisation fiscale et absence de gestion — au prix d'une immobilisation de la trésorerie sur la durée choisie.</p>
+
+  <div class="article-tags">
+    <span class="tags-label">Tags :</span>
+    <span class="tag">SCPI</span><span class="tag">Usufruit</span><span class="tag">Trésorerie</span><span class="tag">IS</span><span class="tag">Amortissement</span><span class="tag">Démembrement</span><span class="tag">Holding</span>
+  </div>
+  <div class="retour-bas">
+    <a class="btn-retour" href="theme-gestion-entreprise.html">← Retour à la thématique</a>
+    <a class="btn-retour" href="index.html">Accueil</a>
+  </div>
+</article>
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="theme-gestion-entreprise.html">Gestion d'entreprise</a></li>
+  </ul>
+</footer>
+</body>
+</html>
