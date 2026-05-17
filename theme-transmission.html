@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fiscalité — PatrimoineExpert</title>
+  <title>Transmission patrimoniale — PatrimoineExpert</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -24,9 +24,8 @@
     .wrap{max-width:900px;margin:0 auto;padding:3.5rem 2.5rem}
     .sec-eyebrow{font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
     .sec-heading{font-size:22px;font-weight:400;color:var(--ink);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:2rem}
-    .sub-eyebrow{font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:3rem 0 .5rem;padding-top:2rem;border-top:1px solid var(--rule)}
-    .sub-heading{font-size:18px;font-weight:400;color:var(--ink);margin-bottom:1.5rem}
-    .articles-list{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:1rem}
+    .sub-label{font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:2.5rem 0 .5rem;padding-top:1.5rem;border-top:1px solid var(--rule)}
+    .articles-list{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem}
     .article-card{background:var(--white);padding:2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;border-left:3px solid transparent;transition:background .15s,border-color .15s;text-decoration:none;color:inherit}
     .article-card:hover{background:var(--cream);border-left-color:var(--gold)}
     .article-card.featured{grid-template-columns:1fr;padding:2.25rem 2rem}
@@ -52,56 +51,33 @@
 </nav>
 <div style="background:var(--white);border-bottom:1px solid var(--rule)">
   <div class="hero">
-    <div class="hero-eyebrow">Thématique 03</div>
-    <h1>Fiscalité</h1>
-    <p class="hero-desc">Fiscalité des particuliers et des entreprises : IR, PFU, IFI, niches fiscales, TVA et optimisation légale.</p>
+    <div class="hero-eyebrow">Thématique 09</div>
+    <h1>Transmission patrimoniale</h1>
+    <p class="hero-desc">Succession, donation, démembrement de propriété et stratégies de transmission.</p>
     <div class="gold-rule"></div>
   </div>
 </div>
 <div class="wrap">
-
-  <!-- SOUS-PARTIE PARTICULIERS -->
-  <div class="sec-eyebrow">Sous-partie</div>
-  <div class="sec-heading">Fiscalité des particuliers</div>
+  <div class="sec-eyebrow">Articles</div>
+  <div class="sec-heading">Toutes les fiches</div>
   <div class="articles-list">
-    <a class="article-card featured" href="article-pfu.html">
-      <div>
-        <div class="article-cat">Fiscalité · Revenus du capital</div>
-        <div class="article-title">Le PFU (Flat Tax) : fonctionnement et cas d'usage</div>
-        <div class="article-excerpt">Le Prélèvement Forfaitaire Unique de 30% s'applique à la plupart des revenus du capital. Dividendes, intérêts, plus-values… voici comment ce mécanisme fonctionne concrètement.</div>
-        <div class="article-meta-inline">7 min · Essentiel</div>
-      </div>
-    </a>
-    <a class="article-card" href="article-ifi.html">
-      <div>
-        <div class="article-cat">Fiscalité · Impôts sur le patrimoine</div>
-        <div class="article-title">L'IFI : qui est concerné, comment le calculer, comment le réduire</div>
-      </div>
-      <div class="article-meta">8 min · Intermédiaire</div>
-    </a>
-    <a class="article-card" href="article-defiscalisation.html">
-      <div>
-        <div class="article-cat">Fiscalité · Optimisation</div>
-        <div class="article-title">Les principales niches fiscales : Pinel, Girardin, Malraux…</div>
-      </div>
-      <div class="article-meta">8 min · Intermédiaire</div>
-    </a>
+      <a class="article-card featured" href="article-succession.html">
+        <div>
+          <div class="article-cat">Transmission</div>
+          <div class="article-title">La succession : abattements, droits et stratégies d'anticipation</div>
+          <div class="article-excerpt">Les droits de succession peuvent être très lourds. Mais avec les bons outils — donation, assurance-vie, démembrement — il est possible de transmettre son patrimoine dans des conditions optimales.</div>
+        </div>
+        <div class="article-meta-inline">10 min · Intermédiaire</div>
+      </a>
+      <a class="article-card" href="article-demembrement.html">
+        <div>
+          <div class="article-cat">Transmission · Droit</div>
+          <div class="article-title">Le démembrement de propriété : usufruit, nue-propriété et optimisation fiscale</div>
+          
+        </div>
+        <div class="article-meta">11 min · Intermédiaire</div>
+      </a>
   </div>
-
-  <!-- SOUS-PARTIE ENTREPRISES -->
-  <div class="sub-eyebrow">Sous-partie</div>
-  <div class="sub-heading">Fiscalité des entreprises</div>
-  <div class="articles-list">
-    <a class="article-card featured" href="article-tva.html">
-      <div>
-        <div class="article-cat">Fiscalité · Entreprises</div>
-        <div class="article-title">La TVA : mécanisme, taux et récupération</div>
-        <div class="article-excerpt">La TVA est l'impôt le plus courant mais aussi le plus mal compris. Comment fonctionne le mécanisme de collecte et de déduction, et quels sont les taux applicables en France ?</div>
-        <div class="article-meta-inline">6 min · Essentiel</div>
-      </div>
-    </a>
-  </div>
-
 </div>
 <footer>
   <div class="footer-left">© 2026 PatrimoineExpert</div>
