@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plan type d'une analyse financière — Fiche pratique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;
+      --white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;
+      --rule:#E2E0D8;--blue-dark:#1B2A4A;--blue:#2C4A7C;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 2rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    .fiche-header{background:var(--blue-dark);padding:2.5rem 2rem;text-align:center}
+    .fiche-badge{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1rem;display:inline-block;border:1px solid rgba(201,168,76,.4);padding:4px 12px}
+    .fiche-header h1{font-size:clamp(20px,3vw,30px);font-weight:400;color:#fff;line-height:1.25}
+    .fiche-header h1 em{font-style:italic;color:var(--gold-light)}
+
+    .wrap{max-width:820px;margin:0 auto;padding:3rem 2rem 5rem}
+
+    /* CITATION */
+    .citation{background:var(--white);border-left:4px solid var(--gold);padding:1.5rem 2rem;margin-bottom:3rem;font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--ink2);line-height:1.75}
+
+    /* BLOCS PARTIES */
+    .partie{margin-bottom:2rem;border:1px solid var(--rule);background:var(--white)}
+
+    .partie-header{background:var(--blue-dark);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}
+    .partie-num{font-family:'DM Sans',sans-serif;font-size:22px;color:var(--gold);font-weight:300;width:32px;flex-shrink:0}
+    .partie-title{font-size:18px;font-weight:400;color:#fff;line-height:1.2}
+
+    .partie-body{padding:1.5rem}
+    .sous-points{list-style:none;padding:0;display:flex;flex-direction:column;gap:0}
+    .sous-points li{
+      font-family:'DM Sans',sans-serif;
+      font-size:14.5px;
+      color:var(--ink2);
+      font-weight:300;
+      padding:.85rem 1rem;
+      border-bottom:1px solid var(--rule);
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+    .sous-points li:last-child{border-bottom:none}
+    .sous-points li::before{content:'→';color:var(--gold);font-weight:500;flex-shrink:0}
+    .sous-points li strong{font-family:'DM Sans',sans-serif;font-weight:500;color:var(--ink)}
+
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s;margin-top:2.5rem}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:640px){
+      nav{padding:0 1rem}
+      .wrap{padding:2rem 1rem 4rem}
+      footer{flex-direction:column;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="fiches-pratiques.html">← Fiches pratiques</a>
+</nav>
+
+<div class="fiche-header">
+  <div class="fiche-badge">Fiche pratique · Finance d'entreprise</div>
+  <h1>Plan type d'une <em>analyse financière</em></h1>
+</div>
+
+<div class="wrap">
+
+  <!-- CITATION -->
+  <div class="citation">
+    « La génération de richesse (évolution de l'activité, étude de la formation des marges)… nécessite des investissements (immobilisations, BFR)… qui doivent être financés (par autofinancement, capitaux propres ou endettement bancaire et financier) et être suffisamment rentables (rentabilité économique et rentabilité des capitaux propres, effet de levier). »
+  </div>
+
+  <!-- PARTIE 1 -->
+  <div class="partie">
+    <div class="partie-header">
+      <div class="partie-num">1</div>
+      <div class="partie-title">La création de richesse</div>
+    </div>
+    <div class="partie-body">
+      <ul class="sous-points">
+        <li><strong>L'évolution du chiffre d'affaires</strong></li>
+        <li><strong>L'analyse des marges</strong></li>
+        <li><strong>L'effet ciseau</strong></li>
+        <li><strong>Le point mort</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PARTIE 2 -->
+  <div class="partie">
+    <div class="partie-header">
+      <div class="partie-num">2</div>
+      <div class="partie-title">L'analyse des investissements</div>
+    </div>
+    <div class="partie-body">
+      <ul class="sous-points">
+        <li><strong>L'étude de l'état de l'outil industriel</strong></li>
+        <li><strong>L'étude de la politique d'investissement</strong></li>
+        <li><strong>Le Besoin en Fonds de Roulement (BFR)</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PARTIE 3 -->
+  <div class="partie">
+    <div class="partie-header">
+      <div class="partie-num">3</div>
+      <div class="partie-title">L'analyse des financements</div>
+    </div>
+    <div class="partie-body">
+      <ul class="sous-points">
+        <li><strong>La capacité d'autofinancement</strong></li>
+        <li><strong>Le tableau de financement</strong></li>
+        <li><strong>Les ratios d'endettement et de liquidité</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PARTIE 4 -->
+  <div class="partie">
+    <div class="partie-header">
+      <div class="partie-num">4</div>
+      <div class="partie-title">L'analyse des rentabilités</div>
+    </div>
+    <div class="partie-body">
+      <ul class="sous-points">
+        <li><strong>La rentabilité économique</strong></li>
+        <li><strong>La rentabilité financière</strong></li>
+        <li><strong>L'effet de levier</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align:center">
+    <a class="btn-retour" href="fiches-pratiques.html">← Retour aux fiches</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert · Fiche pratique</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="fiches-pratiques.html">Fiches pratiques</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
