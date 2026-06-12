@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guide cession d'entreprise — Fiche pratique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;
+      --white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;
+      --rule:#E2E0D8;--blue-dark:#1B2A4A;--blue:#2C4A7C;--blue-mid:#3A5F8F;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.6}
+
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 2rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    .fiche-header{background:var(--blue-dark);padding:2.5rem 2rem;text-align:center}
+    .fiche-badge{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1rem;display:inline-block;border:1px solid rgba(201,168,76,.4);padding:4px 12px}
+    .fiche-header h1{font-size:clamp(18px,3vw,28px);font-weight:400;color:#fff;line-height:1.25}
+    .fiche-header h1 em{font-style:italic;color:var(--gold-light)}
+
+    .wrap{max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem 5rem;overflow-x:auto}
+
+    /* TABLEAU */
+    .tableau{width:100%;border-collapse:collapse;min-width:860px;font-family:'DM Sans',sans-serif;font-size:12.5px}
+
+    /* EN-TÊTE COLONNES */
+    .th-vide{background:var(--cream);border:1px solid var(--rule)}
+    .th-col{color:#fff;text-align:center;padding:.85rem 1rem;font-size:12px;font-weight:500;letter-spacing:.04em;border:1px solid rgba(255,255,255,.15);vertical-align:middle;line-height:1.4}
+    .th-col.is-titres{background:var(--blue-dark)}
+    .th-col.is-fonds{background:var(--blue)}
+    .th-col.ir{background:var(--blue-mid)}
+
+    /* LIGNE CRITÈRE */
+    .td-critere{
+      background:var(--cream);
+      padding:.9rem 1rem;
+      border:1px solid var(--rule);
+      font-weight:500;
+      color:var(--ink);
+      font-size:12.5px;
+      vertical-align:middle;
+      width:16%;
+    }
+
+    /* CELLULES */
+    .td{background:var(--white);padding:.9rem 1rem;vertical-align:top;border:1px solid var(--rule);color:var(--ink2);line-height:1.6;font-weight:300}
+    .td p{margin-bottom:.4rem}
+    .td p:last-child{margin-bottom:0}
+
+    tr:nth-child(even) .td{background:#FDFCF9}
+    tr:nth-child(even) .td-critere{background:#F5F2EC}
+
+    /* BADGE */
+    .badge-exo{display:inline-block;background:#EAF4EE;color:#2D6A4F;font-weight:500;font-size:11px;padding:2px 8px;border-radius:2px}
+    .badge-attention{display:inline-block;background:#FDF0E0;color:#B85C00;font-weight:500;font-size:11px;padding:2px 8px;border-radius:2px}
+
+    .btn-retour{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:11px 30px;text-decoration:none;display:inline-block;transition:background .15s,color .15s;margin-top:2.5rem}
+    .btn-retour:hover{background:var(--gold);color:var(--white)}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:680px){nav{padding:0 1rem}.wrap{padding:1.5rem 1rem 4rem}footer{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="fiches-pratiques.html">← Fiches pratiques</a>
+</nav>
+
+<div class="fiche-header">
+  <div class="fiche-badge">Fiche pratique · Finance d'entreprise</div>
+  <h1>Guide <em>cession d'entreprise</em></h1>
+</div>
+
+<div class="wrap">
+<table class="tableau">
+  <thead>
+    <tr>
+      <td class="th-vide"></td>
+      <th class="th-col is-titres">Société à l'IS<br>Cession des TITRES</th>
+      <th class="th-col is-fonds">Société à l'IS<br>Cession du FONDS</th>
+      <th class="th-col ir">Société à l'IR<br>Cession des TITRES ou du FONDS</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="td-critere">Qui encaisse le prix de vente ?</td>
+      <td class="td">L'associé (personne physique) ou la Holding (personne morale).</td>
+      <td class="td">La société (personne morale).</td>
+      <td class="td">L'associé, via la transparence de la société.</td>
+    </tr>
+
+    <tr>
+      <td class="td-critere">Qui est imposé ?</td>
+      <td class="td">L'associé vendeur.</td>
+      <td class="td">
+        <p>La société.</p>
+        <p>Puis l'associé s'il sort l'argent.</p>
+      </td>
+      <td class="td">
+        <p>L'associé directement, au prorata de ses parts.</p>
+        <p>Ou via la quote-part de résultat si cession du fonds.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="td-critere">Régime fiscal de la plus-value</td>
+      <td class="td">Plus-value sur valeurs mobilières.</td>
+      <td class="td">Plus-value professionnelle classique de l'entreprise.</td>
+      <td class="td">Plus-value professionnelle (régime Court Terme / Long Terme).</td>
+    </tr>
+
+    <tr>
+      <td class="td-critere">Taux d'imposition</td>
+      <td class="td">Flat tax ou option barème progressif de l'IR.</td>
+      <td class="td">
+        <p>IS au niveau de la société.</p>
+        <p>Puis flat tax si distribution du profit en dividendes.</p>
+      </td>
+      <td class="td">
+        <p>Barème progressif de l'IR (+ charges sociales si exploitant) pour le Court Terme.</p>
+        <p>Flat tax pour le Long Terme.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="td-critere">Régime si l'associé est une Holding (PM)</td>
+      <td class="td"><span class="badge-exo">Exonération quasi-totale</span> — Régime long terme : seule une quote-part de 12 % est taxée.</td>
+      <td class="td">Non applicable. L'IS est payé par la filiale cédée ; la holding ne perçoit des fonds que sous forme de dividende.</td>
+      <td class="td">La plus-value ou la quote-part remonte et est intégrée au résultat de la holding.</td>
+    </tr>
+
+    <tr>
+      <td class="td-critere">Principaux leviers d'exonération</td>
+      <td class="td">Abattement fixe de 500 000 € pour départ à la retraite du dirigeant.</td>
+      <td class="td">
+        <p>Aucun au niveau de l'IS.</p>
+        <p><span class="badge-attention">À noter</span> Le repreneur peut toutefois amortir le fonds de commerce.</p>
+      </td>
+      <td class="td">
+        <p>Nombreux dispositifs cumulables :</p>
+        <p>• Art. 151 septies (selon le chiffre d'affaires)</p>
+        <p>• Art. 238 quindecies (selon la valeur du fonds)</p>
+        <p>• Art. 151 septies A (retraite)</p>
+        <p>• Etc.</p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div style="text-align:center">
+  <a class="btn-retour" href="fiches-pratiques.html">← Retour aux fiches</a>
+</div>
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert · Fiche pratique</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="fiches-pratiques.html">Fiches pratiques</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
