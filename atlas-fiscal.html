@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atlas Fiscal Mondial — PatrimoineExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#A8884A;--gold-light:#C4A35A;--cream:#FAFAF7;--white:#FFFFFF;--ink:#1A1A18;--ink2:#4A4A44;--ink3:#8A8A80;--rule:#E2E0D8;--blue-dark:#1B2A4A;}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--cream);color:var(--ink);font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.65}
+
+    nav{background:var(--white);border-bottom:1px solid var(--rule);padding:0 3rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .brand{font-size:18px;letter-spacing:.03em;color:var(--ink);text-decoration:none}
+    .brand em{font-style:italic;color:var(--gold)}
+    .nav-back{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink3);text-decoration:none;letter-spacing:.05em;transition:color .15s}
+    .nav-back:hover{color:var(--gold)}
+
+    /* HERO */
+    .hero{background:var(--blue-dark);padding:4rem 2.5rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(201,168,76,.1) 0%,transparent 70%);pointer-events:none}
+    .hero-eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1.2rem;display:inline-block;border:1px solid rgba(201,168,76,.3);padding:4px 14px}
+    .hero h1{font-size:clamp(26px,4vw,42px);font-weight:400;color:#fff;line-height:1.15;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--gold-light)}
+    .hero-desc{font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,255,255,.6);max-width:560px;margin:0 auto 2.5rem;line-height:1.75;font-weight:300}
+    .hero-meta{display:flex;justify-content:center;gap:2.5rem;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em;margin-bottom:2.5rem}
+    .hero-meta span{display:flex;flex-direction:column;align-items:center;gap:4px}
+    .hero-meta strong{font-size:22px;color:var(--gold-light);font-weight:300;letter-spacing:-.01em}
+
+    /* BOUTON LANCER */
+    .btn-launch{font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-dark);background:var(--gold-light);border:none;padding:14px 36px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s;font-weight:500}
+    .btn-launch:hover{background:#D4B06A}
+
+    /* WRAP */
+    .wrap{max-width:900px;margin:0 auto;padding:3.5rem 2.5rem}
+
+    /* MÉTRIQUES */
+    .metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:4rem}
+    .metric-card{background:var(--white);padding:1.5rem 1.25rem;text-align:center;transition:background .15s}
+    .metric-card:hover{background:var(--cream)}
+    .metric-num{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);letter-spacing:.08em;margin-bottom:.6rem}
+    .metric-name{font-size:15px;font-weight:400;color:var(--ink);margin-bottom:.4rem}
+    .metric-desc{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ink3);font-weight:300;line-height:1.5}
+
+    /* NOTE */
+    .note{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:1.25rem 1.75rem;margin-bottom:3rem}
+    .note p{font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--ink2);line-height:1.7;font-weight:300}
+
+    /* LANCER CENTRÉ */
+    .launch-row{text-align:center;margin-bottom:4rem}
+    .btn-launch-outline{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:12px 32px;text-decoration:none;display:inline-block;transition:background .15s,color .15s}
+    .btn-launch-outline:hover{background:var(--gold);color:var(--white)}
+
+    footer{background:var(--white);border-top:1px solid var(--rule);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-left{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3)}
+    .footer-links{display:flex;gap:1.5rem;list-style:none}
+    .footer-links a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);text-decoration:none}
+    .footer-links a:hover{color:var(--gold)}
+
+    @media(max-width:680px){nav{padding:0 1.25rem}.wrap{padding:2.5rem 1.25rem}.metrics-grid{grid-template-columns:repeat(2,1fr)}.hero-meta{gap:1.5rem}footer{flex-direction:column;text-align:center;padding:1.5rem}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Patrimoine<em>Expert</em></a>
+  <a class="nav-back" href="index.html">← Retour au site</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Cartographie fiscale mondiale</div>
+  <h1>Atlas <em>Fiscal</em> Mondial</h1>
+  <p class="hero-desc">Carte interactive de 65 juridictions. Cliquez sur un pays pour consulter son barème complet : tranches d'IR, IS, TVA, plus-values et fiscalité du patrimoine.</p>
+  <div class="hero-meta">
+    <span><strong>65</strong>Juridictions</span>
+    <span><strong>5</strong>Métriques</span>
+    <span><strong>2025</strong>Millésime</span>
+  </div>
+  <a class="btn-launch" href="atlas-fiscal-monde.html" target="_blank">Ouvrir la carte interactive →</a>
+</div>
+
+<div class="wrap">
+
+  <!-- MÉTRIQUES DISPONIBLES -->
+  <div style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">Métriques disponibles sur la carte</div>
+  <div style="font-size:20px;font-weight:400;padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:2rem">5 indicateurs fiscaux comparables</div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-num">01</div>
+      <div class="metric-name">Revenu (IR)</div>
+      <div class="metric-desc">Taux marginal supérieur de l'impôt sur le revenu</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">02</div>
+      <div class="metric-name">Sociétés (IS)</div>
+      <div class="metric-desc">Taux plein de l'impôt sur les sociétés</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">03</div>
+      <div class="metric-name">TVA</div>
+      <div class="metric-desc">Taux normal de taxe sur la valeur ajoutée</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">04</div>
+      <div class="metric-name">Plus-values</div>
+      <div class="metric-desc">Taux marginal sur les plus-values mobilières</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">05</div>
+      <div class="metric-name">Patrimoine</div>
+      <div class="metric-desc">Existence ou non d'une fiscalité sur la fortune</div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note">
+    <p>Barèmes principaux 2025-2026, simplifiés — hors quotients familiaux, abattements locaux, régimes territoriaux et conventions fiscales bilatérales. Outil de repère, à vérifier avant toute recommandation. Sources : Tax Foundation, PwC WWTS, textes nationaux.</p>
+  </div>
+
+  <div class="launch-row">
+    <a class="btn-launch-outline" href="atlas-fiscal-monde.html" target="_blank">Ouvrir l'atlas en plein écran →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 PatrimoineExpert · Atlas Fiscal Mondial</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="fiches-pratiques.html">Fiches pratiques</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
