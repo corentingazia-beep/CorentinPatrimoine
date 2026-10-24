@@ -1,0 +1,432 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Simulateur de point mort</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  /* Mise en page : en-tête marine, colonne de saisie à gauche, résultats et graphique à droite ; une colonne sur mobile.
+     Palette : blanc, bleu marine, or ; contrat A en rouge, contrat B en vert. */
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --ink: #0f1e3d;
+    --muted: #586277;
+    --line: #e8e0cd;
+    --field: #ffffff;
+    --gold: #b8964a;
+    --gold-ink: #86671f;
+    --hero: #ffffff;
+    --hero-ink: #0f1e3d;
+    --hero-byline: #86671f;
+    --hero-lead: #586277;
+    --a: #a8231c;
+    --a-soft: #f8e7e5;
+    --b: #1d7a4d;
+    --b-soft: #e3f1e9;
+    --focus: #86671f;
+    --font-display: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    --font-ui: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-num: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    padding-block: 28px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .hero {
+    background: var(--hero);
+    color: var(--hero-ink);
+    border-radius: 6px;
+    padding: clamp(22px, 4vw, 38px) clamp(18px, 4vw, 40px);
+    margin-bottom: 22px;
+    box-shadow: inset 0 -3px 0 var(--gold);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  .byline { margin: 0 0 14px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hero-byline); font-weight: 500; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: 0.005em; text-wrap: balance; }
+  .hero p.lead { margin: 0; color: var(--hero-lead); max-width: 60ch; font-size: 0.98rem; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+  .controls { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .panel h2 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold-ink); font-weight: 600; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .panel .hint { color: var(--muted); font-size: 0.82rem; margin: -4px 0 14px; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label, .field > .lab { font-size: 0.88rem; font-weight: 500; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+
+  .inp { position: relative; min-width: 0; }
+  .inp input {
+    width: 100%;
+    font: inherit;
+    font-family: var(--font-num);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--field);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 9px 46px 9px 11px;
+    min-width: 0;
+    text-align: right;
+  }
+  .inp .unit { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.78rem; pointer-events: none; }
+  .inp.a input { border-left: 3px solid var(--a); }
+  .inp.b input { border-left: 3px solid var(--b); }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .split { display: flex; align-items: center; font-size: 0.85rem; color: var(--muted); min-width: 0; }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .names input {
+    width: 100%; min-width: 0; font: inherit; font-weight: 600; color: var(--ink);
+    background: var(--field); border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px;
+  }
+  .names .a input { border-top: 3px solid var(--a); }
+  .names .b input { border-top: 3px solid var(--b); }
+
+  .results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .durbar { display: grid; gap: 12px; }
+  .durtop { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .durtop label { font-weight: 600; }
+  .durval { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1; }
+  input[type="range"] { width: 100%; accent-color: var(--gold); margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 0.85rem;
+    background: var(--field); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); font-weight: 600; }
+
+  .verdict { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); line-height: 1.2; font-weight: 600; margin: 0 0 8px; text-wrap: balance; }
+  .verdict .gain { color: var(--gold-ink); }
+  .cross { margin: 0; color: var(--muted); font-size: 0.92rem; max-width: 68ch; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; }
+  .card.a { border-top: 3px solid var(--a); }
+  .card.b { border-top: 3px solid var(--b); }
+  .card .nm { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 8px; min-width: 0; }
+  .card .nm span:first-child { overflow-wrap: anywhere; }
+  .pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .card.a .pill { background: var(--a-soft); color: var(--a); }
+  .card.b .pill { background: var(--b-soft); color: var(--b); }
+  .card .big { font-family: var(--font-display); font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); font-weight: 600; line-height: 1.05; }
+  .card dl { margin: 12px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.86rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; text-align: right; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { display: inline-block; width: 22px; height: 0; border-top: 3px solid; }
+  .legend i.ref { border-top: 2px dashed var(--gold); }
+  .legend i.la { border-color: var(--a); }
+  .legend i.lb { border-color: var(--b); }
+
+  .chartbox { position: relative; width: 100%; }
+  .chartbox svg { display: block; width: 100%; touch-action: pan-y; cursor: crosshair; }
+  .tip {
+    position: absolute; top: 8px; pointer-events: none; z-index: 2;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--gold);
+    border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; min-width: 170px;
+    box-shadow: 0 6px 18px rgba(15, 30, 61, 0.18);
+  }
+  .tip[hidden] { display: none; }
+  .tip .when { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+  .tip .row { display: flex; justify-content: space-between; gap: 14px; }
+  .tip .row b { font-weight: 500; }
+  .tip .row .k { color: var(--muted); }
+  .tip .row .k.a { color: var(--a); font-weight: 600; }
+  .tip .row .k.b { color: var(--b); font-weight: 600; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 560px; }
+  th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-ink); font-weight: 600; }
+  td:first-child { font-weight: 500; }
+  tr.sel td { background: var(--field); font-weight: 600; }
+
+  .note { color: var(--muted); font-size: 0.8rem; margin: 0; max-width: 78ch; }
+
+  .owner { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--gold); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+  .owner .who { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin: 0; }
+  .owner .who small { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink); font-weight: 500; margin-left: 8px; }
+  .owner .rights { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .panel { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { transition: background 0.12s, color 0.12s; }
+  }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .kpi { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; border-top: 3px solid var(--gold); }
+  .kpi .t { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-ink); font-weight: 600; margin: 0 0 6px; }
+  .kpi .big { font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.4rem); font-weight: 600; line-height: 1.05; }
+  .kpi .sub { color: var(--muted); font-size: 0.84rem; margin: 6px 0 0; }
+  .kpi.good .big { color: var(--b); }
+  .kpi.bad .big { color: var(--a); }
+  .legend i.lca { border-color: var(--ink); }
+  .legend i.lct { border-color: var(--a); }
+  .legend i.lbe { border-top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .tip .row .k.ca { color: var(--ink); font-weight: 600; }
+  .tip .row .k.ct { color: var(--a); font-weight: 600; }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .steps li { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 18px; flex-wrap: wrap; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .steps .lab { font-weight: 500; }
+  .steps .eq { color: var(--muted); font-size: 0.9rem; }
+  .steps .res { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; text-align: right; }
+</style>
+<div class="wrap">
+  <header class="hero">
+    <p class="byline">Gazia Corentin · Ingénieur patrimonial</p>
+    <h1>Simulateur de point mort</h1>
+    <p class="lead">Saisissez le chiffre d’affaires, les charges fixes et les charges variables. Le simulateur calcule la marge sur coûts variables, le point mort, l’écart avec votre chiffre d’affaires et la date à laquelle le seuil est atteint.</p>
+  </header>
+
+  <div class="layout">
+    <div class="controls">
+      <section class="panel" aria-labelledby="h-data">
+        <h2 id="h-data">Vos chiffres</h2>
+        <p class="hint">Montants annuels. Valeurs d’exemple, à remplacer par les vôtres.</p>
+        <div class="field">
+          <label for="ca">Chiffre d’affaires</label>
+          <div class="inp"><input id="ca" type="number" inputmode="decimal" min="0" step="1000" value="170000"><span class="unit">€</span></div>
+        </div>
+        <div class="field">
+          <label for="cf">Charges fixes</label>
+          <div class="inp"><input id="cf" type="number" inputmode="decimal" min="0" step="1000" value="80000"><span class="unit">€</span></div>
+        </div>
+        <div class="field">
+          <label for="cv">Charges variables</label>
+          <div class="inp"><input id="cv" type="number" inputmode="decimal" min="0" step="1000" value="50000"><span class="unit">€</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="results">
+      <section class="panel" aria-label="Résultat">
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+        <p class="cross" id="sub"></p>
+      </section>
+
+      <div class="kpis" id="kpis"></div>
+
+      <section class="panel" aria-labelledby="h-steps">
+        <h2 id="h-steps">Le calcul pas à pas</h2>
+        <ol class="steps" id="steps"></ol>
+      </section>
+
+      <section class="panel" aria-labelledby="h-graph">
+        <h2 id="h-graph">Chiffre d’affaires et coûts totaux</h2>
+        <div class="legend">
+          <span><i class="lca"></i>Chiffre d’affaires</span>
+          <span><i class="lct"></i>Coûts totaux</span>
+          <span><i class="ref"></i>Charges fixes</span>
+          <span><i class="lbe"></i>Point mort</span>
+        </div>
+        <div class="chartbox" id="chartbox">
+          <svg id="chart" role="img" aria-label="Chiffre d’affaires et coûts totaux selon le niveau d’activité"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-pal">
+        <h2 id="h-pal">Si votre chiffre d’affaires varie</h2>
+        <div class="tablewrap"><table id="table"></table></div>
+      </section>
+
+      <p class="note">Modèle simplifié : les charges variables restent proportionnelles au chiffre d’affaires, les charges fixes ne changent pas, et les ventes sont réparties régulièrement sur 365 jours pour situer la date du point mort. Avant impôt.</p>
+    </div>
+  </div>
+
+  <footer class="owner">
+    <p class="who">Gazia Corentin <small>Ingénieur patrimonial</small></p>
+    <p class="rights">Ce simulateur est la propriété de Gazia Corentin. Tous droits réservés.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  var nb = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
+  var fmt = function (n) { return eur.format(Math.round(n)).replace("-", "−"); };
+  var fmtK = function (n) {
+    var a = Math.abs(n);
+    if (a >= 1000000) return (n / 1000000).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " M€";
+    if (a >= 1000) return Math.round(n / 1000).toLocaleString("fr-FR") + " k€";
+    return Math.round(n).toLocaleString("fr-FR") + " €";
+  };
+  var pc = function (x) { return (x * 100).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " %"; };
+  var num = function (id) { var v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
+  var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  function niceStep(max, target) {
+    var rough = max / target, pow = Math.pow(10, Math.floor(Math.log10(rough)));
+    var c = [1, 2, 2.5, 5, 10];
+    for (var i = 0; i < c.length; i++) if (c[i] * pow >= rough) return c[i] * pow;
+    return 10 * pow;
+  }
+  function dateOfDay(d) {
+    var dt = new Date(new Date().getFullYear(), 0, 1);
+    dt.setDate(Math.max(1, Math.ceil(d)));
+    return dt.toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+  }
+
+  var st = null, geo = null;
+
+  function compute() {
+    var ca = num("ca"), cf = num("cf"), cv = num("cv");
+    var s = { ca: ca, cf: cf, cv: cv, mcv: ca - cv };
+    s.ok = ca > 0 && s.mcv > 0;
+    if (s.ok) {
+      s.taux = s.mcv / ca;
+      s.pm = cf / s.taux;
+      s.ecart = ca / s.pm - 1;
+      s.jours = s.pm / ca * 365;
+      s.res = s.mcv - cf;
+      s.marge = ca - s.pm;
+      s.levier = s.res > 0 ? s.mcv / s.res : null;
+    }
+    st = s;
+  }
+
+  function renderText() {
+    var s = st, v = $("verdict"), sub = $("sub");
+    if (!s.ok) {
+      v.textContent = "Le point mort n’existe pas avec ces chiffres.";
+      sub.textContent = s.ca <= 0 ? "Saisissez un chiffre d’affaires supérieur à zéro." : "Les charges variables doivent rester inférieures au chiffre d’affaires, sinon chaque vente augmente la perte.";
+      $("kpis").innerHTML = ""; $("steps").innerHTML = ""; $("table").innerHTML = "";
+      return;
+    }
+    v.innerHTML = "Point mort : <span class=\"gain\">" + fmt(s.pm) + "</span> de chiffre d’affaires.";
+    if (s.jours <= 365) {
+      sub.textContent = "Votre chiffre d’affaires est " + pc(Math.abs(s.ecart)) + (s.ecart >= 0 ? " au-dessus" : " en dessous") + " du point mort. Il est atteint au bout de " + nb.format(Math.round(s.jours)) + " jours, vers le " + dateOfDay(s.jours) + ".";
+    } else {
+      sub.textContent = "Votre chiffre d’affaires est " + pc(Math.abs(s.ecart)) + " en dessous du point mort : il n’est pas atteint dans l’année. Il manque " + fmt(s.pm - s.ca) + " de chiffre d’affaires.";
+    }
+
+    var k = [];
+    k.push(["Point mort", fmt(s.pm), "Charges fixes ÷ taux de marge sur coûts variables", ""]);
+    k.push(["Écart avec le point mort", (s.ecart >= 0 ? "+" : "−") + pc(Math.abs(s.ecart)), s.ecart >= 0 ? "Chiffre d’affaires au-dessus du seuil" : "Chiffre d’affaires sous le seuil", s.ecart >= 0 ? "good" : "bad"]);
+    k.push(["Point mort en jours", s.jours <= 365 ? nb.format(Math.round(s.jours)) + " jours" : "> 365 jours", s.jours <= 365 ? "Atteint vers le " + dateOfDay(s.jours) : "Non atteint dans l’année", s.jours <= 365 ? "" : "bad"]);
+    k.push(["Taux de marge sur coûts variables", pc(s.taux), "Marge de " + fmt(s.mcv) + " sur " + fmt(s.ca), ""]);
+    k.push(["Résultat avant impôt", fmt(s.res), "Marge sur coûts variables − charges fixes", s.res >= 0 ? "good" : "bad"]);
+    k.push(["Marge de sécurité", fmt(s.marge), "Chiffre d’affaires − point mort", s.marge >= 0 ? "good" : "bad"]);
+    k.push(["Levier opérationnel", s.levier === null ? "n.s." : s.levier.toLocaleString("fr-FR", { maximumFractionDigits: 2 }), s.levier === null ? "Défini seulement quand le résultat est positif" : "+1 % de chiffre d’affaires donne environ +" + s.levier.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " % de résultat", ""]);
+    $("kpis").innerHTML = k.map(function (x) {
+      return "<div class=\"kpi " + x[3] + "\"><p class=\"t\">" + x[0] + "</p><div class=\"big\">" + x[1] + "</div><p class=\"sub\">" + x[2] + "</p></div>";
+    }).join("");
+
+    var st2 = [
+      ["Marge sur coûts variables", fmt(s.ca) + " − " + fmt(s.cv), fmt(s.mcv)],
+      ["Taux de marge sur coûts variables", fmt(s.mcv) + " ÷ " + fmt(s.ca), pc(s.taux)],
+      ["Point mort", fmt(s.cf) + " ÷ " + pc(s.taux), fmt(s.pm)],
+      ["Écart avec le point mort", fmt(s.ca) + " ÷ " + fmt(s.pm) + " − 1", (s.ecart >= 0 ? "+" : "−") + pc(Math.abs(s.ecart))],
+      ["Point mort en jours", fmt(s.pm) + " ÷ " + fmt(s.ca) + " × 365", nb.format(Math.round(s.jours)) + " jours"]
+    ];
+    $("steps").innerHTML = st2.map(function (x) {
+      return "<li><span><span class=\"lab\">" + x[0] + "</span><br><span class=\"eq\">" + x[1] + "</span></span><span class=\"res\">" + x[2] + "</span></li>";
+    }).join("");
+
+    var rows = "<thead><tr><th>Variation du CA</th><th>Chiffre d’affaires</th><th>Résultat</th><th>Écart avec le point mort</th><th>Point mort en jours</th></tr></thead><tbody>";
+    [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3].forEach(function (d) {
+      var ca = s.ca * (1 + d), mcv = ca * s.taux, res = mcv - s.cf, ec = ca / s.pm - 1, j = s.pm / ca * 365;
+      rows += "<tr" + (d === 0 ? " class=\"sel\"" : "") + "><td>" + (d === 0 ? "Actuel" : (d > 0 ? "+" : "−") + Math.abs(d * 100) + " %") + "</td><td>" + fmt(ca) + "</td><td style=\"color:var(--" + (res >= 0 ? "b" : "a") + ")\">" + fmt(res) + "</td><td>" + (ec >= 0 ? "+" : "−") + pc(Math.abs(ec)) + "</td><td>" + (j <= 365 ? nb.format(Math.round(j)) + " j" : "> 365 j") + "</td></tr>";
+    });
+    $("table").innerHTML = rows + "</tbody>";
+  }
+
+  function renderChart() {
+    var s = st, svg = $("chart");
+    if (!s.ok) { svg.innerHTML = ""; svg.setAttribute("height", 0); geo = null; return; }
+    var box = $("chartbox"), W = Math.max(280, box.clientWidth), H = W < 520 ? 300 : 380;
+    var ml = W < 520 ? 48 : 58, mr = 16, mt = 14, mb = 34, pw = W - ml - mr, ph = H - mt - mb;
+    var v = s.cv / s.ca;
+    var CA = function (x) { return x; }, CT = function (x) { return s.cf + v * x; };
+    var xMax = Math.max(s.ca * 1.5, s.pm * 1.3);
+    var step = niceStep(xMax, 6); xMax = Math.ceil(xMax / step) * step;
+    var yMax = xMax;
+    var X = function (q) { return ml + pw * q / xMax; }, Y = function (val) { return mt + ph * (1 - val / yMax); };
+    var cInk = css("--ink"), cMuted = css("--muted"), cLine = css("--line"), cGold = css("--gold"), cA = css("--a"), cB = css("--b"), cAs = css("--a-soft"), cBs = css("--b-soft"), cSur = css("--surface");
+    var f = "font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"11\" fill=\"" + cMuted + "\"";
+    var g = "";
+    for (var t = 0; t <= yMax + step / 1000; t += step) {
+      g += "<line x1=\"" + ml + "\" x2=\"" + (W - mr) + "\" y1=\"" + Y(t).toFixed(1) + "\" y2=\"" + Y(t).toFixed(1) + "\" stroke=\"" + cLine + "\"/>";
+      g += "<text x=\"" + (ml - 8) + "\" y=\"" + (Y(t) + 4).toFixed(1) + "\" text-anchor=\"end\" " + f + ">" + fmtK(t) + "</text>";
+      g += "<text x=\"" + X(t).toFixed(1) + "\" y=\"" + (H - 10) + "\" text-anchor=\"" + (t === 0 ? "start" : (t >= xMax - 1e-9 ? "end" : "middle")) + "\" " + f + ">" + fmtK(t) + "</text>";
+    }
+    var pm = s.pm;
+    var poly = function (pts, fill) { return "<polygon points=\"" + pts.map(function (p) { return X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1); }).join(" ") + "\" fill=\"" + fill + "\" fill-opacity=\"0.9\"/>"; };
+    g += poly([[0, 0], [pm, pm], [0, s.cf]], cAs);
+    g += poly([[pm, pm], [xMax, xMax], [xMax, CT(xMax)]], cBs);
+    g += "<line x1=\"" + ml + "\" x2=\"" + (W - mr) + "\" y1=\"" + Y(s.cf).toFixed(1) + "\" y2=\"" + Y(s.cf).toFixed(1) + "\" stroke=\"" + cGold + "\" stroke-width=\"1.75\" stroke-dasharray=\"5 4\"/>";
+    g += "<line x1=\"" + X(0) + "\" y1=\"" + Y(0) + "\" x2=\"" + X(xMax).toFixed(1) + "\" y2=\"" + Y(xMax).toFixed(1) + "\" stroke=\"" + cInk + "\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>";
+    g += "<line x1=\"" + X(0) + "\" y1=\"" + Y(s.cf).toFixed(1) + "\" x2=\"" + X(xMax).toFixed(1) + "\" y2=\"" + Y(CT(xMax)).toFixed(1) + "\" stroke=\"" + cA + "\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>";
+    g += "<line x1=\"" + X(pm).toFixed(1) + "\" x2=\"" + X(pm).toFixed(1) + "\" y1=\"" + Y(pm).toFixed(1) + "\" y2=\"" + Y(0).toFixed(1) + "\" stroke=\"" + cGold + "\" stroke-width=\"1.25\" stroke-dasharray=\"3 3\"/>";
+    g += "<circle cx=\"" + X(pm).toFixed(1) + "\" cy=\"" + Y(pm).toFixed(1) + "\" r=\"6\" fill=\"" + cGold + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/>";
+    var lx = X(pm), an = lx > W - 170 ? "end" : "start", dx = an === "end" ? -10 : 10;
+    g += "<text x=\"" + (lx + dx).toFixed(1) + "\" y=\"" + (Y(pm) + 22).toFixed(1) + "\" text-anchor=\"" + an + "\" font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"" + cInk + "\">Point mort : " + fmtK(pm) + "</text>";
+    g += "<line x1=\"" + X(s.ca).toFixed(1) + "\" x2=\"" + X(s.ca).toFixed(1) + "\" y1=\"" + mt + "\" y2=\"" + (mt + ph) + "\" stroke=\"" + cB + "\" stroke-width=\"1.25\" stroke-dasharray=\"2 4\"/>";
+    var ta = X(s.ca) > W - 110 ? "end" : "start";
+    g += "<text x=\"" + (X(s.ca) + (ta === "end" ? -6 : 6)).toFixed(1) + "\" y=\"" + (mt + 12) + "\" text-anchor=\"" + ta + "\" font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"11\" font-weight=\"600\" fill=\"" + cB + "\">Votre CA</text>";
+    g += "<g id=\"hov\" visibility=\"hidden\"><line id=\"hv\" y1=\"" + mt + "\" y2=\"" + (mt + ph) + "\" stroke=\"" + cInk + "\" stroke-opacity=\"0.45\"/><circle id=\"hd1\" r=\"5\" fill=\"" + cInk + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/><circle id=\"hd2\" r=\"5\" fill=\"" + cA + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/></g>";
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("height", H);
+    svg.setAttribute("aria-label", "Point mort à " + fmt(pm) + " de chiffre d’affaires. Votre chiffre d’affaires : " + fmt(s.ca) + ".");
+    svg.innerHTML = g;
+    geo = { W: W, ml: ml, pw: pw, xMax: xMax, X: X, Y: Y, CA: CA, CT: CT };
+  }
+
+  function hover(ev) {
+    if (!geo || !st.ok) return;
+    var svg = $("chart"), rect = svg.getBoundingClientRect();
+    var px = (ev.clientX - rect.left) * (geo.W / rect.width);
+    var q = Math.max(0, Math.min(geo.xMax, (px - geo.ml) / geo.pw * geo.xMax));
+    var x = geo.X(q);
+    $("hov").setAttribute("visibility", "visible");
+    $("hv").setAttribute("x1", x); $("hv").setAttribute("x2", x);
+    $("hd1").setAttribute("cx", x); $("hd1").setAttribute("cy", geo.Y(geo.CA(q)));
+    $("hd2").setAttribute("cx", x); $("hd2").setAttribute("cy", geo.Y(geo.CT(q)));
+    var r = geo.CA(q) - geo.CT(q), tip = $("tip");
+    tip.hidden = false;
+    tip.innerHTML = "<div class=\"when\">CA de " + fmt(q) + "</div>" +
+      "<div class=\"row\"><span class=\"k ct\">Coûts totaux</span><b>" + fmt(geo.CT(q)) + "</b></div>" +
+      "<div class=\"row\"><span class=\"k\">Résultat</span><b style=\"color:var(--" + (r >= 0 ? "b" : "a") + ")\">" + fmt(r) + "</b></div>";
+    var cx = x * (rect.width / geo.W), tw = tip.offsetWidth, left = cx + 14;
+    if (left + tw > rect.width) left = cx - 14 - tw;
+    tip.style.left = Math.max(0, left) + "px";
+  }
+  function leave() { var h = $("hov"); if (h) h.setAttribute("visibility", "hidden"); $("tip").hidden = true; }
+
+  function all() { compute(); renderText(); renderChart(); }
+  ["ca", "cf", "cv"].forEach(function (id) { $(id).addEventListener("input", all); });
+  var svg = $("chart");
+  svg.addEventListener("pointermove", hover); svg.addEventListener("pointerdown", hover);
+  svg.addEventListener("pointerleave", leave); svg.addEventListener("pointercancel", leave);
+  if (window.ResizeObserver) {
+    var lw = 0;
+    new ResizeObserver(function () { var w = $("chartbox").clientWidth; if (w !== lw) { lw = w; if (st) renderChart(); } }).observe($("chartbox"));
+  } else window.addEventListener("resize", function () { if (st) renderChart(); });
+  all();
+})();
+</script>
+
+</body></html>
