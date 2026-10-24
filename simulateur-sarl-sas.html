@@ -1,0 +1,457 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SARL ou SAS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  /* Mise en page : en-tête marine, colonne de saisie à gauche, résultats et graphique à droite ; une colonne sur mobile.
+     Palette : blanc, bleu marine, or ; contrat A en rouge, contrat B en vert. */
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --ink: #0f1e3d;
+    --muted: #586277;
+    --line: #e8e0cd;
+    --field: #ffffff;
+    --gold: #b8964a;
+    --gold-ink: #86671f;
+    --hero: #ffffff;
+    --hero-ink: #0f1e3d;
+    --hero-byline: #86671f;
+    --hero-lead: #586277;
+    --a: #a8231c;
+    --a-soft: #f8e7e5;
+    --b: #1d7a4d;
+    --b-soft: #e3f1e9;
+    --focus: #86671f;
+    --font-display: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    --font-ui: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-num: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    padding-block: 28px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .hero {
+    background: var(--hero);
+    color: var(--hero-ink);
+    border-radius: 6px;
+    padding: clamp(22px, 4vw, 38px) clamp(18px, 4vw, 40px);
+    margin-bottom: 22px;
+    box-shadow: inset 0 -3px 0 var(--gold);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  .byline { margin: 0 0 14px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hero-byline); font-weight: 500; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: 0.005em; text-wrap: balance; }
+  .hero p.lead { margin: 0; color: var(--hero-lead); max-width: 60ch; font-size: 0.98rem; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+  .controls { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .panel h2 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold-ink); font-weight: 600; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .panel .hint { color: var(--muted); font-size: 0.82rem; margin: -4px 0 14px; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label, .field > .lab { font-size: 0.88rem; font-weight: 500; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+
+  .inp { position: relative; min-width: 0; }
+  .inp input {
+    width: 100%;
+    font: inherit;
+    font-family: var(--font-num);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--field);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 9px 46px 9px 11px;
+    min-width: 0;
+    text-align: right;
+  }
+  .inp .unit { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.78rem; pointer-events: none; }
+  .inp.a input { border-left: 3px solid var(--a); }
+  .inp.b input { border-left: 3px solid var(--b); }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .split { display: flex; align-items: center; font-size: 0.85rem; color: var(--muted); min-width: 0; }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .names input {
+    width: 100%; min-width: 0; font: inherit; font-weight: 600; color: var(--ink);
+    background: var(--field); border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px;
+  }
+  .names .a input { border-top: 3px solid var(--a); }
+  .names .b input { border-top: 3px solid var(--b); }
+
+  .results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .durbar { display: grid; gap: 12px; }
+  .durtop { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .durtop label { font-weight: 600; }
+  .durval { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1; }
+  input[type="range"] { width: 100%; accent-color: var(--gold); margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 0.85rem;
+    background: var(--field); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); font-weight: 600; }
+
+  .verdict { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); line-height: 1.2; font-weight: 600; margin: 0 0 8px; text-wrap: balance; }
+  .verdict .gain { color: var(--gold-ink); }
+  .cross { margin: 0; color: var(--muted); font-size: 0.92rem; max-width: 68ch; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; }
+  .card.a { border-top: 3px solid var(--a); }
+  .card.b { border-top: 3px solid var(--b); }
+  .card .nm { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 8px; min-width: 0; }
+  .card .nm span:first-child { overflow-wrap: anywhere; }
+  .pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .card.a .pill { background: var(--a-soft); color: var(--a); }
+  .card.b .pill { background: var(--b-soft); color: var(--b); }
+  .card .big { font-family: var(--font-display); font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); font-weight: 600; line-height: 1.05; }
+  .card dl { margin: 12px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.86rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; text-align: right; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { display: inline-block; width: 22px; height: 0; border-top: 3px solid; }
+  .legend i.ref { border-top: 2px dashed var(--gold); }
+  .legend i.la { border-color: var(--a); }
+  .legend i.lb { border-color: var(--b); }
+
+  .chartbox { position: relative; width: 100%; }
+  .chartbox svg { display: block; width: 100%; touch-action: pan-y; cursor: crosshair; }
+  .tip {
+    position: absolute; top: 8px; pointer-events: none; z-index: 2;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--gold);
+    border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; min-width: 170px;
+    box-shadow: 0 6px 18px rgba(15, 30, 61, 0.18);
+  }
+  .tip[hidden] { display: none; }
+  .tip .when { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+  .tip .row { display: flex; justify-content: space-between; gap: 14px; }
+  .tip .row b { font-weight: 500; }
+  .tip .row .k { color: var(--muted); }
+  .tip .row .k.a { color: var(--a); font-weight: 600; }
+  .tip .row .k.b { color: var(--b); font-weight: 600; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 560px; }
+  th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-ink); font-weight: 600; }
+  td:first-child { font-weight: 500; }
+  tr.sel td { background: var(--field); font-weight: 600; }
+
+  .note { color: var(--muted); font-size: 0.8rem; margin: 0; max-width: 78ch; }
+
+  .owner { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--gold); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+  .owner .who { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin: 0; }
+  .owner .who small { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink); font-weight: 500; margin-left: 8px; }
+  .owner .rights { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .panel { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { transition: background 0.12s, color 0.12s; }
+  }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .kpi { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; border-top: 3px solid var(--gold); }
+  .kpi .t { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-ink); font-weight: 600; margin: 0 0 6px; }
+  .kpi .big { font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.4rem); font-weight: 600; line-height: 1.05; }
+  .kpi .sub { color: var(--muted); font-size: 0.84rem; margin: 6px 0 0; }
+  .kpi.good .big { color: var(--b); }
+  .kpi.bad .big { color: var(--a); }
+  .legend i.lca { border-color: var(--ink); }
+  .legend i.lct { border-color: var(--a); }
+  .legend i.lbe { border-top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .tip .row .k.ca { color: var(--ink); font-weight: 600; }
+  .tip .row .k.ct { color: var(--a); font-weight: 600; }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .steps li { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 18px; flex-wrap: wrap; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .steps .lab { font-weight: 500; }
+  .steps .eq { color: var(--muted); font-size: 0.9rem; }
+  .steps .res { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; text-align: right; }
+  .inp input { background: #fbf6e9; }
+  .card dd.neg { color: var(--a); }
+  .card dd.pos { color: var(--b); }
+  .card dl .tot { grid-column: 1 / -1; border-top: 1px solid var(--line); margin-top: 6px; padding-top: 8px; display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; font-size: 0.95rem; }
+  .card dl .tot span:last-child { font-family: var(--font-display); font-size: 1.5rem; }
+  .legend i.ls { border-color: var(--a); }
+  .legend i.lv { border-color: var(--b); }
+</style>
+<div class="wrap">
+  <header class="hero">
+    <p class="byline">Gazia Corentin · Ingénieur patrimonial</p>
+    <h1>SARL ou SAS</h1>
+    <p class="lead">Pour une même rémunération souhaitée, comparez le coût total d’une SARL à l’IS avec dirigeant TNS payé en salaire et celui d’une SAS qui verse uniquement des dividendes.</p>
+  </header>
+
+  <div class="layout">
+    <div class="controls">
+      <section class="panel" aria-labelledby="h-data">
+        <h2 id="h-data">Données</h2>
+        <p class="hint">Valeurs de votre fichier, à modifier librement.</p>
+        <div class="field">
+          <label for="rem">Rémunération souhaitée</label>
+          <div class="inp"><input id="rem" type="number" inputmode="decimal" min="0" step="1000" value="70000"><span class="unit">€</span></div>
+        </div>
+        <div class="field">
+          <label for="cs">Pourcentage de charges sociales (SARL)</label>
+          <div class="inp"><input id="cs" type="number" inputmode="decimal" min="0" max="100" step="1" value="45"><span class="unit">%</span></div>
+        </div>
+        <div class="field">
+          <label for="is">Impôt sur les sociétés (SARL)</label>
+          <div class="inp"><input id="is" type="number" inputmode="decimal" min="0" max="100" step="1" value="25"><span class="unit">%</span></div>
+        </div>
+        <div class="field">
+          <label for="ft">Flat tax sur les dividendes (SAS)</label>
+          <div class="inp"><input id="ft" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="33"><span class="unit">%</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="results">
+      <section class="panel" aria-label="Résultat">
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+        <p class="cross" id="sub"></p>
+      </section>
+
+      <div class="cards" id="cards"></div>
+
+      <section class="panel" aria-labelledby="h-graph">
+        <h2 id="h-graph">Coût total selon la rémunération</h2>
+        <div class="legend">
+          <span><i class="ls"></i>SARL à l’IS</span>
+          <span><i class="lv"></i>SAS (dividendes)</span>
+          <span><i class="lbe"></i>Point d’équilibre</span>
+        </div>
+        <div class="chartbox" id="chartbox">
+          <svg id="chart" role="img" aria-label="Coût total de la SARL et de la SAS selon la rémunération souhaitée"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-pal">
+        <h2 id="h-pal">Coût total par niveau de rémunération</h2>
+        <div class="tablewrap"><table id="table"></table></div>
+      </section>
+
+      <p class="note">Modèle repris de votre tableur. SARL : charges sociales ajoutées à la rémunération, économie d’IS sur le coût pour l’entreprise, impôt sur le revenu ajouté au coût total. IR calculé avec le barème progressif sur 90 % de la rémunération (abattement de 10 %), une seule part, tranches à 11 600, 29 579, 84 577 et 181 917 €, sans quotient familial. SAS : flat tax ajoutée aux dividendes, sans économie d’IS.</p>
+    </div>
+  </div>
+
+  <footer class="owner">
+    <p class="who">Gazia Corentin <small>Ingénieur patrimonial</small></p>
+    <p class="rights">Ce simulateur est la propriété de Gazia Corentin. Tous droits réservés.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  var nb = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
+  var fmt = function (n) { return eur.format(Math.round(n)).replace("-", "−"); };
+  var fmtK = function (n) {
+    var a = Math.abs(n);
+    if (a >= 1000000) return (n / 1000000).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " M€";
+    if (a >= 1000) return Math.round(n / 1000).toLocaleString("fr-FR") + " k€";
+    return Math.round(n).toLocaleString("fr-FR") + " €";
+  };
+  var pct = function (x) { return (x * 100).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " %"; };
+  var num = function (id) { var v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
+  var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  function niceStep(max, target) {
+    var rough = max / target, pow = Math.pow(10, Math.floor(Math.log10(rough)));
+    var c = [1, 2, 2.5, 5, 10];
+    for (var i = 0; i < c.length; i++) if (c[i] * pow >= rough) return c[i] * pow;
+    return 10 * pow;
+  }
+
+  // Barème progressif de l’impôt sur le revenu, une part, comme dans le tableur.
+  function ir(r) {
+    var b = r * 0.9;
+    if (b <= 11600) return 0;
+    if (b <= 29579) return (b - 11600) * 0.11;
+    if (b <= 84577) return (29579 - 11600) * 0.11 + (b - 29579) * 0.30;
+    if (b <= 181917) return (29579 - 11600) * 0.11 + (84577 - 29579) * 0.30 + (b - 84577) * 0.41;
+    return (29579 - 11600) * 0.11 + (84577 - 29579) * 0.30 + (181917 - 84577) * 0.41 + (b - 181917) * 0.45;
+  }
+  function sarl(r, p) {
+    var cs = r * p.cs, ce = r + cs, gain = ce * p.is, i = ir(r);
+    return { rem: r, cs: cs, ce: ce, gain: gain, ir: i, total: ce + i - gain };
+  }
+  function sas(r, p) {
+    var f = r * p.ft;
+    return { rem: r, ft: f, total: r + f };
+  }
+
+  var st = null, geo = null;
+
+  function compute() {
+    var p = { rem: num("rem"), cs: num("cs") / 100, is: num("is") / 100, ft: num("ft") / 100 };
+    var a = sarl(p.rem, p), b = sas(p.rem, p);
+    var xMax = Math.max(200000, Math.ceil(p.rem * 1.25 / 10000) * 10000);
+    var cross = null, prev = null;
+    for (var r = 1000; r <= xMax; r += 500) {
+      var d = sarl(r, p).total - sas(r, p).total;
+      if (prev !== null && ((prev.d < 0 && d >= 0) || (prev.d > 0 && d <= 0))) {
+        var t = prev.d / (prev.d - d);
+        cross = prev.r + t * (r - prev.r);
+        break;
+      }
+      prev = { r: r, d: d };
+    }
+    st = { p: p, a: a, b: b, xMax: xMax, cross: cross };
+  }
+
+  function renderText() {
+    var s = st, a = s.a, b = s.b, diff = a.total - b.total;
+    var v = $("verdict"), sub = $("sub");
+    if (s.p.rem <= 0) {
+      v.textContent = "Saisissez une rémunération souhaitée.";
+      sub.textContent = ""; $("cards").innerHTML = ""; $("table").innerHTML = "";
+      return;
+    }
+    if (Math.abs(diff) < 1) {
+      v.textContent = "Les deux structures coûtent autant pour cette rémunération.";
+    } else {
+      var win = diff < 0 ? "La SARL à l’IS" : "La SAS", lose = diff < 0 ? "la SAS" : "la SARL à l’IS";
+      v.innerHTML = win + " coûte <span class=\"gain\">" + fmt(Math.abs(diff)) + "</span> de moins que " + lose + ".";
+    }
+    var cheaper = Math.min(a.total, b.total), ratio = Math.abs(diff) / Math.max(a.total, b.total);
+    var txt = "Pour " + fmt(s.p.rem) + " de rémunération, le coût total est de " + fmt(a.total) + " en SARL et de " + fmt(b.total) + " en SAS" + (Math.abs(diff) >= 1 ? ", soit un écart de " + pct(ratio) + "." : ".");
+    if (s.cross) txt += " Les deux structures se valent vers " + fmt(Math.round(s.cross / 100) * 100) + " de rémunération.";
+    else txt += " Sur la plage étudiée (jusqu’à " + fmt(s.xMax) + "), l’écart ne s’inverse pas.";
+    sub.textContent = txt;
+
+    var winA = diff < -0.5, winB = diff > 0.5;
+    var pill = "<span class=\"pill\">Moins cher</span>";
+    $("cards").innerHTML =
+      "<div class=\"card a\"><div class=\"nm\"><span>SARL à l’IS · TNS</span>" + (winA ? pill : "") + "</div>" +
+      "<div class=\"big\">" + fmt(a.total) + "</div>" +
+      "<dl><dt>Rémunération souhaitée</dt><dd>" + fmt(a.rem) + "</dd>" +
+      "<dt>Charges sociales (" + pct(s.p.cs) + ")</dt><dd class=\"neg\">" + fmt(a.cs) + "</dd>" +
+      "<dt>Coût pour l’entreprise</dt><dd class=\"neg\">" + fmt(a.ce) + "</dd>" +
+      "<dt>Gain d’IS (" + pct(s.p.is) + ")</dt><dd class=\"pos\">− " + fmt(a.gain) + "</dd>" +
+      "<dt>Impôt sur le revenu</dt><dd class=\"neg\">" + fmt(a.ir) + "</dd>" +
+      "<div class=\"tot\"><span>Coût total</span><span>" + fmt(a.total) + "</span></div></dl></div>" +
+      "<div class=\"card b\"><div class=\"nm\"><span>SAS · dividendes</span>" + (winB ? pill : "") + "</div>" +
+      "<div class=\"big\">" + fmt(b.total) + "</div>" +
+      "<dl><dt>Rémunération souhaitée</dt><dd>" + fmt(b.rem) + "</dd>" +
+      "<dt>Flat tax (" + pct(s.p.ft) + ")</dt><dd class=\"neg\">" + fmt(b.ft) + "</dd>" +
+      "<div class=\"tot\"><span>Coût total</span><span>" + fmt(b.total) + "</span></div></dl></div>";
+
+    var levels = [30000, 50000, 70000, 100000, 150000, 200000];
+    if (levels.indexOf(s.p.rem) < 0) levels.push(s.p.rem);
+    levels.sort(function (x, y) { return x - y; });
+    var rows = "<thead><tr><th>Rémunération</th><th>SARL à l’IS</th><th>SAS</th><th>Écart</th><th>Moins cher</th></tr></thead><tbody>";
+    levels.forEach(function (r) {
+      var x = sarl(r, s.p).total, y = sas(r, s.p).total, d = x - y;
+      var best = Math.abs(d) < 1 ? "Égalité" : (d < 0 ? "SARL" : "SAS");
+      rows += "<tr" + (r === s.p.rem ? " class=\"sel\"" : "") + "><td>" + fmt(r) + (r === s.p.rem ? " (saisie)" : "") + "</td><td>" + fmt(x) + "</td><td>" + fmt(y) + "</td><td>" + (d > 0 ? "+" : d < 0 ? "−" : "") + fmt(Math.abs(d)) + "</td><td style=\"color:var(--" + (best === "SARL" ? "a" : best === "SAS" ? "b" : "ink") + ")\">" + best + "</td></tr>";
+    });
+    $("table").innerHTML = rows + "</tbody>";
+  }
+
+  function renderChart() {
+    var s = st, svg = $("chart");
+    if (s.p.rem <= 0) { svg.innerHTML = ""; svg.setAttribute("height", 0); geo = null; return; }
+    var box = $("chartbox"), W = Math.max(280, box.clientWidth), H = W < 520 ? 300 : 380;
+    var ml = W < 520 ? 48 : 58, mr = 16, mt = 14, mb = 34, pw = W - ml - mr, ph = H - mt - mb;
+    var xMax = s.xMax, n = 80, ptsA = [], ptsB = [], yRaw = 0;
+    for (var i = 0; i <= n; i++) {
+      var r = xMax * i / n, a = sarl(r, s.p).total, b = sas(r, s.p).total;
+      ptsA.push([r, a]); ptsB.push([r, b]); yRaw = Math.max(yRaw, a, b);
+    }
+    var ystep = niceStep(yRaw, 5), yMax = Math.ceil(yRaw / ystep) * ystep;
+    var xstep = niceStep(xMax, 5);
+    var X = function (r) { return ml + pw * r / xMax; }, Y = function (v) { return mt + ph * (1 - v / yMax); };
+    var cInk = css("--ink"), cMuted = css("--muted"), cLine = css("--line"), cGold = css("--gold"), cA = css("--a"), cB = css("--b"), cSur = css("--surface");
+    var f = "font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"11\" fill=\"" + cMuted + "\"";
+    var g = "";
+    for (var t = 0; t <= yMax + ystep / 1000; t += ystep) {
+      g += "<line x1=\"" + ml + "\" x2=\"" + (W - mr) + "\" y1=\"" + Y(t).toFixed(1) + "\" y2=\"" + Y(t).toFixed(1) + "\" stroke=\"" + cLine + "\"/>";
+      g += "<text x=\"" + (ml - 8) + "\" y=\"" + (Y(t) + 4).toFixed(1) + "\" text-anchor=\"end\" " + f + ">" + fmtK(t) + "</text>";
+    }
+    for (var u = 0; u <= xMax + xstep / 1000; u += xstep) {
+      g += "<text x=\"" + X(u).toFixed(1) + "\" y=\"" + (H - 10) + "\" text-anchor=\"" + (u === 0 ? "start" : (u >= xMax - 1e-9 ? "end" : "middle")) + "\" " + f + ">" + fmtK(u) + "</text>";
+    }
+    var line = function (pts, col) { return "<polyline points=\"" + pts.map(function (p) { return X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1); }).join(" ") + "\" fill=\"none\" stroke=\"" + col + "\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>"; };
+    g += line(ptsA, cA) + line(ptsB, cB);
+    g += "<line x1=\"" + X(s.p.rem).toFixed(1) + "\" x2=\"" + X(s.p.rem).toFixed(1) + "\" y1=\"" + mt + "\" y2=\"" + (mt + ph) + "\" stroke=\"" + cInk + "\" stroke-width=\"1.25\" stroke-dasharray=\"2 4\"/>";
+    var ta = X(s.p.rem) > W - 120 ? "end" : "start";
+    g += "<text x=\"" + (X(s.p.rem) + (ta === "end" ? -6 : 6)).toFixed(1) + "\" y=\"" + (mt + 12) + "\" text-anchor=\"" + ta + "\" font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"11\" font-weight=\"600\" fill=\"" + cInk + "\">Votre rémunération</text>";
+    g += "<circle cx=\"" + X(s.p.rem).toFixed(1) + "\" cy=\"" + Y(s.a.total).toFixed(1) + "\" r=\"4.5\" fill=\"" + cA + "\"/><circle cx=\"" + X(s.p.rem).toFixed(1) + "\" cy=\"" + Y(s.b.total).toFixed(1) + "\" r=\"4.5\" fill=\"" + cB + "\"/>";
+    if (s.cross) {
+      var cy = sas(s.cross, s.p).total;
+      g += "<circle cx=\"" + X(s.cross).toFixed(1) + "\" cy=\"" + Y(cy).toFixed(1) + "\" r=\"6\" fill=\"" + cGold + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/>";
+      var an = X(s.cross) > W - 190 ? "end" : "start", dx = an === "end" ? -10 : 10;
+      g += "<text x=\"" + (X(s.cross) + dx).toFixed(1) + "\" y=\"" + (Y(cy) + 22).toFixed(1) + "\" text-anchor=\"" + an + "\" font-family=\"Schibsted Grotesk, sans-serif\" font-size=\"12\" font-weight=\"600\" fill=\"" + cInk + "\">Équilibre : " + fmtK(Math.round(s.cross / 100) * 100) + "</text>";
+    }
+    g += "<g id=\"hov\" visibility=\"hidden\"><line id=\"hv\" y1=\"" + mt + "\" y2=\"" + (mt + ph) + "\" stroke=\"" + cInk + "\" stroke-opacity=\"0.45\"/><circle id=\"hd1\" r=\"5\" fill=\"" + cA + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/><circle id=\"hd2\" r=\"5\" fill=\"" + cB + "\" stroke=\"" + cSur + "\" stroke-width=\"2\"/></g>";
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("height", H);
+    svg.setAttribute("aria-label", "Pour " + fmt(s.p.rem) + " de rémunération : SARL " + fmt(s.a.total) + ", SAS " + fmt(s.b.total) + ".");
+    svg.innerHTML = g;
+    geo = { W: W, ml: ml, pw: pw, xMax: xMax, X: X, Y: Y };
+  }
+
+  function hover(ev) {
+    if (!geo || !st || st.p.rem <= 0) return;
+    var svg = $("chart"), rect = svg.getBoundingClientRect();
+    var px = (ev.clientX - rect.left) * (geo.W / rect.width);
+    var r = Math.max(0, Math.min(geo.xMax, (px - geo.ml) / geo.pw * geo.xMax));
+    var a = sarl(r, st.p).total, b = sas(r, st.p).total, x = geo.X(r);
+    $("hov").setAttribute("visibility", "visible");
+    $("hv").setAttribute("x1", x); $("hv").setAttribute("x2", x);
+    $("hd1").setAttribute("cx", x); $("hd1").setAttribute("cy", geo.Y(a));
+    $("hd2").setAttribute("cx", x); $("hd2").setAttribute("cy", geo.Y(b));
+    var tip = $("tip"), d = a - b;
+    tip.hidden = false;
+    tip.innerHTML = "<div class=\"when\">Rémunération " + fmt(Math.round(r / 100) * 100) + "</div>" +
+      "<div class=\"row\"><span class=\"k a\">SARL à l’IS</span><b>" + fmt(a) + "</b></div>" +
+      "<div class=\"row\"><span class=\"k b\">SAS</span><b>" + fmt(b) + "</b></div>" +
+      "<div class=\"row\"><span class=\"k\">Écart</span><b>" + (d > 0 ? "+" : d < 0 ? "−" : "") + fmt(Math.abs(d)) + "</b></div>";
+    var cx = x * (rect.width / geo.W), tw = tip.offsetWidth, left = cx + 14;
+    if (left + tw > rect.width) left = cx - 14 - tw;
+    tip.style.left = Math.max(0, left) + "px";
+  }
+  function leave() { var h = $("hov"); if (h) h.setAttribute("visibility", "hidden"); $("tip").hidden = true; }
+
+  function all() { compute(); renderText(); renderChart(); }
+  ["rem", "cs", "is", "ft"].forEach(function (id) { $(id).addEventListener("input", all); });
+  var svg = $("chart");
+  svg.addEventListener("pointermove", hover); svg.addEventListener("pointerdown", hover);
+  svg.addEventListener("pointerleave", leave); svg.addEventListener("pointercancel", leave);
+  if (window.ResizeObserver) {
+    var lw = 0;
+    new ResizeObserver(function () { var w = $("chartbox").clientWidth; if (w !== lw) { lw = w; if (st) renderChart(); } }).observe($("chartbox"));
+  } else window.addEventListener("resize", function () { if (st) renderChart(); });
+  all();
+})();
+</script>
+
+</body></html>
