@@ -1,0 +1,586 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Comparateur assurance vie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  /* Mise en page : en-tête marine, colonne de saisie à gauche, résultats et graphique à droite ; une colonne sur mobile.
+     Palette : blanc, bleu marine, or ; contrat A en rouge, contrat B en vert. */
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --ink: #0f1e3d;
+    --muted: #586277;
+    --line: #e8e0cd;
+    --field: #ffffff;
+    --gold: #b8964a;
+    --gold-ink: #86671f;
+    --hero: #ffffff;
+    --hero-ink: #0f1e3d;
+    --hero-byline: #86671f;
+    --hero-lead: #586277;
+    --a: #a8231c;
+    --a-soft: #f8e7e5;
+    --b: #1d7a4d;
+    --b-soft: #e3f1e9;
+    --focus: #86671f;
+    --font-display: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    --font-ui: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-num: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    padding-block: 28px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .hero {
+    background: var(--hero);
+    color: var(--hero-ink);
+    border-radius: 6px;
+    padding: clamp(22px, 4vw, 38px) clamp(18px, 4vw, 40px);
+    margin-bottom: 22px;
+    box-shadow: inset 0 -3px 0 var(--gold);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  .byline { margin: 0 0 14px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hero-byline); font-weight: 500; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: 0.005em; text-wrap: balance; }
+  .hero p.lead { margin: 0; color: var(--hero-lead); max-width: 60ch; font-size: 0.98rem; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+  .controls { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .panel h2 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold-ink); font-weight: 600; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .panel .hint { color: var(--muted); font-size: 0.82rem; margin: -4px 0 14px; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label, .field > .lab { font-size: 0.88rem; font-weight: 500; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+
+  .inp { position: relative; min-width: 0; }
+  .inp input {
+    width: 100%;
+    font: inherit;
+    font-family: var(--font-num);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--field);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 9px 46px 9px 11px;
+    min-width: 0;
+    text-align: right;
+  }
+  .inp .unit { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.78rem; pointer-events: none; }
+  .inp.a input { border-left: 3px solid var(--a); }
+  .inp.b input { border-left: 3px solid var(--b); }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .split { display: flex; align-items: center; font-size: 0.85rem; color: var(--muted); min-width: 0; }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .names input {
+    width: 100%; min-width: 0; font: inherit; font-weight: 600; color: var(--ink);
+    background: var(--field); border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px;
+  }
+  .names .a input { border-top: 3px solid var(--a); }
+  .names .b input { border-top: 3px solid var(--b); }
+
+  .results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .durbar { display: grid; gap: 12px; }
+  .durtop { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .durtop label { font-weight: 600; }
+  .durval { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1; }
+  input[type="range"] { width: 100%; accent-color: var(--gold); margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 0.85rem;
+    background: var(--field); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); font-weight: 600; }
+
+  .verdict { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); line-height: 1.2; font-weight: 600; margin: 0 0 8px; text-wrap: balance; }
+  .verdict .gain { color: var(--gold-ink); }
+  .cross { margin: 0; color: var(--muted); font-size: 0.92rem; max-width: 68ch; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; }
+  .card.a { border-top: 3px solid var(--a); }
+  .card.b { border-top: 3px solid var(--b); }
+  .card .nm { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 8px; min-width: 0; }
+  .card .nm span:first-child { overflow-wrap: anywhere; }
+  .pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .card.a .pill { background: var(--a-soft); color: var(--a); }
+  .card.b .pill { background: var(--b-soft); color: var(--b); }
+  .card .big { font-family: var(--font-display); font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); font-weight: 600; line-height: 1.05; }
+  .card dl { margin: 12px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.86rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; text-align: right; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { display: inline-block; width: 22px; height: 0; border-top: 3px solid; }
+  .legend i.ref { border-top: 2px dashed var(--gold); }
+  .legend i.la { border-color: var(--a); }
+  .legend i.lb { border-color: var(--b); }
+
+  .chartbox { position: relative; width: 100%; }
+  .chartbox svg { display: block; width: 100%; touch-action: pan-y; cursor: crosshair; }
+  .tip {
+    position: absolute; top: 8px; pointer-events: none; z-index: 2;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--gold);
+    border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; min-width: 170px;
+    box-shadow: 0 6px 18px rgba(15, 30, 61, 0.18);
+  }
+  .tip[hidden] { display: none; }
+  .tip .when { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+  .tip .row { display: flex; justify-content: space-between; gap: 14px; }
+  .tip .row b { font-weight: 500; }
+  .tip .row .k { color: var(--muted); }
+  .tip .row .k.a { color: var(--a); font-weight: 600; }
+  .tip .row .k.b { color: var(--b); font-weight: 600; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 560px; }
+  th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-ink); font-weight: 600; }
+  td:first-child { font-weight: 500; }
+  tr.sel td { background: var(--field); font-weight: 600; }
+
+  .note { color: var(--muted); font-size: 0.8rem; margin: 0; max-width: 78ch; }
+
+  .owner { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--gold); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+  .owner .who { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin: 0; }
+  .owner .who small { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink); font-weight: 500; margin-left: 8px; }
+  .owner .rights { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .panel { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { transition: background 0.12s, color 0.12s; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="byline">Gazia Corentin · Ingénieur patrimonial</p>
+    <h1>Comparateur d'assurance vie</h1>
+    <p class="lead">Saisissez les frais de deux contrats et votre plan d'épargne. Les courbes montrent le capital de chaque contrat année après année.</p>
+  </header>
+
+  <div class="layout">
+    <div class="controls">
+      <section class="panel" aria-labelledby="h-epargne">
+        <h2 id="h-epargne">Votre épargne</h2>
+        <p class="hint">Valeurs d'exemple, à remplacer par les vôtres.</p>
+        <div class="field">
+          <label for="init">Versement initial</label>
+          <div class="pair">
+            <div class="inp"><input id="init" type="number" inputmode="decimal" min="0" step="100" value="10000"><span class="unit">€</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab" id="l-repi">Répartition du versement initial</span>
+          <div class="pair" role="group" aria-labelledby="l-repi">
+            <div class="inp"><input id="ucI" type="number" inputmode="decimal" min="0" max="100" step="5" value="50" aria-label="Part du versement initial en unités de compte"><span class="unit">% UC</span></div>
+            <div class="split" id="feI" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="mens">Versement mensuel</label>
+          <div class="pair">
+            <div class="inp"><input id="mens" type="number" inputmode="decimal" min="0" step="10" value="200"><span class="unit">€</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab" id="l-repm">Répartition des versements mensuels</span>
+          <div class="pair" role="group" aria-labelledby="l-repm">
+            <div class="inp"><input id="ucM" type="number" inputmode="decimal" min="0" max="100" step="5" value="50" aria-label="Part des versements mensuels en unités de compte"><span class="unit">% UC</span></div>
+            <div class="split" id="feM" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-contrats">
+        <h2 id="h-contrats">Les deux contrats</h2>
+        <div class="names">
+          <div class="a"><input id="nameA" type="text" maxlength="24" value="Contrat A" aria-label="Nom du contrat A"></div>
+          <div class="b"><input id="nameB" type="text" maxlength="24" value="Contrat B" aria-label="Nom du contrat B"></div>
+        </div>
+
+        <div class="field">
+          <span class="lab" id="l-fi">Frais sur versement initial</span>
+          <div class="pair" role="group" aria-labelledby="l-fi">
+            <div class="inp a"><input id="fiA" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="3" aria-label="Frais sur versement initial, contrat A"><span class="unit">%</span></div>
+            <div class="inp b"><input id="fiB" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="0" aria-label="Frais sur versement initial, contrat B"><span class="unit">%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab" id="l-fr">Frais sur versements réguliers</span>
+          <div class="pair" role="group" aria-labelledby="l-fr">
+            <div class="inp a"><input id="frA" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="3" aria-label="Frais sur versements réguliers, contrat A"><span class="unit">%</span></div>
+            <div class="inp b"><input id="frB" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="0" aria-label="Frais sur versements réguliers, contrat B"><span class="unit">%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab" id="l-fe">Frais sur encours, fonds euros (par an)</span>
+          <div class="pair" role="group" aria-labelledby="l-fe">
+            <div class="inp a"><input id="feA" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="0.6" aria-label="Frais sur encours fonds euros, contrat A"><span class="unit">%</span></div>
+            <div class="inp b"><input id="feB" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="0.9" aria-label="Frais sur encours fonds euros, contrat B"><span class="unit">%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab" id="l-fu">Frais sur encours, unités de compte (par an)</span>
+          <div class="pair" role="group" aria-labelledby="l-fu">
+            <div class="inp a"><input id="fuA" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="0.6" aria-label="Frais sur encours unités de compte, contrat A"><span class="unit">%</span></div>
+            <div class="inp b"><input id="fuB" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="1" aria-label="Frais sur encours unités de compte, contrat B"><span class="unit">%</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-marche">
+        <h2 id="h-marche">Hypothèses de marché</h2>
+        <p class="hint">Identiques pour les deux contrats, pour que seule la différence de frais joue. Rendements bruts avant frais d'encours, non garantis.</p>
+        <div class="field">
+          <label for="gFE">Rendement brut du fonds euros (par an)</label>
+          <div class="inp"><input id="gFE" type="number" inputmode="decimal" min="-5" max="15" step="0.1" value="2.5"><span class="unit">%</span></div>
+        </div>
+        <div class="field">
+          <label for="gUC">Rendement brut des unités de compte (par an)</label>
+          <div class="inp"><input id="gUC" type="number" inputmode="decimal" min="-10" max="20" step="0.1" value="6"><span class="unit">%</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="results">
+      <section class="panel" aria-labelledby="h-duree">
+        <div class="durbar">
+          <div class="durtop">
+            <label for="duree" id="h-duree">Durée du contrat</label>
+            <span class="durval" id="dureeVal" aria-live="polite">20 ans</span>
+          </div>
+          <input id="duree" type="range" min="1" max="40" step="1" value="20">
+          <div class="chips" id="chips" role="group" aria-label="Durées usuelles">
+            <button type="button" class="chip" data-y="5">5 ans</button>
+            <button type="button" class="chip" data-y="8">8 ans</button>
+            <button type="button" class="chip" data-y="10">10 ans</button>
+            <button type="button" class="chip" data-y="15">15 ans</button>
+            <button type="button" class="chip" data-y="20">20 ans</button>
+            <button type="button" class="chip" data-y="30">30 ans</button>
+            <button type="button" class="chip" data-y="40">40 ans</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Résultat">
+        <p class="verdict" id="verdict" aria-live="polite"></p>
+        <p class="cross" id="cross"></p>
+      </section>
+
+      <div class="cards" id="cards"></div>
+
+      <section class="panel" aria-labelledby="h-graph">
+        <h2 id="h-graph">Évolution du capital</h2>
+        <div class="legend" id="legend"></div>
+        <div class="chartbox" id="chartbox">
+          <svg id="chart" role="img" aria-label="Courbes d'évolution du capital des deux contrats"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-jalons">
+        <h2 id="h-jalons">Capital par étape</h2>
+        <div class="tablewrap"><table id="table"></table></div>
+      </section>
+
+      <p class="note">Simulation simplifiée : frais de versement prélevés sur chaque versement, frais d'encours retranchés du rendement brut chaque année, répartition fonds euros / unités de compte appliquée à chaque versement (initial et mensuels), sans arbitrage ensuite, versements en début de mois. Avant fiscalité et prélèvements sociaux. Les rendements sont des hypothèses, pas des promesses.</p>
+    </div>
+  </div>
+
+  <footer class="owner">
+    <p class="who">Gazia Corentin <small>Ingénieur patrimonial</small></p>
+    <p class="rights">Ce simulateur est la propriété de Gazia Corentin. Tous droits réservés.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var MAXY = 40;
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  var fmt = function (n) { return eur.format(Math.round(n)); };
+  var fmtK = function (n) {
+    if (Math.abs(n) >= 1000000) return (n / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' M€';
+    if (Math.abs(n) >= 1000) return Math.round(n / 1000).toLocaleString('fr-FR') + ' k€';
+    return Math.round(n).toLocaleString('fr-FR') + ' €';
+  };
+  var num = function (id, lo, hi) {
+    var v = parseFloat($(id).value);
+    if (!isFinite(v)) v = 0;
+    if (lo !== undefined && v < lo) v = lo;
+    if (hi !== undefined && v > hi) v = hi;
+    return v;
+  };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  function duration(m) {
+    var y = Math.floor(m / 12), r = m % 12;
+    if (y === 0) return r + ' mois';
+    return y + (y > 1 ? ' ans' : ' an') + (r ? ' ' + r + ' mois' : '');
+  }
+
+  function read() {
+    var nA = $('nameA').value.trim() || 'Contrat A';
+    var nB = $('nameB').value.trim() || 'Contrat B';
+    return {
+      init: num('init', 0), mens: num('mens', 0),
+      ucI: num('ucI', 0, 100) / 100, ucM: num('ucM', 0, 100) / 100, gFE: num('gFE', -5, 15) / 100, gUC: num('gUC', -10, 20) / 100,
+      years: parseInt($('duree').value, 10) || 20,
+      A: { name: nA, fi: num('fiA', 0, 20) / 100, fr: num('frA', 0, 20) / 100, fE: num('feA', 0, 10) / 100, fU: num('fuA', 0, 10) / 100 },
+      B: { name: nB, fi: num('fiB', 0, 20) / 100, fr: num('frB', 0, 20) / 100, fE: num('feB', 0, 10) / 100, fU: num('fuB', 0, 10) / 100 }
+    };
+  }
+
+  // Capital mois par mois, de 0 à n mois.
+  function simulate(p, c, n) {
+    var nE = Math.max(-0.99, p.gFE - c.fE), nU = Math.max(-0.99, p.gUC - c.fU);
+    var rE = Math.pow(1 + nE, 1 / 12) - 1, rU = Math.pow(1 + nU, 1 / 12) - 1;
+    var i0 = p.init * (1 - c.fi);
+    var vU = i0 * p.ucI, vE = i0 - vU;
+    var tot = [vE + vU], fe = [vE], uc = [vU];
+    var m0 = p.mens * (1 - c.fr);
+    for (var m = 1; m <= n; m++) {
+      vU = (vU + m0 * p.ucM) * (1 + rU);
+      vE = (vE + m0 * (1 - p.ucM)) * (1 + rE);
+      tot.push(vE + vU); fe.push(vE); uc.push(vU);
+    }
+    return { tot: tot, fe: fe, uc: uc };
+  }
+
+  function crossing(a, b) {
+    var first = 0;
+    for (var m = 0; m < a.length; m++) {
+      var d = a[m] - b[m];
+      var s = Math.abs(d) < 0.005 ? 0 : (d > 0 ? 1 : -1);
+      if (s === 0) continue;
+      if (first === 0) { first = s; continue; }
+      if (s !== first) return { m: m, firstAhead: first > 0 ? 'A' : 'B' };
+    }
+    return { m: null, firstAhead: first === 0 ? null : (first > 0 ? 'A' : 'B') };
+  }
+
+  function niceStep(max, target) {
+    var rough = max / target;
+    var pow = Math.pow(10, Math.floor(Math.log10(rough)));
+    var cands = [1, 2, 2.5, 5, 10];
+    for (var i = 0; i < cands.length; i++) if (cands[i] * pow >= rough) return cands[i] * pow;
+    return 10 * pow;
+  }
+
+  var state = null;
+
+  function compute() {
+    var p = read();
+    var full = MAXY * 12;
+    var sa = simulate(p, p.A, full), sb = simulate(p, p.B, full);
+    var a = sa.tot, b = sb.tot;
+    var inv = [];
+    for (var m = 0; m <= full; m++) inv.push(p.init + p.mens * m);
+    state = { p: p, a: a, b: b, sa: sa, sb: sb, inv: inv, cross: crossing(a, b) };
+    var pct = function (x) { return Math.round((1 - x) * 1000) / 10; };
+    $('feI').textContent = pct(p.ucI) + ' % fonds euros';
+    $('feM').textContent = pct(p.ucM) + ' % fonds euros';
+  }
+
+  function renderSummary() {
+    var s = state, p = s.p, N = p.years * 12;
+    var fa = s.a[N], fb = s.b[N], inv = s.inv[N];
+    var diff = fa - fb;
+    var yl = p.years + (p.years > 1 ? ' ans' : ' an');
+    $('dureeVal').textContent = yl;
+
+    var v = $('verdict');
+    if (Math.abs(diff) < 1) {
+      v.textContent = 'Après ' + yl + ', les deux contrats se valent.';
+    } else {
+      var lead = diff > 0 ? p.A.name : p.B.name, other = diff > 0 ? p.B.name : p.A.name;
+      v.innerHTML = 'Après ' + yl + ', ' + esc(lead) + ' finit <span class="gain">' + fmt(Math.abs(diff)) + '</span> au-dessus de ' + esc(other) + '.';
+    }
+
+    var c = s.cross, nm = { A: p.A.name, B: p.B.name };
+    var txt = '';
+    if (c.m !== null && c.firstAhead) {
+      var other = c.firstAhead === 'A' ? 'B' : 'A';
+      txt = nm[c.firstAhead] + ' est devant au départ. ' + nm[other] + ' passe devant à partir de ' + duration(c.m) + (c.m > N ? ', au-delà de la durée choisie.' : '.');
+    } else if (c.firstAhead) {
+      txt = nm[c.firstAhead] + ' reste devant pendant toute la simulation, sans croisement sur ' + MAXY + ' ans.';
+    }
+    $('cross').textContent = txt;
+
+    var cards = '';
+    [['A', fa, s.sa], ['B', fb, s.sb]].forEach(function (x) {
+      var k = x[0], val = x[1], sim = x[2], win = Math.abs(diff) >= 1 && ((diff > 0) === (k === 'A'));
+      var gain = val - inv;
+      cards += '<div class="card ' + k.toLowerCase() + '"><div class="nm"><span>' + esc(p[k].name) + '</span>' + (win ? '<span class="pill">Plus avantageux</span>' : '') + '</div>' +
+        '<div class="big">' + fmt(val) + '</div>' +
+        '<dl><dt>dont fonds euros</dt><dd>' + fmt(sim.fe[N]) + '</dd><dt>dont unités de compte</dt><dd>' + fmt(sim.uc[N]) + '</dd><dt>Total versé</dt><dd>' + fmt(inv) + '</dd><dt>Gain</dt><dd>' + (gain >= 0 ? '+' : '−') + fmt(Math.abs(gain)).replace(/^−/, '') + '</dd></dl></div>';
+    });
+    $('cards').innerHTML = cards;
+
+    $('legend').innerHTML =
+      '<span><i class="la"></i>' + esc(p.A.name) + '</span>' +
+      '<span><i class="lb"></i>' + esc(p.B.name) + '</span>' +
+      '<span><i class="ref"></i>Total versé</span>';
+
+    // Tableau des étapes
+    var marks = [5, 10, 15, 20, 25, 30, 40].filter(function (y) { return y < p.years; });
+    marks.push(p.years);
+    var rows = '<thead><tr><th>Durée</th><th>Total versé</th><th>' + esc(p.A.name) + '</th><th>' + esc(p.B.name) + '</th><th>Avantage</th></tr></thead><tbody>';
+    marks.forEach(function (y) {
+      var m = y * 12, d = s.a[m] - s.b[m];
+      var adv = Math.abs(d) < 1 ? 'Égalité' : esc(d > 0 ? p.A.name : p.B.name) + ' +' + fmt(Math.abs(d));
+      rows += '<tr' + (y === p.years ? ' class="sel"' : '') + '><td>' + y + (y > 1 ? ' ans' : ' an') + '</td><td>' + fmt(s.inv[m]) + '</td><td>' + fmt(s.a[m]) + '</td><td>' + fmt(s.b[m]) + '</td><td class="lead">' + adv + '</td></tr>';
+    });
+    $('table').innerHTML = rows + '</tbody>';
+
+    var chips = document.querySelectorAll('#chips .chip');
+    for (var i = 0; i < chips.length; i++) chips[i].setAttribute('aria-pressed', String(parseInt(chips[i].getAttribute('data-y'), 10) === p.years));
+  }
+
+  var geo = null;
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function renderChart() {
+    var s = state, p = s.p, N = p.years * 12;
+    var box = $('chartbox'), svg = $('chart');
+    var W = Math.max(280, box.clientWidth), H = W < 520 ? 300 : 380;
+    var ml = W < 520 ? 46 : 56, mr = 14, mt = 14, mb = 30;
+    var pw = W - ml - mr, ph = H - mt - mb;
+
+    var maxV = 0;
+    for (var m = 0; m <= N; m++) maxV = Math.max(maxV, s.a[m], s.b[m], s.inv[m]);
+    if (maxV <= 0) maxV = 1;
+    var step = niceStep(maxV * 1.04, 5);
+    var yMax = Math.ceil(maxV * 1.04 / step) * step;
+    var X = function (m) { return ml + pw * m / N; };
+    var Y = function (v) { return mt + ph * (1 - v / yMax); };
+
+    var xs = p.years <= 6 ? 1 : p.years <= 12 ? 2 : p.years <= 25 ? 5 : 10;
+    var cMuted = css('--muted'), cGold = css('--gold'), cLine = css('--line'), cA = css('--a'), cB = css('--b'), cInk = css('--ink');
+    var g = '';
+    for (var t = 0; t <= yMax + step / 1000; t += step) {
+      var y = Y(t);
+      g += '<line x1="' + ml + '" x2="' + (W - mr) + '" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="' + cLine + '" stroke-width="1"/>';
+      g += '<text x="' + (ml - 8) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="' + cMuted + '" font-family="Schibsted Grotesk, sans-serif">' + fmtK(t) + '</text>';
+    }
+    for (var yr = 0; yr <= p.years; yr += xs) {
+      var x = X(yr * 12);
+      g += '<text x="' + x.toFixed(1) + '" y="' + (H - 9) + '" text-anchor="' + (yr === 0 ? 'start' : 'middle') + '" font-size="11" fill="' + cMuted + '" font-family="Schibsted Grotesk, sans-serif">' + yr + (yr === 0 ? '' : ' ans') + '</text>';
+    }
+    if (p.years % xs !== 0) {
+      g += '<text x="' + (W - mr) + '" y="' + (H - 9) + '" text-anchor="end" font-size="11" fill="' + cMuted + '" font-family="Schibsted Grotesk, sans-serif">' + p.years + ' ans</text>';
+    }
+    var pts = function (arr) {
+      var o = [];
+      for (var m = 0; m <= N; m++) o.push(X(m).toFixed(1) + ',' + Y(arr[m]).toFixed(1));
+      return o.join(' ');
+    };
+    g += '<polyline points="' + pts(s.inv) + '" fill="none" stroke="' + cGold + '" stroke-width="1.75" stroke-dasharray="5 4"/>';
+    g += '<polyline points="' + pts(s.a) + '" fill="none" stroke="' + cA + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    g += '<polyline points="' + pts(s.b) + '" fill="none" stroke="' + cB + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    g += '<circle cx="' + X(N).toFixed(1) + '" cy="' + Y(s.a[N]).toFixed(1) + '" r="4.5" fill="' + cA + '"/>';
+    g += '<circle cx="' + X(N).toFixed(1) + '" cy="' + Y(s.b[N]).toFixed(1) + '" r="4.5" fill="' + cB + '"/>';
+    g += '<g id="hov" visibility="hidden"><line id="hv" y1="' + mt + '" y2="' + (mt + ph) + '" stroke="' + cInk + '" stroke-width="1" stroke-opacity="0.45"/>' +
+      '<circle id="hdA" r="5" fill="' + cA + '" stroke="' + css('--surface') + '" stroke-width="2"/>' +
+      '<circle id="hdB" r="5" fill="' + cB + '" stroke="' + css('--surface') + '" stroke-width="2"/></g>';
+
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('height', H);
+    svg.innerHTML = g;
+    svg.setAttribute('aria-label', 'Courbes du capital sur ' + p.years + ' ans : ' + p.A.name + ' ' + fmt(s.a[N]) + ', ' + p.B.name + ' ' + fmt(s.b[N]) + ', total versé ' + fmt(s.inv[N]) + '.');
+    geo = { W: W, H: H, ml: ml, pw: pw, N: N, X: X, Y: Y };
+  }
+
+  function hover(ev) {
+    if (!geo || !state) return;
+    var svg = $('chart'), rect = svg.getBoundingClientRect();
+    var px = (ev.clientX - rect.left) * (geo.W / rect.width);
+    var m = Math.round((px - geo.ml) / geo.pw * geo.N);
+    m = Math.max(0, Math.min(geo.N, m));
+    var s = state, p = s.p;
+    var x = geo.X(m);
+    var hov = $('hov');
+    hov.setAttribute('visibility', 'visible');
+    var hv = $('hv'); hv.setAttribute('x1', x); hv.setAttribute('x2', x);
+    var dA = $('hdA'), dB = $('hdB');
+    dA.setAttribute('cx', x); dA.setAttribute('cy', geo.Y(s.a[m]));
+    dB.setAttribute('cx', x); dB.setAttribute('cy', geo.Y(s.b[m]));
+    var tip = $('tip');
+    tip.hidden = false;
+    tip.innerHTML = '<div class="when">Après ' + duration(m) + '</div>' +
+      '<div class="row"><span class="k a">' + esc(p.A.name) + '</span><b>' + fmt(s.a[m]) + '</b></div>' +
+      '<div class="row"><span class="k b">' + esc(p.B.name) + '</span><b>' + fmt(s.b[m]) + '</b></div>' +
+      '<div class="row"><span class="k">Total versé</span><b>' + fmt(s.inv[m]) + '</b></div>';
+    var cssX = x * (rect.width / geo.W);
+    var tw = tip.offsetWidth;
+    var left = cssX + 14;
+    if (left + tw > rect.width) left = cssX - 14 - tw;
+    if (left < 0) left = 0;
+    tip.style.left = left + 'px';
+  }
+  function leave() {
+    var hov = $('hov'); if (hov) hov.setAttribute('visibility', 'hidden');
+    $('tip').hidden = true;
+  }
+
+  function renderAll() { compute(); renderSummary(); renderChart(); }
+
+  var ids = ['init', 'mens', 'ucI', 'ucM', 'gFE', 'gUC', 'nameA', 'nameB', 'fiA', 'fiB', 'frA', 'frB', 'feA', 'feB', 'fuA', 'fuB', 'duree'];
+  ids.forEach(function (id) { $(id).addEventListener('input', renderAll); });
+  document.querySelectorAll('#chips .chip').forEach(function (b) {
+    b.addEventListener('click', function () { $('duree').value = b.getAttribute('data-y'); renderAll(); });
+  });
+  var svg = $('chart');
+  svg.addEventListener('pointermove', hover);
+  svg.addEventListener('pointerdown', hover);
+  svg.addEventListener('pointerleave', leave);
+  svg.addEventListener('pointercancel', leave);
+
+  if (window.ResizeObserver) {
+    var lastW = 0;
+    new ResizeObserver(function () {
+      var w = $('chartbox').clientWidth;
+      if (w !== lastW) { lastW = w; if (state) renderChart(); }
+    }).observe($('chartbox'));
+  } else {
+    window.addEventListener('resize', function () { if (state) renderChart(); });
+  }
+  try {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', function () { if (state) renderChart(); });
+    new MutationObserver(function () { if (state) renderChart(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  } catch (e) {}
+
+  renderAll();
+})();
+</script>
+
+</body></html>
