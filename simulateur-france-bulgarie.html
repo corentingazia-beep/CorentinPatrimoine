@@ -1,0 +1,655 @@
+<!doctype html><html lang="fr"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Investir en France ou en Europe – Gazia Corentin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --ink: #0f1e3d;
+    --muted: #586277;
+    --line: #e8e0cd;
+    --field: #ffffff;
+    --gold: #b8964a;
+    --gold-ink: #86671f;
+    --hero: #ffffff;
+    --hero-ink: #0f1e3d;
+    --hero-byline: #86671f;
+    --hero-lead: #586277;
+    --a: #a8231c;
+    --a-soft: #f8e7e5;
+    --b: #1d7a4d;
+    --b-soft: #e3f1e9;
+    --focus: #86671f;
+    --font-display: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    --font-ui: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-num: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    padding-block: 28px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .hero {
+    background: var(--hero);
+    color: var(--hero-ink);
+    border-radius: 6px;
+    padding: clamp(22px, 4vw, 38px) clamp(18px, 4vw, 40px);
+    margin-bottom: 22px;
+    box-shadow: inset 0 -3px 0 var(--gold);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  .byline { margin: 0 0 14px; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hero-byline); font-weight: 500; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: 0.005em; text-wrap: balance; }
+  .hero p.lead { margin: 0; color: var(--hero-lead); max-width: 60ch; font-size: 0.98rem; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; min-width: 0; }
+  .controls { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .panel h2 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold-ink); font-weight: 600; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .panel .hint { color: var(--muted); font-size: 0.82rem; margin: -4px 0 14px; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; min-width: 0; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label, .field > .lab { font-size: 0.88rem; font-weight: 500; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+
+  .inp { position: relative; min-width: 0; }
+  .inp input {
+    width: 100%;
+    font: inherit;
+    font-family: var(--font-num);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: #fbf6e9;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 9px 46px 9px 11px;
+    min-width: 0;
+    text-align: right;
+  }
+  .inp .unit { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.78rem; pointer-events: none; }
+  .inp.a input { border-left: 3px solid var(--a); }
+  .inp.b input { border-left: 3px solid var(--b); }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .split { display: flex; align-items: center; font-size: 0.85rem; color: var(--muted); min-width: 0; }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .names input {
+    width: 100%; min-width: 0; font: inherit; font-weight: 600; color: var(--ink);
+    background: #fbf6e9; border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px;
+  }
+  .names .a input { border-top: 3px solid var(--a); }
+  .names .b input { border-top: 3px solid var(--b); }
+
+  .results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .durbar { display: grid; gap: 12px; }
+  .durtop { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .durtop label { font-weight: 600; }
+  .durval { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; line-height: 1; }
+  input[type="range"] { width: 100%; accent-color: var(--gold); margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 0.85rem;
+    background: var(--field); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); font-weight: 600; }
+
+  .verdict { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); line-height: 1.2; font-weight: 600; margin: 0 0 8px; text-wrap: balance; }
+  .verdict .gain { color: var(--gold-ink); }
+  .cross { margin: 0; color: var(--muted); font-size: 0.92rem; max-width: 68ch; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 16px; background: var(--surface); min-width: 0; }
+  .card.a { border-top: 3px solid var(--a); }
+  .card.b { border-top: 3px solid var(--b); }
+  .card .nm { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 8px; min-width: 0; }
+  .card .nm span:first-child { overflow-wrap: anywhere; }
+  .pill { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .card.a .pill { background: var(--a-soft); color: var(--a); }
+  .card.b .pill { background: var(--b-soft); color: var(--b); }
+  .card .big { font-family: var(--font-display); font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.5rem); font-weight: 600; line-height: 1.05; }
+  .card .bigsub { margin: 2px 0 0; color: var(--muted); font-size: 0.84rem; }
+  .card dl { margin: 12px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 0.86rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; text-align: right; }
+  .card dd.neg { color: var(--a); }
+  .card dd.pos { color: var(--b); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { display: inline-block; width: 22px; height: 0; border-top: 3px solid; }
+  .legend i.ls { border-color: var(--a); }
+  .legend i.lv { border-color: var(--b); }
+  .legend i.lbe { border-top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+
+  .chartbox { position: relative; width: 100%; }
+  .chartbox svg { display: block; width: 100%; touch-action: pan-y; cursor: crosshair; }
+  .tip {
+    position: absolute; top: 8px; pointer-events: none; z-index: 2;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--gold);
+    border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; min-width: 170px;
+    box-shadow: 0 6px 18px rgba(15, 30, 61, 0.18);
+  }
+  .tip[hidden] { display: none; }
+  .tip .when { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+  .tip .row { display: flex; justify-content: space-between; gap: 14px; }
+  .tip .row b { font-weight: 500; }
+  .tip .row .k { color: var(--muted); }
+  .tip .row .k.a { color: var(--a); font-weight: 600; }
+  .tip .row .k.b { color: var(--b); font-weight: 600; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 560px; }
+  th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-ink); font-weight: 600; }
+  td:first-child { font-weight: 500; }
+  tr.sel td { background: var(--field); font-weight: 600; }
+
+  .note { color: var(--muted); font-size: 0.8rem; margin: 0; max-width: 78ch; }
+  .note a { color: var(--gold-ink); }
+
+  .owner { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--gold); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+  .owner .who { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin: 0; }
+  .owner .who small { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-ink); font-weight: 500; margin-left: 8px; }
+  .owner .rights { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .panel { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { transition: background 0.12s, color 0.12s; }
+  }
+
+  .commongrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .commongrid .field { margin-bottom: 0; }
+  .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .col.a { border-top: 3px solid var(--a); }
+  .col.b { border-top: 3px solid var(--b); }
+  .rows { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 0; }
+  .rows .rt { margin: 0 0 6px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); font-weight: 600; }
+  .rows .r { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.9rem; border-bottom: 1px solid var(--line); }
+  .rows .r span:first-child { color: var(--muted); }
+  .rows .r span:last-child { text-align: right; white-space: nowrap; }
+  .rows .r.neg span:last-child { color: var(--a); }
+  .rows .r.tot { border-bottom: 0; padding-top: 10px; align-items: baseline; }
+  .rows .r.tot span:first-child { color: var(--ink); font-weight: 600; }
+  .rows .r.tot span:last-child { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+  .rows .posv { color: var(--b); }
+  .rows .negv { color: var(--a); }
+  .warn { margin: 8px 0 0; font-size: 0.8rem; color: var(--a); }
+
+  .gh { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; padding-bottom: 10px; }
+  .panel .gh h2 { margin: 0; padding: 0; border: 0; }
+  .gh .sub { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; white-space: nowrap; }
+  .help { margin: 0; color: var(--muted); font-size: 0.8rem; line-height: 1.35; }
+  .taxbox { border: 1px solid var(--gold); border-radius: 6px; padding: 14px; margin-top: 4px; display: grid; gap: 12px; }
+  .taxt { margin: 0; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); font-weight: 600; }
+  select { width: 100%; font: inherit; color: var(--ink); background: #fbf6e9; border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px; min-width: 0; }
+  select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .rules { margin: 0 0 12px; padding-left: 18px; display: grid; gap: 8px; font-size: 0.9rem; max-width: 80ch; }
+  .rules li::marker { color: var(--gold); }
+  @media (max-width: 900px) { .duo, .commongrid { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="byline">Gazia Corentin · Ingénieur patrimonial</p>
+    <h1>Investir en France ou en Europe</h1>
+    <p class="lead">Comparez deux achats locatifs : loyers, fiscalité, cash-flow net année après année, puis revente avec plus-value. Pour chaque bien, vous choisissez le neuf ou l'ancien et le régime de location, et les frais d'acquisition s'adaptent.</p>
+  </header>
+
+  <section class="panel common" aria-labelledby="h-common">
+    <h2 id="h-common">Votre situation et la durée</h2>
+    <div class="commongrid">
+      <div class="field">
+        <label for="tmi">Votre tranche marginale d'imposition (France)</label>
+        <select id="tmi">
+          <option value="0">0 %</option>
+          <option value="11">11 %</option>
+          <option value="30" selected>30 %</option>
+          <option value="41">41 %</option>
+          <option value="45">45 %</option>
+        </select>
+        <p class="help">Hypothèse : vous êtes résident fiscal en France. Les biens sont achetés comptant, sans crédit.</p>
+      </div>
+      <div class="field">
+        <div class="durtop">
+          <label for="duree">Durée de détention</label>
+          <span class="durval" id="dureeVal" aria-live="polite">15 ans</span>
+        </div>
+        <input id="duree" type="range" min="1" max="30" step="1" value="15">
+        <div class="chips" id="chips" role="group" aria-label="Durées usuelles">
+          <button type="button" class="chip" data-y="5">5 ans</button>
+          <button type="button" class="chip" data-y="10">10 ans</button>
+          <button type="button" class="chip" data-y="15">15 ans</button>
+          <button type="button" class="chip" data-y="20">20 ans</button>
+          <button type="button" class="chip" data-y="25">25 ans</button>
+          <button type="button" class="chip" data-y="30">30 ans</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="duo">
+    <section class="panel col a" aria-labelledby="h-fr">
+      <div class="gh"><h2 id="h-fr">France</h2><span class="sub" id="sub_fr"></span></div>
+      <div class="field">
+        <span class="lab" id="l-fr-state">Type de bien</span>
+        <div class="chips" role="group" aria-labelledby="l-fr-state">
+          <button type="button" class="chip" data-col="fr" data-state="ancien" aria-pressed="true">Ancien</button>
+          <button type="button" class="chip" data-col="fr" data-state="neuf" aria-pressed="false">Neuf</button>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lab" id="l-fr-loc">Type de location</span>
+        <div class="chips" role="group" aria-labelledby="l-fr-loc">
+          <button type="button" class="chip" data-col="fr" data-loc="nue" aria-pressed="true">Nue</button>
+          <button type="button" class="chip" data-col="fr" data-loc="meublee" aria-pressed="false">Meublée</button>
+        </div>
+        <p class="help" id="frlochelp"></p>
+      </div>
+      <div class="field"><label for="fr_prix">Prix d'achat</label><div class="inp"><input id="fr_prix" type="number" inputmode="decimal" min="0" step="5000" value="200000"><span class="unit">€</span></div></div>
+      <div class="field"><label for="fr_frais">Frais de notaire</label><div class="inp"><input id="fr_frais" type="number" inputmode="decimal" min="0" step="0.1" value="7.5"><span class="unit">%</span></div><p class="help" id="fr_fraishelp"></p></div>
+      <div class="field"><label for="fr_loyer">Loyer mensuel estimé</label><div class="inp"><input id="fr_loyer" type="number" inputmode="decimal" min="0" step="10" value="800"><span class="unit">€</span></div></div>
+      <div class="field"><label for="fr_hl">Hausse annuelle du loyer</label><div class="inp"><input id="fr_hl" type="number" inputmode="decimal" step="0.1" value="1.5"><span class="unit">%</span></div></div>
+      <div class="field"><label for="fr_reval">Revalorisation annuelle du bien</label><div class="inp"><input id="fr_reval" type="number" inputmode="decimal" step="0.1" value="1.5"><span class="unit">%</span></div></div>
+      <div class="field"><label for="fr_charges">Charges annuelles non récupérables</label><div class="inp"><input id="fr_charges" type="number" inputmode="decimal" min="0" step="100" value="1800"><span class="unit">€</span></div><p class="help">Taxe foncière, charges de copropriété non récupérables, assurance propriétaire.</p></div>
+      <div class="rows" id="rows_fr"></div>
+    </section>
+
+    <section class="panel col b" aria-labelledby="h-eu">
+      <div class="gh"><h2 id="h-eu">Pays de l'Union européenne</h2><span class="sub" id="sub_eu"></span></div>
+      <div class="field">
+        <label for="country">Pays</label>
+        <select id="country">
+          <option value="bg" selected>Bulgarie</option>
+          <option value="" disabled>Espagne (bientôt)</option>
+          <option value="" disabled>Portugal (bientôt)</option>
+          <option value="" disabled>Italie (bientôt)</option>
+          <option value="" disabled>Grèce (bientôt)</option>
+          <option value="" disabled>Croatie (bientôt)</option>
+          <option value="" disabled>Roumanie (bientôt)</option>
+        </select>
+        <p class="help">D'autres pays seront ajoutés avec leurs propres frais d'acquisition et leur fiscalité.</p>
+      </div>
+      <div class="field">
+        <span class="lab" id="l-eu-state">Type de bien</span>
+        <div class="chips" role="group" aria-labelledby="l-eu-state">
+          <button type="button" class="chip" data-col="eu" data-state="ancien" aria-pressed="true">Ancien</button>
+          <button type="button" class="chip" data-col="eu" data-state="neuf" aria-pressed="false">Neuf</button>
+        </div>
+      </div>
+      <div class="field"><label for="eu_prix">Prix d'achat</label><div class="inp"><input id="eu_prix" type="number" inputmode="decimal" min="0" step="5000" value="130000"><span class="unit">€</span></div><p class="help">Les prix sont en euros : la Bulgarie utilise l'euro depuis le 1er janvier 2026.</p></div>
+      <div class="field"><label for="eu_frais">Frais d'acquisition (notaire, taxe de transfert, registre)</label><div class="inp"><input id="eu_frais" type="number" inputmode="decimal" min="0" step="0.1" value="3.5"><span class="unit">%</span></div><p class="help" id="eu_fraishelp"></p></div>
+      <div class="field"><label for="eu_loyer">Loyer mensuel estimé</label><div class="inp"><input id="eu_loyer" type="number" inputmode="decimal" min="0" step="10" value="650"><span class="unit">€</span></div></div>
+      <div class="field"><label for="eu_hl">Hausse annuelle du loyer</label><div class="inp"><input id="eu_hl" type="number" inputmode="decimal" step="0.1" value="2"><span class="unit">%</span></div></div>
+      <div class="field"><label for="eu_reval">Revalorisation annuelle du bien</label><div class="inp"><input id="eu_reval" type="number" inputmode="decimal" step="0.1" value="3"><span class="unit">%</span></div></div>
+      <div class="field"><label for="eu_charges">Charges annuelles non récupérables</label><div class="inp"><input id="eu_charges" type="number" inputmode="decimal" min="0" step="100" value="500"><span class="unit">€</span></div><p class="help">Taxe foncière locale, charges d'immeuble, assurance.</p></div>
+
+      <div class="taxbox">
+        <p class="taxt">Fiscalité appliquée</p>
+        <p class="help" id="eu_taxhelp"></p>
+      </div>
+      <div class="rows" id="rows_eu"></div>
+    </section>
+  </div>
+
+  <section class="panel" aria-label="Résultat">
+    <p class="verdict" id="verdict" aria-live="polite"></p>
+    <p class="cross" id="sub"></p>
+  </section>
+
+  <div class="cards" id="cards"></div>
+
+  <section class="panel" aria-labelledby="h-graph">
+    <h2 id="h-graph">Gain net si vous revendez au bout de…</h2>
+    <div class="legend" id="legend"></div>
+    <div class="chartbox" id="chartbox">
+      <svg id="chart" role="img" aria-label="Gain net selon la durée de détention"></svg>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <p class="note">Gain net = loyers nets d'impôts cumulés + prix de vente net de la plus-value imposable − capital investi (prix + frais d'acquisition).</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-jal">
+    <h2 id="h-jal">Gain net par durée</h2>
+    <div class="tablewrap"><table id="table"></table></div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-hyp">
+    <h2 id="h-hyp">Règles appliquées</h2>
+    <ul class="rules">
+      <li><b>France, location nue.</b> Micro-foncier : abattement de 30 % (loyers jusqu'à 15 000 € par an), prélèvements sociaux de 17,2 %, impôt sur le revenu à votre tranche marginale.</li>
+      <li><b>France, location meublée.</b> Micro-BIC : abattement de 50 % (loyers jusqu'à 77 700 € par an), prélèvements sociaux de 18,6 % depuis 2026, impôt à votre tranche marginale. Au-delà des plafonds, passez au régime réel : ce simulateur n'en tient pas compte.</li>
+      <li><b>France, plus-value.</b> Impôt de 19 % et prélèvements sociaux de 17,2 %, avec abattements pour durée de détention (exonération d'impôt après 22 ans, de prélèvements sociaux après 30 ans), forfaits de 7,5 % pour les frais d'acquisition et de 15 % pour les travaux au-delà de 5 ans, et surtaxe au-delà de 50 000 € de plus-value imposable.</li>
+      <li><b>Bulgarie.</b> Loyers imposés à un taux unique de 10 %, sans prélèvements sociaux. Plus-value exonérée après 3 ans de détention, sinon 10 % après une déduction de 10 %. Taxe de transfert fixée par la commune, de 0,1 % à 3 % (environ 2,5 % à Sofia), à laquelle s'ajoutent le notaire et le registre.</li>
+      <li><b>À valider.</b> La convention fiscale franco-bulgare, les prélèvements sociaux sur revenus étrangers et le sort de la plus-value en France dépendent de votre situation.</li>
+    </ul>
+    <p class="note">Hypothèses simplifiées : achat comptant, sans frais d'agence à la vente, loyers indexés chaque année, aucune vacance locative, charges non déductibles sous les régimes forfaitaires, taux et plafonds fixes sur la période. Ce simulateur ne remplace pas un conseil fiscal.</p>
+  </section>
+
+  <footer class="owner">
+    <p class="who">Gazia Corentin <small>Ingénieur patrimonial</small></p>
+    <p class="rights">Ce simulateur est la propriété de Gazia Corentin. Tous droits réservés.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  var fmt = function (n) { return eur.format(Math.round(n)).replace("-", "−"); };
+  var fmtN = function (n) { return Math.abs(n) < 0.5 ? fmt(0) : "− " + fmt(Math.abs(n)); };
+  var fmtS = function (n) { return (n > 0.5 ? "+" : n < -0.5 ? "−" : "") + eur.format(Math.abs(Math.round(n))); };
+  var fmtK = function (n) {
+    var a = Math.abs(n), s = n < 0 ? "−" : "";
+    if (a >= 1000000) return s + (a / 1000000).toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " M€";
+    if (a >= 1000) return s + Math.round(a / 1000).toLocaleString("fr-FR") + " k€";
+    return s + Math.round(a).toLocaleString("fr-FR") + " €";
+  };
+  var pc = function (x, d) { return (x * 100).toLocaleString("fr-FR", { minimumFractionDigits: d === undefined ? 1 : d, maximumFractionDigits: d === undefined ? 1 : d }).replace("-", "−") + " %"; };
+  var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  var val = function (id) { var v = parseFloat($(id).value); return isFinite(v) ? v : 0; };
+  var pos = function (id) { return Math.max(0, val(id)); };
+  function niceStep(max, target) {
+    var rough = max / target, pow = Math.pow(10, Math.floor(Math.log10(rough)));
+    var c = [1, 2, 2.5, 5, 10];
+    for (var i = 0; i < c.length; i++) if (c[i] * pow >= rough) return c[i] * pow;
+    return 10 * pow;
+  }
+
+  var MAXY = 30;
+
+  var COUNTRIES = {
+    bg: {
+      name: "Bulgarie",
+      notary: { ancien: 3.5, neuf: 3.5 },
+      notaryHelp: "Taxe de transfert communale (0,1 % à 3 %, environ 2,5 % à Sofia), notaire et registre foncier. Le taux est le même pour le neuf et l'ancien dans ce modèle : le prix du neuf inclut la TVA de 20 %.",
+      rentTax: 0.10, abatt: 0,
+      pvExemptYears: 3, pvTax: 0.10, pvAllow: 0.10,
+      taxHelp: "Loyers : taux unique de 10 % sur les loyers, sans prélèvements sociaux. Plus-value : exonérée après 3 ans de détention, sinon 10 % après déduction de 10 %.",
+      defaults: { prix: 130000, loyer: 650, hl: 2, reval: 3, charges: 500 }
+    }
+  };
+
+  var st = { fr: { state: "ancien", loc: "nue" }, eu: { state: "ancien" } };
+  var FR_FRAIS = { ancien: 7.5, neuf: 2.5 };
+  var FR_FRAIS_HELP = { ancien: "Ancien : environ 7 % à 8 % du prix (droits de mutation et émoluments).", neuf: "Neuf : environ 2 % à 3 % du prix." };
+
+  function surtaxe(pv) {
+    if (pv <= 50000) return 0;
+    var t = [[50000, 60000, 0.02, 20], [60000, 100000, 0.02, 0], [100000, 110000, 0.03, 10], [110000, 150000, 0.03, 0],
+             [150000, 160000, 0.04, 6.6666667], [160000, 200000, 0.04, 0], [200000, 210000, 0.05, 5], [210000, 250000, 0.05, 0],
+             [250000, 260000, 0.06, 4], [260000, 1e18, 0.06, 0]];
+    for (var i = 0; i < t.length; i++) {
+      if (pv > t[i][0] && pv <= t[i][1]) {
+        return t[i][3] ? t[i][2] * pv - (t[i][1] - pv) / t[i][3] : t[i][2] * pv;
+      }
+    }
+    return 0;
+  }
+  function pvFrance(prix, fraisReel, vente, cess, y) {
+    var fraisAcq = Math.max(fraisReel, 0.075 * prix), travaux = y > 5 ? 0.15 * prix : 0;
+    var pv = Math.max(0, vente - cess - (prix + fraisAcq + travaux));
+    var abIR = y <= 5 ? 0 : (y >= 22 ? 1 : 0.06 * (y - 5));
+    var abPS = y <= 5 ? 0 : (y <= 21 ? 0.0165 * (y - 5) : (y === 22 ? 0.28 : (y >= 30 ? 1 : 0.28 + 0.09 * (y - 22))));
+    var baseIR = pv * (1 - abIR), basePS = pv * (1 - abPS);
+    return { pv: pv, ir: 0.19 * baseIR, ps: 0.172 * basePS, sur: surtaxe(baseIR), baseIR: baseIR };
+  }
+
+  function readParams() {
+    var tmi = val("tmi") / 100;
+    var c = COUNTRIES[$("country").value] || COUNTRIES.bg;
+    return {
+      tmi: tmi, c: c, N: parseInt($("duree").value, 10) || 15,
+      fr: { prix: pos("fr_prix"), frais: pos("fr_frais") / 100, loyer: pos("fr_loyer") * 12, hl: val("fr_hl") / 100, reval: val("fr_reval") / 100, charges: pos("fr_charges"), cess: 0, loc: st.fr.loc },
+      eu: { prix: pos("eu_prix"), frais: pos("eu_frais") / 100, loyer: pos("eu_loyer") * 12, hl: val("eu_hl") / 100, reval: val("eu_reval") / 100, charges: pos("eu_charges"), cess: 0, ps: 0, mode: "credit", pvmode: "local" }
+    };
+  }
+
+  function rentTax(key, L, p) {
+    var o = p[key], r;
+    if (key === "fr") {
+      var nue = o.loc === "nue", ab = nue ? 0.30 : 0.50, psr = nue ? 0.172 : 0.186;
+      var base = L * (1 - ab);
+      r = { ab: ab, abEur: L * ab, base: base, psr: psr, ps: base * psr, irRate: p.tmi, ir: base * p.tmi, irc: 0 };
+    } else {
+      var c = p.c, base2 = L * (1 - c.abatt), irLocal = base2 * c.rentTax;
+      r = { ab: c.abatt, abEur: L * c.abatt, base: base2, psr: o.ps, ps: base2 * o.ps, irRate: c.rentTax, ir: irLocal,
+            irc: o.mode === "prudent" ? Math.max(0, p.tmi * base2 - irLocal) : 0 };
+    }
+    r.tax = r.ps + r.ir + r.irc;
+    r.net = L - o.charges - r.tax;
+    return r;
+  }
+
+  function saleTax(key, t, vente, cess, p) {
+    var o = p[key], frais = o.prix * o.frais;
+    if (key === "fr") {
+      var f = pvFrance(o.prix, frais, vente, cess, t);
+      return { tax: f.ir + f.ps + f.sur, ir: f.ir, ps: f.ps, sur: f.sur, local: 0, pv: f.pv };
+    }
+    var c = p.c, gain = Math.max(0, vente - cess - (o.prix + frais));
+    var local = t >= c.pvExemptYears ? 0 : c.pvTax * gain * (1 - c.pvAllow);
+    if (o.pvmode === "prudent") {
+      var f2 = pvFrance(o.prix, frais, vente, cess, t);
+      var irNet = Math.max(0, f2.ir - local);
+      return { tax: local + irNet + f2.ps + f2.sur, ir: irNet, ps: f2.ps, sur: f2.sur, local: local, pv: gain };
+    }
+    return { tax: local, ir: 0, ps: 0, sur: 0, local: local, pv: gain };
+  }
+
+  function irr(flows) {
+    var f = function (r) { var s = 0; for (var i = 0; i < flows.length; i++) s += flows[i] / Math.pow(1 + r, i); return s; };
+    var lo = -0.9, hi = 1, flo = f(lo), fhi = f(hi);
+    if (flo * fhi > 0) return null;
+    for (var k = 0; k < 80; k++) { var mid = (lo + hi) / 2, fm = f(mid); if (flo * fm <= 0) { hi = mid; } else { lo = mid; flo = fm; } }
+    return (lo + hi) / 2;
+  }
+
+  function project(key, p) {
+    var o = p[key], invest = o.prix * (1 + o.frais), cum = 0, rows = [];
+    var flows = [-invest];
+    for (var t = 1; t <= MAXY; t++) {
+      var L = o.loyer * Math.pow(1 + o.hl, t - 1), rt = rentTax(key, L, p);
+      cum += rt.net; flows.push(rt.net);
+      var vente = o.prix * Math.pow(1 + o.reval, t), cess = vente * o.cess, sx = saleTax(key, t, vente, cess, p);
+      var netSale = vente - cess - sx.tax;
+      var fl = flows.slice(0, t + 1); fl[t] += netSale;
+      rows.push({ t: t, L: L, rt: rt, cum: cum, vente: vente, cess: cess, sx: sx, netSale: netSale, total: cum + netSale, gain: cum + netSale - invest, tri: irr(fl) });
+    }
+    return { invest: invest, rows: rows, y1: rows[0] };
+  }
+
+  var data = null, geo = null;
+
+  function rowHTML(label, value, cls) { return "<div class='r " + (cls || "") + "'><span>" + label + "</span><span>" + value + "</span></div>"; }
+
+  function renderRows(key, p, m) {
+    var y = m.y1.rt, o = p[key], L = m.y1.L;
+    var h = "<p class='rt'>Année 1</p>";
+    h += rowHTML("Loyers bruts annuels", fmt(L));
+    if (y.ab > 0) {
+      h += rowHTML("Abattement (" + pc(y.ab, 0) + ")", "− " + fmt(y.abEur));
+      h += rowHTML("Revenu imposable", fmt(y.base));
+    }
+    if (y.psr > 0) h += rowHTML("Prélèvements sociaux (" + pc(y.psr) + ")", "− " + fmt(y.ps), "neg");
+    h += rowHTML(key === "eu" ? "Impôt à taux unique (" + pc(y.irRate, 0) + " des loyers)" : "Impôt sur le revenu (" + pc(y.irRate, 0) + ")", "− " + fmt(y.ir), "neg");
+    h += rowHTML("Charges annuelles", "− " + fmt(o.charges), "neg");
+    h += "<div class='r tot'><span>Cash-flow net annuel</span><span class='" + (y.net >= 0 ? "posv" : "negv") + "'>" + fmt(y.net) + "</span></div>";
+    h += rowHTML("Rendement brut", pc(L / m.invest));
+    h += rowHTML("Rendement net d'impôts", pc(y.net / m.invest));
+    var warn = "";
+    if (key === "fr") {
+      if (o.loc === "nue" && L > 15000) warn = "Loyers au-dessus de 15 000 € : le régime réel s'impose et l'abattement de 30 % n'existe plus. Résultat indicatif.";
+      if (o.loc === "meublee" && L > 77700) warn = "Loyers au-dessus de 77 700 € : le régime réel s'impose. Résultat indicatif.";
+    }
+    if (warn) h += "<p class='warn'>" + warn + "</p>";
+    $("rows_" + key).innerHTML = h;
+    $("sub_" + key).textContent = fmt(m.invest);
+  }
+
+  function render() {
+    var p = readParams();
+    var fr = project("fr", p), eu = project("eu", p);
+    data = { p: p, fr: fr, eu: eu };
+    var c = p.c;
+    $("frlochelp").textContent = st.fr.loc === "nue" ? "Micro-foncier : abattement de 30 %, prélèvements sociaux de 17,2 %." : "Micro-BIC : abattement de 50 %, prélèvements sociaux de 18,6 %.";
+    $("fr_fraishelp").textContent = FR_FRAIS_HELP[st.fr.state];
+    $("eu_fraishelp").textContent = c.notaryHelp;
+    $("eu_taxhelp").textContent = c.taxHelp;
+    $("h-eu").textContent = c.name;
+    $("dureeVal").textContent = p.N + (p.N > 1 ? " ans" : " an");
+    renderRows("fr", p, fr); renderRows("eu", p, eu);
+    var chips = document.querySelectorAll("#chips .chip");
+    for (var i = 0; i < chips.length; i++) chips[i].setAttribute("aria-pressed", String(parseInt(chips[i].getAttribute("data-y"), 10) === p.N));
+
+    var a = fr.rows[p.N - 1], b = eu.rows[p.N - 1], diff = a.gain - b.gain;
+    var v = $("verdict");
+    if (Math.abs(diff) < 1) v.textContent = "Après " + p.N + " ans, les deux investissements rapportent autant.";
+    else v.innerHTML = "Après " + p.N + " ans, investir en " + (diff > 0 ? "France" : c.name) + " rapporte <span class='gain'>" + fmt(Math.abs(diff)) + "</span> de plus.";
+    var cap = fr.invest, cap2 = eu.invest;
+    $("sub").textContent = "Gain net en France : " + fmt(a.gain) + " pour " + fmt(cap) + " investis (rendement annualisé " + (a.tri === null ? "n.c." : pc(a.tri)) + "). " + c.name + " : " + fmt(b.gain) + " pour " + fmt(cap2) + " investis (" + (b.tri === null ? "n.c." : pc(b.tri)) + "). Le rendement annualisé tient compte du moment où chaque euro est encaissé.";
+
+    var winA = diff > 1, winB = diff < -1, pill = "<span class='pill'>Plus avantageux</span>";
+    var card = function (cls, name, m, r, win) {
+      return "<div class='card " + cls + "'><div class='nm'><span>" + name + "</span>" + (win ? pill : "") + "</div>" +
+        "<div class='big'>" + fmt(r.gain) + "</div><p class='bigsub'>Gain net après " + p.N + " ans</p>" +
+        "<dl><dt>Capital investi</dt><dd>" + fmt(m.invest) + "</dd>" +
+        "<dt>Loyers nets d'impôts cumulés</dt><dd class='pos'>" + fmt(r.cum) + "</dd>" +
+        "<dt>Prix de vente estimé</dt><dd>" + fmt(r.vente) + "</dd>" +
+        "<dt>Impôt sur la plus-value</dt><dd class='neg'>" + fmtN(r.sx.tax) + "</dd>" +
+        "<dt>Net de la vente</dt><dd>" + fmt(r.netSale) + "</dd>" +
+        "<dt>Total dans votre poche</dt><dd>" + fmt(r.total) + "</dd>" +
+        "<dt>Rendement annualisé</dt><dd>" + (r.tri === null ? "n.c." : pc(r.tri)) + "</dd></dl></div>";
+    };
+    $("cards").innerHTML = card("a", "France", fr, a, winA) + card("b", c.name, eu, b, winB);
+
+    var marks = [5, 10, 15, 20, 25, 30];
+    if (marks.indexOf(p.N) < 0) { marks.push(p.N); marks.sort(function (x, y) { return x - y; }); }
+    var rows = "<thead><tr><th>Durée</th><th>France</th><th>" + c.name + "</th><th>Écart</th><th>Plus avantageux</th></tr></thead><tbody>";
+    marks.forEach(function (t) {
+      var x = fr.rows[t - 1].gain, y = eu.rows[t - 1].gain, d = x - y;
+      var best = Math.abs(d) < 1 ? "Égalité" : (d > 0 ? "France" : c.name);
+      rows += "<tr" + (t === p.N ? " class='sel'" : "") + "><td>" + t + " ans" + (t === p.N ? " (choisie)" : "") + "</td><td>" + fmt(x) + "</td><td>" + fmt(y) + "</td><td>" + fmtS(d) + "</td><td style='color:var(--" + (best === "France" ? "a" : best === "Égalité" ? "ink" : "b") + ")'>" + best + "</td></tr>";
+    });
+    $("table").innerHTML = rows + "</tbody>";
+    $("legend").innerHTML = "<span><i class='ls'></i>France</span><span><i class='lv'></i>" + c.name + "</span><span><i class='lbe'></i>Durée choisie</span>";
+    renderChart();
+  }
+
+  function renderChart() {
+    if (!data) return;
+    var p = data.p, svg = $("chart"), box = $("chartbox");
+    var W = Math.max(280, box.clientWidth), H = W < 520 ? 300 : 380, ml = W < 520 ? 52 : 62, mr = 16, mt = 14, mb = 34, pw = W - ml - mr, ph = H - mt - mb;
+    var lo = 0, hi = 0, i;
+    for (i = 0; i < MAXY; i++) { lo = Math.min(lo, data.fr.rows[i].gain, data.eu.rows[i].gain); hi = Math.max(hi, data.fr.rows[i].gain, data.eu.rows[i].gain); }
+    var range = (hi - lo) || 1, step = niceStep(range, 7);
+    var yLo = Math.floor(lo / step) * step, yHi = Math.ceil(hi / step) * step; if (yHi === yLo) yHi = yLo + step;
+    var X = function (t) { return ml + pw * (t - 1) / (MAXY - 1); }, Y = function (v) { return mt + ph * (1 - (v - yLo) / (yHi - yLo)); };
+    var cInk = css("--ink"), cMuted = css("--muted"), cLine = css("--line"), cGold = css("--gold"), cA = css("--a"), cB = css("--b"), cSur = css("--surface");
+    var ft = "font-family='Schibsted Grotesk, sans-serif' ";
+    var g = "";
+    for (var t = yLo; t <= yHi + step / 1000; t += step) {
+      g += "<line x1='" + ml + "' x2='" + (W - mr) + "' y1='" + Y(t).toFixed(1) + "' y2='" + Y(t).toFixed(1) + "' stroke='" + (Math.abs(t) < step / 1000 ? cMuted : cLine) + "'/>";
+      g += "<text x='" + (ml - 8) + "' y='" + (Y(t) + 4).toFixed(1) + "' text-anchor='end' " + ft + "font-size='11' fill='" + cMuted + "'>" + fmtK(t) + "</text>";
+    }
+    [1, 5, 10, 15, 20, 25, 30].forEach(function (x) {
+      g += "<text x='" + X(x).toFixed(1) + "' y='" + (H - 10) + "' text-anchor='" + (x === 1 ? "start" : x === 30 ? "end" : "middle") + "' " + ft + "font-size='11' fill='" + cMuted + "'>" + x + (x === 1 ? " an" : " ans") + "</text>";
+    });
+    var line = function (rows, col) {
+      var pts = rows.map(function (r) { return X(r.t).toFixed(1) + "," + Y(r.gain).toFixed(1); }).join(" ");
+      return "<polyline points='" + pts + "' fill='none' stroke='" + col + "' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/>";
+    };
+    g += line(data.fr.rows, cA) + line(data.eu.rows, cB);
+    var N = p.N, ra = data.fr.rows[N - 1], rb = data.eu.rows[N - 1];
+    g += "<line x1='" + X(N).toFixed(1) + "' x2='" + X(N).toFixed(1) + "' y1='" + mt + "' y2='" + (mt + ph) + "' stroke='" + cGold + "' stroke-width='1.5' stroke-dasharray='3 3'/>";
+    g += "<circle cx='" + X(N).toFixed(1) + "' cy='" + Y(ra.gain).toFixed(1) + "' r='5' fill='" + cA + "' stroke='" + cSur + "' stroke-width='2'/><circle cx='" + X(N).toFixed(1) + "' cy='" + Y(rb.gain).toFixed(1) + "' r='5' fill='" + cB + "' stroke='" + cSur + "' stroke-width='2'/>";
+    g += "<g id='hov' visibility='hidden'><line id='hv' y1='" + mt + "' y2='" + (mt + ph) + "' stroke='" + cInk + "' stroke-opacity='0.45'/><circle id='hd1' r='5' fill='" + cA + "' stroke='" + cSur + "' stroke-width='2'/><circle id='hd2' r='5' fill='" + cB + "' stroke='" + cSur + "' stroke-width='2'/></g>";
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("height", H);
+    svg.setAttribute("aria-label", "Après " + N + " ans : France " + fmt(ra.gain) + ", " + p.c.name + " " + fmt(rb.gain) + ".");
+    svg.innerHTML = g;
+    geo = { W: W, ml: ml, pw: pw, X: X, Y: Y };
+  }
+
+  function hover(ev) {
+    if (!geo || !data) return;
+    var svg = $("chart"), rect = svg.getBoundingClientRect();
+    var px = (ev.clientX - rect.left) * (geo.W / rect.width);
+    var t = Math.max(1, Math.min(MAXY, Math.round((px - geo.ml) / geo.pw * (MAXY - 1) + 1)));
+    var a = data.fr.rows[t - 1], b = data.eu.rows[t - 1], x = geo.X(t);
+    $("hov").setAttribute("visibility", "visible");
+    $("hv").setAttribute("x1", x); $("hv").setAttribute("x2", x);
+    $("hd1").setAttribute("cx", x); $("hd1").setAttribute("cy", geo.Y(a.gain));
+    $("hd2").setAttribute("cx", x); $("hd2").setAttribute("cy", geo.Y(b.gain));
+    var tip = $("tip"), d = a.gain - b.gain;
+    tip.hidden = false;
+    tip.innerHTML = "<div class='when'>Revente après " + t + (t > 1 ? " ans" : " an") + "</div>" +
+      "<div class='row'><span class='k a'>France</span><b>" + fmt(a.gain) + "</b></div>" +
+      "<div class='row'><span class='k b'>" + data.p.c.name + "</span><b>" + fmt(b.gain) + "</b></div>" +
+      "<div class='row'><span class='k'>Écart</span><b>" + fmtS(d) + "</b></div>";
+    var cx = x * (rect.width / geo.W), tw = tip.offsetWidth, left = cx + 14;
+    if (left + tw > rect.width) left = cx - 14 - tw;
+    tip.style.left = Math.max(0, left) + "px";
+  }
+  function leave() { var h = $("hov"); if (h) h.setAttribute("visibility", "hidden"); $("tip").hidden = true; }
+
+  function setPressed(sel, attr, value) {
+    var els = document.querySelectorAll(sel);
+    for (var i = 0; i < els.length; i++) els[i].setAttribute("aria-pressed", String(els[i].getAttribute(attr) === value));
+  }
+
+  var ids = ["tmi", "duree", "fr_prix", "fr_frais", "fr_loyer", "fr_hl", "fr_reval", "fr_charges", "eu_prix", "eu_frais", "eu_loyer", "eu_hl", "eu_reval", "eu_charges"];
+  ids.forEach(function (id) { $(id).addEventListener("input", render); $(id).addEventListener("change", render); });
+  document.querySelectorAll("#chips .chip").forEach(function (b) {
+    b.addEventListener("click", function () { $("duree").value = b.getAttribute("data-y"); render(); });
+  });
+  document.querySelectorAll("[data-state]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var col = b.getAttribute("data-col"), s = b.getAttribute("data-state");
+      st[col].state = s;
+      setPressed("[data-col='" + col + "'][data-state]", "data-state", s);
+      if (col === "fr") $("fr_frais").value = FR_FRAIS[s];
+      else $("eu_frais").value = (COUNTRIES[$("country").value] || COUNTRIES.bg).notary[s];
+      render();
+    });
+  });
+  document.querySelectorAll("[data-loc]").forEach(function (b) {
+    b.addEventListener("click", function () { st.fr.loc = b.getAttribute("data-loc"); setPressed("[data-loc]", "data-loc", st.fr.loc); render(); });
+  });
+  $("country").addEventListener("change", function () {
+    var c = COUNTRIES[$("country").value]; if (!c) return;
+    var d = c.defaults;
+    $("eu_prix").value = d.prix; $("eu_loyer").value = d.loyer; $("eu_hl").value = d.hl; $("eu_reval").value = d.reval; $("eu_charges").value = d.charges;
+    $("eu_frais").value = c.notary[st.eu.state]; render();
+  });
+  var svg = $("chart");
+  svg.addEventListener("pointermove", hover); svg.addEventListener("pointerdown", hover);
+  svg.addEventListener("pointerleave", leave); svg.addEventListener("pointercancel", leave);
+  if (window.ResizeObserver) {
+    var lw = 0;
+    new ResizeObserver(function () { var w = $("chartbox").clientWidth; if (w !== lw) { lw = w; renderChart(); } }).observe($("chartbox"));
+  } else window.addEventListener("resize", renderChart);
+  render();
+})();
+</script>
+</body></html>
